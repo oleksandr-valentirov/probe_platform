@@ -2,7 +2,15 @@
 #ifndef __ADC_H
 #define __ADC_H
 
-void ADC_SubsystemInit(void)ж
+
+#include "!Project_library.h"
+
+
+void ADC1_Init(void);
+
+uint8_t ADC_TempMeasure(uint16_t* res);
+uint8_t ADC_VrefMeasure(uint16_t* res);
+
 bool ADC1_Busy (void);
 
 #endif /* __ADC_H */

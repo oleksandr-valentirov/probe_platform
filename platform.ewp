@@ -358,6 +358,8 @@
                     <state>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\</state>
                     <state>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\</state>
                     <state>$PROJ_DIR$\Drivers\ADC</state>
+                    <state>$PROJ_DIR$\Drivers\USART</state>
+                    <state>$PROJ_DIR$\Drivers\SPI</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -449,11 +451,11 @@
                 </option>
                 <option>
                     <name>CCEncSource</name>
-                    <state>0</state>
+                    <state>2</state>
                 </option>
                 <option>
                     <name>CCEncOutput</name>
-                    <state>0</state>
+                    <state>2</state>
                 </option>
                 <option>
                     <name>CCEncOutputBom</name>
@@ -461,7 +463,7 @@
                 </option>
                 <option>
                     <name>CCEncInput</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>IccExceptions2</name>
@@ -776,7 +778,7 @@
                 </option>
                 <option>
                     <name>IlinkIcfFile</name>
-                    <state>D:\Documents\my_platform\stm32f4xx_flash.icf</state>
+                    <state>C:\Users\aleks\Documents\IAR_docs\probe_platform\stm32f4xx_flash.icf</state>
                 </option>
                 <option>
                     <name>IlinkIcfFileSlave</name>
@@ -2168,6 +2170,24 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\Drivers\ADC\ADC.h</name>
+            </file>
+        </group>
+        <group>
+            <name>SPI</name>
+            <file>
+                <name>$PROJ_DIR$\Drivers\SPI\SPI.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\Drivers\SPI\SPI.h</name>
+            </file>
+        </group>
+        <group>
+            <name>USART</name>
+            <file>
+                <name>$PROJ_DIR$\Drivers\USART\USART.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\Drivers\USART\USART.h</name>
             </file>
         </group>
         <file>

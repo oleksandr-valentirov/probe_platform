@@ -36,6 +36,11 @@
 #include "stm32f4xx.h"
 #include "stm32f4xx_conf.h"
 
+/* User-defined code ---------------------------------------------------------*/
+#include "ADC.h"
+#include "USART.h"
+#include "SPI.h"
+
 
 /* Exported types ------------------------------------------------------------*/
 #define weak    __weak
