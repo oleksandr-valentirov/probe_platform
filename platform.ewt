@@ -2438,6 +2438,15 @@
             </file>
         </group>
         <group>
+            <name>SystemClock</name>
+            <file>
+                <name>$PROJ_DIR$\Drivers\SystemClock\clock.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\Drivers\SystemClock\clock.h</name>
+            </file>
+        </group>
+        <group>
             <name>USART</name>
             <file>
                 <name>$PROJ_DIR$\Drivers\USART\USART.c</name>

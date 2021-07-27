@@ -27,7 +27,7 @@ void USART1_ReceiveData(uint8_t* dest)
 
 
 /**
-  * @brief      USART to LoRa interface
+  * @brief      UART to RS422 interface
   * @retval     None
   */
 void USART2_Init(void)

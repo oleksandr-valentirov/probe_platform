@@ -361,6 +361,7 @@
                     <state>$PROJ_DIR$\Drivers\ADC</state>
                     <state>$PROJ_DIR$\Drivers\USART</state>
                     <state>$PROJ_DIR$\Drivers\SPI</state>
+                    <state>$PROJ_DIR$\Drivers\SystemClock</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -779,7 +780,7 @@
                 </option>
                 <option>
                     <name>IlinkIcfFile</name>
-                    <state>C:\Users\aleks\Documents\IAR_docs\probe_platform\stm32f4xx_flash.icf</state>
+                    <state>D:\Documents\probe_platform\stm32f4xx_flash.icf</state>
                 </option>
                 <option>
                     <name>IlinkIcfFileSlave</name>
@@ -2180,6 +2181,15 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\Drivers\SPI\SPI.h</name>
+            </file>
+        </group>
+        <group>
+            <name>SystemClock</name>
+            <file>
+                <name>$PROJ_DIR$\Drivers\SystemClock\clock.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\Drivers\SystemClock\clock.h</name>
             </file>
         </group>
         <group>
