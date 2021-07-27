@@ -7,11 +7,16 @@
 
 
 #define VREFINT_CAL_ADDR        0x1FFF7A2A
-uint16_t vrefint_cal;
+
+
+uint16_t get_calib_vref(void)
+{
+    return *((uint16_t*) VREFINT_CAL_ADDR);
+}
 
 
 void ADC1_Init(void)
-{
+{    
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1, ENABLE);
     ADC_DeInit();
     

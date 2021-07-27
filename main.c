@@ -16,6 +16,7 @@ void main(void)
         ADC_TempMeasure(&adc);
         
         res = (int32_t)(adc * 1210 / vref);
+//        res = (int32_t)(adc * get_calib_vref() / vref);
         
         // mV to degree
         temp = (res - 760) * 2;
