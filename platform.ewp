@@ -226,6 +226,7 @@
                     <name>CCDefines</name>
                     <state>USE_STDPERIPH_DRIVER</state>
                     <state>STM32F411xE</state>
+                    <state>USE_HSE_BYPASS</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
