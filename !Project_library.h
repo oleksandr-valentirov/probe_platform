@@ -40,6 +40,7 @@
 #include "ADC.h"
 #include "USART.h"
 #include "SPI.h"
+#include "clock.h"
 
 
 /* Exported types ------------------------------------------------------------*/

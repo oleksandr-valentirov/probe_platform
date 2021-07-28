@@ -4,5 +4,6 @@
 
 #include "!Project_library.h"
 
+uint8_t HSE_Init(void);
 
 #endif

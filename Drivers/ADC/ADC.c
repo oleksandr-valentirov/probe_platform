@@ -27,7 +27,8 @@ void ADC1_Init(void)
     
     ADC_CommonInitTypeDef adc_common;
     ADC_CommonStructInit(&adc_common);
-    adc_common.ADC_Prescaler = ADC_Prescaler_Div2;
+    // при тактировании APB2 в 48 МГц нужно минимум 10 мкс чтобы успеть померять
+    adc_common.ADC_Prescaler = ADC_Prescaler_Div8;
     ADC_CommonInit(&adc_common);
 }
 

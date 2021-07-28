@@ -17,9 +17,9 @@ void SPI1_Init(void)
  * CPOL = 0; CPHA = 0; Max speed 16 MHz. 
  * По умолчанию размер буфера 8 бит.
  */
-void SPI4_Init(void)
+void SPI3_Init(void)
 {
-    SPI_I2S_DeInit(SPI4);
+    SPI_I2S_DeInit(SPI3);
     
     SPI_InitTypeDef init_struct;
     SPI_StructInit(&init_struct);
@@ -33,12 +33,12 @@ void SPI4_Init(void)
  *              @arg 0: размер буфера 8 бит
  *              @arg 1: размер буфера 16 бит
  */
-void SPI4_data_size_config(uint8_t size)
+void SPI3_data_size_config(uint8_t size)
 {
     if (size == 0)
-        SPI_DataSizeConfig(SPI4, SPI_DataSize_8b);
+        SPI_DataSizeConfig(SPI3, SPI_DataSize_8b);
     else
-        SPI_DataSizeConfig(SPI4, SPI_DataSize_16b);
+        SPI_DataSizeConfig(SPI3, SPI_DataSize_16b);
 }
 
 /* -------------------------------------------------------------------------- */

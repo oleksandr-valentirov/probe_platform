@@ -3,7 +3,11 @@
 
 void main(void)
 {
-    SystemInit();
+    uint8_t hse_res = HSE_Init();
+//    uint8_t lse_res = LSE_Init();
+    RCC_ClocksTypeDef clocks;
+    RCC_GetClocksFreq(&clocks);
+    
     ADC1_Init();
     
     uint16_t vref = 0;
@@ -16,7 +20,6 @@ void main(void)
         ADC_TempMeasure(&adc);
         
         res = (int32_t)(adc * 1210 / vref);
-//        res = (int32_t)(adc * get_calib_vref() / vref);
         
         // mV to degree
         temp = (res - 760) * 2;
