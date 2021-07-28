@@ -780,7 +780,7 @@
                 </option>
                 <option>
                     <name>IlinkIcfFile</name>
-                    <state>D:\Documents\probe_platform\stm32f4xx_flash.icf</state>
+                    <state>C:\Users\aleks\Documents\IAR_docs\probe_platform\stm32f4xx_flash.icf</state>
                 </option>
                 <option>
                     <name>IlinkIcfFileSlave</name>
