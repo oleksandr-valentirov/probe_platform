@@ -362,6 +362,7 @@
                     <state>$PROJ_DIR$\Drivers\USART</state>
                     <state>$PROJ_DIR$\Drivers\SPI</state>
                     <state>$PROJ_DIR$\Drivers\SystemClock</state>
+                    <state>$PROJ_DIR$\Modules\SX1268</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -2204,6 +2205,18 @@
         <file>
             <name>$PROJ_DIR$\Drivers\readme.txt</name>
         </file>
+    </group>
+    <group>
+        <name>Modules</name>
+        <group>
+            <name>SX1268</name>
+            <file>
+                <name>$PROJ_DIR$\Modules\SX1268\sx126x.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\Modules\SX1268\sx126x.h</name>
+            </file>
+        </group>
     </group>
     <group>
         <name>StdPeriph</name>

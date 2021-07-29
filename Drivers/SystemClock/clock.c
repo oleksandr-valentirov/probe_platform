@@ -3,13 +3,17 @@
 
 /**
  *  @brief      Инициализируем кварц 32 кГц
- *  @retval     0 - всё ОК; 1 - кварц не запустился
+ *  @retval     
+ *              @arg 0 - всё ОК
+ *              @arg 1 - кварц не запустился
  */
 uint8_t LSE_Init(void)
 {
-    PWR_BackupAccessCmd(ENABLE);
+    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
+    
+    SET_BIT(PWR->CR, PWR_CR_DBP);  // disable BDCR protection
     SET_BIT(RCC->BDCR, RCC_BDCR_LSEON);
-    PWR_BackupAccessCmd(DISABLE);
+    CLEAR_BIT(PWR->CR, PWR_CR_DBP);
     uint16_t i = 0;
     while (i < 0xFFFF && (READ_BIT(RCC->BDCR, RCC_BDCR_LSERDY) == 0))
         i++;
@@ -20,8 +24,11 @@ uint8_t LSE_Init(void)
 
 
 /**
- *  @brief      Инициализируем кварц 32 кГц
- *  @retval     0 - всё ОК; 1 - кварц не запустился
+ *  @brief      Инициализируем кварц 25 МГц
+ *  @retval     
+ *              @arg 0 - всё ОК
+ *              @arg 1 - кварц не запустился
+ *              @arg 2 - PLL не запустился
  */
 uint8_t HSE_Init(void)
 {

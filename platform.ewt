@@ -2460,6 +2460,18 @@
         </file>
     </group>
     <group>
+        <name>Modules</name>
+        <group>
+            <name>SX1268</name>
+            <file>
+                <name>$PROJ_DIR$\Modules\SX1268\sx126x.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\Modules\SX1268\sx126x.h</name>
+            </file>
+        </group>
+    </group>
+    <group>
         <name>StdPeriph</name>
         <group>
             <name>inc</name>
