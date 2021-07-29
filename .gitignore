@@ -7,5 +7,6 @@ Exe
 # IAR Debug Obj  
 Obj
 Debug 
+*.dep
 
 .vscode
