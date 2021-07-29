@@ -352,6 +352,11 @@
                 <option>
                     <name>CCIncludePath2</name>
                     <state>$PROJ_DIR$\</state>
+                    <state>$PROJ_DIR$\freertos\</state>
+                    <state>$PROJ_DIR$\freertos\ARM_CM4F\</state>
+                    <state>$PROJ_DIR$\freertos\include\</state>
+                    <state>$PROJ_DIR$\freertos\MemMang\</state>
+                    <state>$PROJ_DIR$\freertos\UniversalFiles\</state>
                     <state>$PROJ_DIR$\CMSIS\</state>
                     <state>$PROJ_DIR$\CMSIS\inc\</state>
                     <state>$PROJ_DIR$\CMSIS\src\</state>
@@ -628,7 +633,8 @@
                 </option>
                 <option>
                     <name>AUserIncludes</name>
-                    <state></state>
+                    <state>$PROJ_DIR$\freertos\</state>
+                    <state>$PROJ_DIR$\freertos\ARM_CM4F\</state>
                 </option>
                 <option>
                     <name>AExtraOptionsCheckV2</name>
@@ -2204,6 +2210,135 @@
         </group>
         <file>
             <name>$PROJ_DIR$\Drivers\readme.txt</name>
+        </file>
+    </group>
+    <group>
+        <name>freertos</name>
+        <group>
+            <name>ARM_CM4F</name>
+            <file>
+                <name>$PROJ_DIR$\freertos\ARM_CM4F\port.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\ARM_CM4F\portasm.s</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\ARM_CM4F\portmacro.h</name>
+            </file>
+        </group>
+        <group>
+            <name>include</name>
+            <file>
+                <name>$PROJ_DIR$\freertos\include\atomic.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\include\croutine.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\include\deprecated_definitions.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\include\event_groups.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\include\FreeRTOS.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\include\list.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\include\message_buffer.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\include\mpu_prototypes.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\include\mpu_wrappers.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\include\portable.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\include\projdefs.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\include\queue.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\include\semphr.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\include\stack_macros.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\include\StackMacros.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\include\stream_buffer.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\include\task.h</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\include\timers.h</name>
+            </file>
+        </group>
+        <group>
+            <name>MemMang</name>
+            <file>
+                <name>$PROJ_DIR$\freertos\MemMang\heap_1.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\MemMang\heap_2.c</name>
+                <excluded>
+                    <configuration>Debug</configuration>
+                </excluded>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\MemMang\heap_3.c</name>
+                <excluded>
+                    <configuration>Debug</configuration>
+                </excluded>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\MemMang\heap_4.c</name>
+                <excluded>
+                    <configuration>Debug</configuration>
+                </excluded>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\MemMang\heap_5.c</name>
+                <excluded>
+                    <configuration>Debug</configuration>
+                </excluded>
+            </file>
+        </group>
+        <group>
+            <name>UniversalFiles</name>
+            <file>
+                <name>$PROJ_DIR$\freertos\UniversalFiles\croutine.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\UniversalFiles\event_groups.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\UniversalFiles\list.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\UniversalFiles\queue.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\UniversalFiles\stream_buffer.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\UniversalFiles\tasks.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\freertos\UniversalFiles\timers.c</name>
+            </file>
+        </group>
+        <file>
+            <name>$PROJ_DIR$\freertos\FreeRTOSConfig.h</name>
         </file>
     </group>
     <group>
