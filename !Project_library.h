@@ -43,6 +43,12 @@
 #include "clock.h"
 
 
+/* FreeRTOS includes -------------------------------------------------------- */
+#include "FreeRTOS.h"
+#include "croutine.h"
+#include "task.h"
+
+
 /* Modules -------------------------------------------------------------------*/
 #include "sx126x.h"
 
