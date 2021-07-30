@@ -368,6 +368,7 @@
                     <state>$PROJ_DIR$\Drivers\SPI</state>
                     <state>$PROJ_DIR$\Drivers\SystemClock</state>
                     <state>$PROJ_DIR$\Modules\SX1268</state>
+                    <state>$PROJ_DIR$\Modules\TemperatureSensorsAPI</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -2350,6 +2351,12 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\Modules\SX1268\sx126x.h</name>
+            </file>
+        </group>
+        <group>
+            <name>TemperatureSensorsAPI</name>
+            <file>
+                <name>$PROJ_DIR$\Modules\TemperatureSensorsAPI\temp_api.c</name>
             </file>
         </group>
     </group>

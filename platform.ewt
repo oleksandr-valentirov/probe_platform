@@ -2587,6 +2587,12 @@
                 <name>$PROJ_DIR$\Modules\SX1268\sx126x.h</name>
             </file>
         </group>
+        <group>
+            <name>TemperatureSensorsAPI</name>
+            <file>
+                <name>$PROJ_DIR$\Modules\TemperatureSensorsAPI\temp_api.c</name>
+            </file>
+        </group>
     </group>
     <group>
         <name>StdPeriph</name>
