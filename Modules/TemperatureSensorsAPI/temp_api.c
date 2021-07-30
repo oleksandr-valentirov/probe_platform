@@ -22,6 +22,7 @@ uint8_t GetMCU_Temp(int8_t *dest)
     int16_t accumulator = 0;
     for (uint8_t i = 0; i < 10; i++)
     {
+        /** @ToDo - добавить проверку успешности замеров */
         ADC_VrefMeasure(&vref);
         ADC_TempMeasure(&adc);
         

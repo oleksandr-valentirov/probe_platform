@@ -9,12 +9,21 @@
 #define VREFINT_CAL_ADDR        0x1FFF7A2A
 
 
+/**
+ * @brief Получение калибровочного значения для термосенсора из флеш-памяти
+ *
+ * @retval Значение АЦП при 25 (или 30) градусах.
+ */
 uint16_t get_calib_vref(void)
 {
     return *((uint16_t*) VREFINT_CAL_ADDR);
 }
 
 
+/**
+ * @brief инициализация первого АЦП. На F411 он всего один.
+ * @retval None
+ */
 void ADC1_Init(void)
 {    
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1, ENABLE);
@@ -33,6 +42,15 @@ void ADC1_Init(void)
 }
 
 
+/**
+ * @brief Замер опорного напряжения
+ * 
+ * @param res: указатель на результат
+ *
+ * @retval индикация успешности замера
+ *              @arg 0: - замер успешен
+ *              @arg 1: - замер не успешен
+ */
 uint8_t ADC_VrefMeasure(uint16_t* res)
 {
     ADC_RegularChannelConfig(ADC1, ADC_Channel_17, 1, ADC_SampleTime_56Cycles);
@@ -54,6 +72,15 @@ uint8_t ADC_VrefMeasure(uint16_t* res)
 }
 
 
+/**
+ * @brief Замер температуры
+ * 
+ * @param res: указатель на результат
+ *
+ * @retval индикация успешности замера
+ *              @arg 0: - замер успешен
+ *              @arg 1: - замер не успешен
+ */
 uint8_t ADC_TempMeasure(uint16_t* res)
 {
     ADC_RegularChannelConfig(ADC1, ADC_Channel_18, 1, ADC_SampleTime_56Cycles);
@@ -75,6 +102,13 @@ uint8_t ADC_TempMeasure(uint16_t* res)
 }
 
 
+/**
+ * @brief Проверка рабочего состояния АЦП
+ *
+ * @retval состояние
+ *              @arg false: - не занят
+ *              @arg true: - занят
+ */
 bool ADC1_Busy (void)
 {
     return (bool)READ_BIT(ADC1->CR2, ADC_CR2_ADON);
