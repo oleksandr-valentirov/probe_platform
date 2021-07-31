@@ -2,18 +2,23 @@
 
 
 /**
- *  @brief      Инициализируем кварц 32 кГц
+ *  @brief      Инициализируем кварц 32 кГц. 
+ *              Сбрасывает Backup регистр, т.е. и LSE и RTC нужно настроить заново.
  *  @retval     
  *              @arg 0 - всё ОК
  *              @arg 1 - кварц не запустился
  */
 uint8_t LSE_Init(void)
 {
+    RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
     
     SET_BIT(PWR->CR, PWR_CR_DBP);  // disable BDCR protection
+    SET_BIT(RCC->BDCR, RCC_BDCR_BDRST);  // reset BDCR
+    CLEAR_BIT(RCC->BDCR, RCC_BDCR_BDRST);
     SET_BIT(RCC->BDCR, RCC_BDCR_LSEON);
     CLEAR_BIT(PWR->CR, PWR_CR_DBP);
+    
     uint16_t i = 0;
     while (i < 0xFFFF && (READ_BIT(RCC->BDCR, RCC_BDCR_LSERDY) == 0))
         i++;
@@ -21,6 +26,18 @@ uint8_t LSE_Init(void)
         return 1;
     return 0;
 }
+
+
+uint8_t MyRTC_Init(void)
+{
+    if (!READ_BIT(RCC->BDCR, RCC_BDCR_LSERDY))
+       return 1;
+    
+    RTC_DeInit();
+//    RTC_Init();
+    return 0;
+}
+
 
 
 /**

@@ -2,7 +2,7 @@
 
 
 /**
-  * @brief      USART to USB interface
+  * @brief      инициалиазция многофункционального USART
   * @retval     None
   */
 void USART1_Init(void)
@@ -13,18 +13,46 @@ void USART1_Init(void)
     USART_InitTypeDef init;
     USART_StructInit(&init);
     init.USART_BaudRate = 115200;
+    init.USART_Mode = USART_Mode_Tx;
     USART_Init(USART1, &init);
 }
 
 
-void USART1_SendByte(uint8_t data)
+/**
+ * @brief       отправляет байт
+ *
+ * @param dest: указатель на переменную с байтом для передачи
+ *
+ * @retval      результат попытки передачи байта
+ *              @arg 0: OK
+ *              @arg 1: байт не был отправлен
+ */
+uint8_t USART1_SendByte(uint8_t data)
 {
+    if(!USART_GetFlagStatus(USART1, USART_FLAG_TXE))
+        return 1;
+    
     USART1->DR = data;
+    return 0;
 }
 
-void USART1_ReceiveData(uint8_t* dest)
+
+/**
+ * @brief       вычитывает байт
+ *
+ * @param dest: указатель на переменную для сохранения вычитанного байта
+ *
+ * @retval      результат попытки чтения байта
+ *              @arg 0: OK
+ *              @arg 1: байт не был прочитан
+ */
+uint8_t USART1_ReceiveByte(uint8_t *dest)
 {
+    if(USART_GetFlagStatus(USART1, USART_FLAG_RXNE))
+        return 1;
+    
     *dest = USART1->DR;
+    return 0;
 }
 
 
@@ -43,11 +71,11 @@ void USART2_Init(void)
 }
 
 
-void USART1_IRQHandler(void)
-{
-}
-
-
-void USART2_IRQHandler(void)
-{
-}
+//void USART1_IRQHandler(void)
+//{
+//}
+//
+//
+//void USART2_IRQHandler(void)
+//{
+//}

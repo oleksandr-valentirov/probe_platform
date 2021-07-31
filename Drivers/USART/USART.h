@@ -9,8 +9,8 @@ void USART1_Init(void);
 void USART2_Init(void);
 
 
-void USART1_SendByte(uint8_t data);
-void USART1_ReceiveByte(uint8_t* dest);
+uint8_t USART1_SendByte(uint8_t data);
+uint8_t USART1_ReceiveByte(uint8_t* dest);
 
 
 #endif

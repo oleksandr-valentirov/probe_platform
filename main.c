@@ -3,10 +3,11 @@
 
 
 void main(void)
-{
+{   
     // настройка тактирования
     uint8_t hse_res = HSE_Init();
-//    uint8_t lse_res = LSE_Init();
+    uint8_t lse_res = LSE_Init();  // сбрасывает Backup регистр
+//    uint8_t rtc_res = RTC_Init();
     RCC_ClocksTypeDef clocks;
     RCC_GetClocksFreq(&clocks);
     

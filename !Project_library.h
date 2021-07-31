@@ -59,6 +59,9 @@
 
 
 /* Exported constants --------------------------------------------------------*/
+#include "Pin_Configuration.h"
+
+
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
 //void TimingDelay_Decrement(void);
