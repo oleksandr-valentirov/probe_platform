@@ -26,8 +26,8 @@ uint16_t get_calib_vref(void)
  */
 void ADC1_Init(void)
 {    
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1, ENABLE);
     ADC_DeInit();
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1, ENABLE);
     
     ADC_InitTypeDef adc;
     ADC_StructInit(&adc);

@@ -6,8 +6,8 @@
  */
 void SPI1_Init(void)
 {
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_SPI1, ENABLE);
     SPI_I2S_DeInit(SPI1);
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_SPI1, ENABLE);
     
     SPI_InitTypeDef init_struct;
 }
