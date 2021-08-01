@@ -23,8 +23,8 @@ void SPI1_Init(void)
  */
 void SPI3_Init(void)
 {
-    RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI3, ENABLE);
     SPI_I2S_DeInit(SPI3);
+    RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI3, ENABLE);
     
     SPI_InitTypeDef init_struct;
     /* Initialize the SPI_Direction member */

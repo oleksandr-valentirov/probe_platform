@@ -15,6 +15,7 @@ void main(void)
     // инициализация переферии
     ADC1_Init();
     USART1_Init();
+    SPI3_Init();
     
     int8_t temp = 0;
     uint8_t res = 0;

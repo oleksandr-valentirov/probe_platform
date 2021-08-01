@@ -1,7 +1,8 @@
 #include "gpio.h"
 
 
-static void USART1_pins_init(void);
+static void USART_12_pins_init(void);
+static void SPI_pins_init(void);
 
 
 /**
@@ -28,15 +29,16 @@ void MyGPIO_Init(void)
     GPIO_PinAFConfig(MCO1_PORT, MCO1_AF_PIN, GPIO_AF_MCO);
 #endif
     
-    USART1_pins_init();
+    USART_12_pins_init();
+    SPI_pins_init();
 }
 
 
-static void USART1_pins_init(void)
+static void USART_12_pins_init(void)
 {
     GPIO_InitTypeDef pin;
 
-    // TX pin
+    // USART1 TX pin
     pin.GPIO_OType = GPIO_OType_PP;
     pin.GPIO_PuPd = GPIO_PuPd_NOPULL;
     pin.GPIO_Mode = GPIO_Mode_AF;
@@ -45,8 +47,39 @@ static void USART1_pins_init(void)
     GPIO_Init(USART_1_TX_PORT, &pin);
     GPIO_PinAFConfig(USART_1_TX_PORT, USART_1_TX_AF_SRC, GPIO_AF_USART1);
 
-    // RX pin
+    // USART1 RX pin
     pin.GPIO_Pin = USART_1_RX_PIN;
     GPIO_Init(USART_1_RX_PORT, &pin);
     GPIO_PinAFConfig(USART_1_RX_PORT, USART_1_RX_AF_SRC, GPIO_AF_USART1);
+    
+    // USART2 TX pin
+    pin.GPIO_Pin = USART_2_TX_PIN;
+    GPIO_Init(USART_2_TX_PORT, &pin);
+    GPIO_PinAFConfig(USART_2_TX_PORT, USART_2_TX_AF_SRC, GPIO_AF_USART2);
+    
+    // USART2 RX pin
+    pin.GPIO_Pin = USART_2_RX_PIN;
+    GPIO_Init(USART_2_RX_PORT, &pin);
+    GPIO_PinAFConfig(USART_2_RX_PORT, USART_2_TX_AF_SRC, GPIO_AF_USART2);
 }
+
+
+static void SPI_pins_init(void)
+{
+    GPIO_InitTypeDef pin;
+    
+    // SPI3
+    pin.GPIO_OType = GPIO_OType_PP;
+    pin.GPIO_PuPd = GPIO_PuPd_NOPULL;
+    pin.GPIO_Mode = GPIO_Mode_AF;
+    pin.GPIO_Pin = SPI3_MISO_PIN | SPI3_MOSI_PIN | SPI3_CLK_PIN;
+    pin.GPIO_Speed = GPIO_High_Speed;
+    GPIO_Init(SPI3_PORT, &pin);
+    
+    // SPI3 AF
+    GPIO_PinAFConfig(SPI3_PORT, SPI3_MISO_AF, GPIO_AF_SPI3);
+    GPIO_PinAFConfig(SPI3_PORT, SPI3_MOSI_AF, GPIO_AF_SPI3);
+    GPIO_PinAFConfig(SPI3_PORT, SPI3_CLK_AF, GPIO_AF_SPI3);
+}
+
+
