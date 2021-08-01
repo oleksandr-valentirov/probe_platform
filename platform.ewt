@@ -2429,6 +2429,15 @@
             </file>
         </group>
         <group>
+            <name>GPIO</name>
+            <file>
+                <name>$PROJ_DIR$\Drivers\GPIO\gpio.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\Drivers\GPIO\gpio.h</name>
+            </file>
+        </group>
+        <group>
             <name>SPI</name>
             <file>
                 <name>$PROJ_DIR$\Drivers\SPI\SPI.c</name>

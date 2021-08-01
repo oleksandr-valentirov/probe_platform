@@ -41,6 +41,7 @@
 #include "USART.h"
 #include "SPI.h"
 #include "clock.h"
+#include "gpio.h"
 
 
 /* FreeRTOS includes -------------------------------------------------------- */

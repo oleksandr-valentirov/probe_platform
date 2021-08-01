@@ -367,6 +367,7 @@
                     <state>$PROJ_DIR$\Drivers\USART</state>
                     <state>$PROJ_DIR$\Drivers\SPI</state>
                     <state>$PROJ_DIR$\Drivers\SystemClock</state>
+                    <state>$PROJ_DIR$\Drivers\GPIO</state>
                     <state>$PROJ_DIR$\Modules\SX1268</state>
                     <state>$PROJ_DIR$\Modules\TemperatureSensorsAPI</state>
                 </option>
@@ -2180,6 +2181,15 @@
             </file>
             <file>
                 <name>$PROJ_DIR$\Drivers\ADC\ADC.h</name>
+            </file>
+        </group>
+        <group>
+            <name>GPIO</name>
+            <file>
+                <name>$PROJ_DIR$\Drivers\GPIO\gpio.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\Drivers\GPIO\gpio.h</name>
             </file>
         </group>
         <group>

@@ -11,8 +11,6 @@
 uint8_t LSE_Init(void)
 {
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_PWR, ENABLE);
-    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
-    
     SET_BIT(PWR->CR, PWR_CR_DBP);  // disable BDCR protection
     SET_BIT(RCC->BDCR, RCC_BDCR_BDRST);  // reset BDCR
     CLEAR_BIT(RCC->BDCR, RCC_BDCR_BDRST);
@@ -24,6 +22,8 @@ uint8_t LSE_Init(void)
         i++;
     if (!READ_BIT(RCC->BDCR, RCC_BDCR_LSERDY))
         return 1;
+    
+    SET_BIT(RCC->CFGR, RCC_CFGR_MCO1_0);  // provide LSE to MCO1
     return 0;
 }
 
@@ -87,6 +87,8 @@ uint8_t HSE_Init(void)
     
     // переключаемся на HSE
     RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);
+    
+    SystemCoreClockUpdate();
     return 0;
 }
 

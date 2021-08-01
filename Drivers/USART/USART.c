@@ -7,14 +7,13 @@
   */
 void USART1_Init(void)
 {
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);
-    
     USART_DeInit(USART1);
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);        
+    USART_Cmd(USART1, ENABLE);
+    
     USART_InitTypeDef init;
     USART_StructInit(&init);
-    init.USART_BaudRate = 115200;
-    init.USART_Mode = USART_Mode_Tx;
-    USART_Init(USART1, &init);
+    USART_Init(USART1, &init);   
 }
 
 
@@ -62,12 +61,13 @@ uint8_t USART1_ReceiveByte(uint8_t *dest)
   */
 void USART2_Init(void)
 {
+    USART_DeInit(USART2);
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
+    USART_Cmd(USART2, ENABLE);
     
-    USART_DeInit(USART1);
     USART_InitTypeDef init;
     USART_StructInit(&init);
-    USART_Init(USART2, &init);
+    USART_Init(USART2, &init);   
 }
 
 
