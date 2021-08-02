@@ -65,17 +65,17 @@
 
 /* -------------------------------------------------------------------------- */
 /* LoRa --------------------------------------------------------------------- */
-#define LORA_TXEN_PORT          GPIOA
-#define LORA_TXEN_PIN           GPIO_Pin_15
+#define LORA_TXEN_PORT          GPIOB
+#define LORA_TXEN_PIN           GPIO_Pin_8
 
-#define LORA_RXEN_PORT          GPIOA
-#define LORA_RXEN_PIN           GPIO_Pin_14
+#define LORA_RXEN_PORT          GPIOB
+#define LORA_RXEN_PIN           GPIO_Pin_7
 
-#define LORA_DIO1_PORT          GPIOA
-#define LORA_DIO1_PIN           GPIO_Pin_13
+#define LORA_DIO1_PORT          GPIOB
+#define LORA_DIO1_PIN           GPIO_Pin_12
 
-#define LORA_DIO2_PORT          GPIOA
-#define LORA_DIO2_PIN           GPIO_Pin_8
+#define LORA_DIO2_PORT          GPIOB
+#define LORA_DIO2_PIN           GPIO_Pin_13
 
 #define LORA_BUSY_PORT          GPIOB
 #define LORA_BUSY_PIN           GPIO_Pin_15
