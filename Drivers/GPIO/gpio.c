@@ -31,6 +31,10 @@ void MyGPIO_Init(void)
     
     USART_12_pins_init();
     SPI_pins_init();
+    
+#ifdef __SX1268_H
+    LoRa_PinsInit();
+#endif
 }
 
 

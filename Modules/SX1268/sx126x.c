@@ -8,11 +8,11 @@
 void reset(void)
 {
 //  delay(10);
-//  CLEAR_BIT(NRESET_PORT, NRESET_PIN);
+    CLEAR_BIT(LORA_NRESET_PORT->ODR, LORA_NRESET_PIN);
 //  delay(20);
-//  SET_BIT(NRESET_PORT, NRESET_PIN);
+    SET_BIT(LORA_NRESET_PORT->ODR, LORA_NRESET_PIN);
 //  delay(10);
-//  while(READ_BIT(BUSY_PORT, BUSY_PIN));
+    while(READ_BIT(LORA_BUSY_PORT->IDR, LORA_BUSY_PIN));
 }
 
 
@@ -25,4 +25,10 @@ uint8_t LoRa_Init(void)
 {
     reset();
     return 0;
+}
+
+
+void LoRa_PinsInit(void)
+{
+    
 }

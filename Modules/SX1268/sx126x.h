@@ -34,4 +34,6 @@ typedef struct {
 } packet;
 
 
+void LoRa_PinsInit(void);
+
 #endif
