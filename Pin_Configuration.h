@@ -84,7 +84,7 @@
 #define LORA_NRESET_PIN         GPIO_Pin_14
 
 #define LORA_SPI_NUMBER         SPI3
-#define LORA_SPI_CS_PORT        PORTB
+#define LORA_SPI_CS_PORT        GPIOB
 #define LORA_SPI_CS_PIN         GPIO_Pin_6
 /* -------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------- */

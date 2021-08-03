@@ -34,24 +34,28 @@ void LoRa_PinsInit(void)
     
     /* Output pins ---------------------------------------------------------- */ 
     
-    // NRESET valid on low state
+    // NRESET is valid on low state
     pin.GPIO_Pin = LORA_NRESET_PIN;
     pin.GPIO_Speed = GPIO_Low_Speed;
     pin.GPIO_OType = GPIO_OType_PP;
     pin.GPIO_PuPd = GPIO_PuPd_NOPULL;
     pin.GPIO_Mode = GPIO_Mode_OUT;
     GPIO_Init(LORA_NRESET_PORT, &pin);
+    SET_BIT(LORA_NRESET_PORT->ODR, LORA_NRESET_PIN);
     
-    // TXEN valid on high state
-    pin.GPIO_PuPd = GPIO_PuPd_NOPULL;
+    // TXEN is valid on high state
     pin.GPIO_Pin = LORA_TXEN_PIN;
     GPIO_Init(LORA_TXEN_PORT, &pin);
     
-     // RXEN valid on high state
-    pin.GPIO_PuPd = GPIO_PuPd_NOPULL;
+    // RXEN is valid on high state
     pin.GPIO_Pin = LORA_RXEN_PIN;
     GPIO_Init(LORA_RXEN_PORT, &pin);
-
+    
+    // chip select is valid on high state
+    pin.GPIO_Pin = LORA_SPI_CS_PIN;
+    GPIO_Init(LORA_SPI_CS_PORT, &pin);
+    SET_BIT(LORA_SPI_CS_PORT->ODR, LORA_SPI_CS_PIN);
+    
     /* Input pins ----------------------------------------------------------- */ 
     pin.GPIO_Pin = LORA_BUSY_PIN;
     pin.GPIO_Mode = GPIO_Mode_IN;

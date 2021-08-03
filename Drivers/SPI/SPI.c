@@ -38,7 +38,7 @@ void SPI3_Init(void)
     /* Initialize the SPI_CPHA member */
     init_struct.SPI_CPHA = SPI_CPHA_1Edge;
     /* Initialize the SPI_NSS member */
-    init_struct.SPI_NSS = SPI_NSS_Hard;
+    init_struct.SPI_NSS = SPI_NSS_Soft;
     /* Initialize the SPI_BaudRatePrescaler member */
     init_struct.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_4;  // 48 Mhz APB1 -> 12 MHz LoRa
     /* Initialize the SPI_FirstBit member */
@@ -46,6 +46,7 @@ void SPI3_Init(void)
     /* Initialize the SPI_CRCPolynomial member */
     init_struct.SPI_CRCPolynomial = 7;
     
+    SPI_Cmd(SPI3, ENABLE);
     SPI_Init(SPI3, &init_struct);
 }
 
@@ -65,7 +66,7 @@ void SPI3_Init(void)
  */
 uint8_t SPI3_send_data(uint16_t data)
 {
-    if(SPI_I2S_GetFlagStatus(SPI3, SPI_I2S_FLAG_TXE))
+    if(!SPI_I2S_GetFlagStatus(SPI3, SPI_I2S_FLAG_TXE))
         return 1;
     SPI_I2S_SendData(SPI3, data);
     return 0;

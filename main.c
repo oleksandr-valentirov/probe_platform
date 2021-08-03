@@ -22,7 +22,7 @@ void main(void)
     while(1)
     {
         res = GetMCU_Temp(&temp);
-        while(!USART_GetFlagStatus(USART1, USART_FLAG_TXE)){}
-        USART1_SendByte(temp);
+        while(!SPI_I2S_GetFlagStatus(SPI3, SPI_I2S_FLAG_TXE)){}
+        SPI3_send_data(temp);
     }
 }
