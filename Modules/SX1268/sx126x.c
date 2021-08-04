@@ -23,6 +23,10 @@ void reset(void)
  */
 uint8_t LoRa_Init(void)
 {
+    // enable SPI3 interrupts
+//    NVIC_EnableIRQ(SPI3_IRQn);
+//    SET_BIT(SPI3->CR2, SPI_CR2_TXEIE);
+    
     reset();
     return 0;
 }
@@ -64,5 +68,14 @@ void LoRa_PinsInit(void)
     
 }
 
+
+void SPI3_IRQHandler (void)
+{
+    if(SPI_I2S_GetITStatus(LORA_SPI_NUMBER, SPI_I2S_IT_TXE))
+    {
+        SET_BIT(LORA_SPI_CS_PORT->ODR, LORA_SPI_CS_PIN);
+    }
+    NVIC_ClearPendingIRQ(SPI3_IRQn);
+}
 
 

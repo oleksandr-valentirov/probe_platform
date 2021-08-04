@@ -35,5 +35,6 @@ typedef struct {
 
 
 void LoRa_PinsInit(void);
+uint8_t LoRa_Init(void);
 
 #endif

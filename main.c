@@ -12,10 +12,17 @@ void main(void)
     RCC_ClocksTypeDef clocks;
     RCC_GetClocksFreq(&clocks);
     
+    // прерывания
+     __enable_irq();
+    NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
+    
     // инициализация переферии
     ADC1_Init();
     USART1_Init();
     SPI3_Init();
+    
+    // инициализация модулей
+    LoRa_Init();
     
     int8_t temp = 0;
     uint8_t res = 0;
@@ -23,6 +30,7 @@ void main(void)
     {
         res = GetMCU_Temp(&temp);
         while(!SPI_I2S_GetFlagStatus(SPI3, SPI_I2S_FLAG_TXE)){}
+        CLEAR_BIT(LORA_SPI_CS_PORT->ODR, LORA_SPI_CS_PIN);
         SPI3_send_data(temp);
     }
 }
