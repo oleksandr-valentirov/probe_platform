@@ -2,7 +2,7 @@
 <project>
     <fileVersion>3</fileVersion>
     <configuration>
-        <name>Debug</name>
+        <name>F4</name>
         <toolchain>
             <name>ARM</name>
         </toolchain>
@@ -16,15 +16,15 @@
                 <debug>1</debug>
                 <option>
                     <name>ExePath</name>
-                    <state>Debug\Exe</state>
+                    <state>Projects_Output\F4\F4\Exe</state>
                 </option>
                 <option>
                     <name>ObjPath</name>
-                    <state>Debug\Obj</state>
+                    <state>Projects_Output\F4\Obj</state>
                 </option>
                 <option>
                     <name>ListPath</name>
-                    <state>Debug\List</state>
+                    <state>Projects_Output\F4\List</state>
                 </option>
                 <option>
                     <name>GEndianMode</name>
@@ -351,25 +351,20 @@
                 </option>
                 <option>
                     <name>CCIncludePath2</name>
-                    <state>$PROJ_DIR$\</state>
-                    <state>$PROJ_DIR$\freertos\</state>
-                    <state>$PROJ_DIR$\freertos\ARM_CM4F\</state>
-                    <state>$PROJ_DIR$\freertos\include\</state>
-                    <state>$PROJ_DIR$\freertos\MemMang\</state>
-                    <state>$PROJ_DIR$\freertos\UniversalFiles\</state>
-                    <state>$PROJ_DIR$\CMSIS\</state>
-                    <state>$PROJ_DIR$\CMSIS\inc\</state>
-                    <state>$PROJ_DIR$\CMSIS\src\</state>
-                    <state>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\</state>
-                    <state>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\</state>
-                    <state>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\</state>
-                    <state>$PROJ_DIR$\Drivers\ADC</state>
-                    <state>$PROJ_DIR$\Drivers\USART</state>
-                    <state>$PROJ_DIR$\Drivers\SPI</state>
-                    <state>$PROJ_DIR$\Drivers\SystemClock</state>
-                    <state>$PROJ_DIR$\Drivers\GPIO</state>
-                    <state>$PROJ_DIR$\Modules\SX1268</state>
-                    <state>$PROJ_DIR$\Modules\TemperatureSensorsAPI</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\CMSIS\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\CMSIS\inc\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\CMSIS\src\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Drivers\ADC</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Drivers\USART</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Drivers\SPI</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Drivers\SystemClock</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Drivers\GPIO</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\SX1268</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\TemperatureSensorsAPI</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -635,8 +630,7 @@
                 </option>
                 <option>
                     <name>AUserIncludes</name>
-                    <state>$PROJ_DIR$\freertos\</state>
-                    <state>$PROJ_DIR$\freertos\ARM_CM4F\</state>
+                    <state></state>
                 </option>
                 <option>
                     <name>AExtraOptionsCheckV2</name>
@@ -789,7 +783,7 @@
                 </option>
                 <option>
                     <name>IlinkIcfFile</name>
-                    <state>$PROJ_DIR$\stm32f4xx_flash.icf</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\stm32f4xx_flash.icf</state>
                 </option>
                 <option>
                     <name>IlinkIcfFileSlave</name>
@@ -1074,29 +1068,29 @@
         </settings>
     </configuration>
     <configuration>
-        <name>Release</name>
+        <name>F3</name>
         <toolchain>
             <name>ARM</name>
         </toolchain>
-        <debug>0</debug>
+        <debug>1</debug>
         <settings>
             <name>General</name>
             <archiveVersion>3</archiveVersion>
             <data>
                 <version>31</version>
                 <wantNonLocal>1</wantNonLocal>
-                <debug>0</debug>
+                <debug>1</debug>
                 <option>
                     <name>ExePath</name>
-                    <state>Release\Exe</state>
+                    <state>Projects_output\F3\Exe</state>
                 </option>
                 <option>
                     <name>ObjPath</name>
-                    <state>Release\Obj</state>
+                    <state>Projects_output\F3\Obj</state>
                 </option>
                 <option>
                     <name>ListPath</name>
-                    <state>Release\List</state>
+                    <state>Projects_output\F3\List</state>
                 </option>
                 <option>
                     <name>GEndianMode</name>
@@ -1104,11 +1098,11 @@
                 </option>
                 <option>
                     <name>Input description</name>
-                    <state></state>
+                    <state>Automatic choice of formatter, without multibyte support.</state>
                 </option>
                 <option>
                     <name>Output description</name>
-                    <state></state>
+                    <state>Automatic choice of formatter, without multibyte support.</state>
                 </option>
                 <option>
                     <name>GOutputBinary</name>
@@ -1116,7 +1110,7 @@
                 </option>
                 <option>
                     <name>OGCoreOrChip</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>GRuntimeLibSelect</name>
@@ -1130,15 +1124,15 @@
                 </option>
                 <option>
                     <name>RTDescription</name>
-                    <state></state>
+                    <state>Use the normal configuration of the C/C++ runtime library. No locale interface, C locale, no file descriptor support, no multibytes in printf and scanf, and no hex floats in strtod.</state>
                 </option>
                 <option>
                     <name>OGProductVersion</name>
-                    <state>5.10.0.159</state>
+                    <state>8.40.1.21529</state>
                 </option>
                 <option>
                     <name>OGLastSavedByProductVersion</name>
-                    <state>7.50.2.0</state>
+                    <state>8.40.1.21529</state>
                 </option>
                 <option>
                     <name>GeneralEnableMisra</name>
@@ -1150,11 +1144,11 @@
                 </option>
                 <option>
                     <name>OGChipSelectEditMenu</name>
-                    <state></state>
+                    <state>STM32F103C8	ST STM32F103C8</state>
                 </option>
                 <option>
                     <name>GenLowLevelInterface</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>GEndianModeBE</name>
@@ -1184,7 +1178,7 @@
                 </option>
                 <option>
                     <name>RTConfigPath2</name>
-                    <state></state>
+                    <state>$TOOLKIT_DIR$\inc\c\DLib_Config_Normal.h</state>
                 </option>
                 <option>
                     <name>GBECoreSlave</name>
@@ -1210,7 +1204,7 @@
                 </option>
                 <option>
                     <name>GFPUDeviceSlave</name>
-                    <state></state>
+                    <state>STM32F103C8	ST STM32F103C8</state>
                 </option>
                 <option>
                     <name>FPU2</name>
@@ -1245,7 +1239,7 @@
                 <option>
                     <name>OGPrintfVariant</name>
                     <version>0</version>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>OGPrintfMultibyteSupport</name>
@@ -1254,7 +1248,7 @@
                 <option>
                     <name>OGScanfVariant</name>
                     <version>0</version>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>OGScanfMultibyteSupport</name>
@@ -1289,14 +1283,14 @@
             <data>
                 <version>35</version>
                 <wantNonLocal>1</wantNonLocal>
-                <debug>0</debug>
-                <option>
-                    <name>CCOptimizationNoSizeConstraints</name>
-                    <state>0</state>
-                </option>
+                <debug>1</debug>
                 <option>
                     <name>CCDefines</name>
-                    <state>NDEBUG</state>
+                    <state>DEBUG</state>
+                    <state>STM32</state>
+                    <state>STM32F1</state>
+                    <state>STM32F103C8Tx</state>
+                    <state>USE_STDPERIPH_DRIVER</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -1308,7 +1302,7 @@
                 </option>
                 <option>
                     <name>CCPreprocLine</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>CCListCFile</name>
@@ -1357,11 +1351,11 @@
                 <option>
                     <name>CCAllowList</name>
                     <version>1</version>
-                    <state>11111110</state>
+                    <state>00000000</state>
                 </option>
                 <option>
                     <name>CCDebugInfo</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>IEndianMode</name>
@@ -1405,7 +1399,7 @@
                 </option>
                 <option>
                     <name>OutputFile</name>
-                    <state></state>
+                    <state>$FILE_BNAME$.o</state>
                 </option>
                 <option>
                     <name>CCLibConfigHeader</name>
@@ -1421,7 +1415,13 @@
                 </option>
                 <option>
                     <name>CCIncludePath2</name>
-                    <state></state>
+                    <state>$PROJ_DIR$\Projects_Library\F3\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F3\CMSIS\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F3\CMSIS\src\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F3\StdPeriph\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F3\StdPeriph\inc\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F3\StdPeriph\src\</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -1437,7 +1437,7 @@
                 </option>
                 <option>
                     <name>CCOptLevel</name>
-                    <state>3</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>CCOptStrategy</name>
@@ -1446,7 +1446,7 @@
                 </option>
                 <option>
                     <name>CCOptLevelSlave</name>
-                    <state>3</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>CompilerMisraRules98</name>
@@ -1499,6 +1499,10 @@
                     <state>0</state>
                 </option>
                 <option>
+                    <name>CCOptimizationNoSizeConstraints</name>
+                    <state>0</state>
+                </option>
+                <option>
                     <name>CCNoLiteralPool</name>
                     <state>0</state>
                 </option>
@@ -1547,7 +1551,7 @@
             <data>
                 <version>10</version>
                 <wantNonLocal>1</wantNonLocal>
-                <debug>0</debug>
+                <debug>1</debug>
                 <option>
                     <name>AObjPrefix</name>
                     <state>1</state>
@@ -1587,7 +1591,7 @@
                 </option>
                 <option>
                     <name>ADebug</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>AltRegisterNames</name>
@@ -1671,7 +1675,7 @@
                 </option>
                 <option>
                     <name>AOutputFile</name>
-                    <state></state>
+                    <state>$FILE_BNAME$.o</state>
                 </option>
                 <option>
                     <name>ALimitErrorsCheck</name>
@@ -1709,7 +1713,7 @@
             <data>
                 <version>1</version>
                 <wantNonLocal>1</wantNonLocal>
-                <debug>0</debug>
+                <debug>1</debug>
                 <option>
                     <name>OOCOutputFormat</name>
                     <version>3</version>
@@ -1761,11 +1765,7 @@
             <data>
                 <version>23</version>
                 <wantNonLocal>1</wantNonLocal>
-                <debug>0</debug>
-                <option>
-                    <name>IlinkOutputFile</name>
-                    <state>$PROJ_FNAME$.out</state>
-                </option>
+                <debug>1</debug>
                 <option>
                     <name>IlinkLibIOConfig</name>
                     <state>1</state>
@@ -1777,6 +1777,10 @@
                 <option>
                     <name>IlinkInputFileSlave</name>
                     <state>0</state>
+                </option>
+                <option>
+                    <name>IlinkOutputFile</name>
+                    <state>platform.out</state>
                 </option>
                 <option>
                     <name>IlinkDebugInfoEnable</name>
@@ -1840,7 +1844,7 @@
                 </option>
                 <option>
                     <name>IlinkIcfFile</name>
-                    <state></state>
+                    <state>$TOOLKIT_DIR$\config\linker\ST\stm32f103x8.icf</state>
                 </option>
                 <option>
                     <name>IlinkIcfFileSlave</name>
@@ -1900,7 +1904,7 @@
                 </option>
                 <option>
                     <name>IlinkProgramEntryLabel</name>
-                    <state></state>
+                    <state>__iar_program_start</state>
                 </option>
                 <option>
                     <name>DoFill</name>
@@ -1991,7 +1995,7 @@
                 </option>
                 <option>
                     <name>IlinkOptInline</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>IlinkOptExceptionsAllow</name>
@@ -2073,7 +2077,7 @@
                 </option>
                 <option>
                     <name>IlinkTrustzoneImportLibraryOut</name>
-                    <state>###Unitialized###</state>
+                    <state>platform_import_lib.o</state>
                 </option>
                 <option>
                     <name>OILinkExtraOption</name>
@@ -2103,7 +2107,7 @@
             <data>
                 <version>0</version>
                 <wantNonLocal>1</wantNonLocal>
-                <debug>0</debug>
+                <debug>1</debug>
                 <option>
                     <name>IarchiveInputs</name>
                     <state></state>
@@ -2125,549 +2129,630 @@
         </settings>
     </configuration>
     <group>
-        <name>CMSIS</name>
+        <name>F3</name>
+        <excluded>
+            <configuration>F4</configuration>
+        </excluded>
         <group>
-            <name>inc</name>
+            <name>CMSIS</name>
+            <group>
+                <name>inc</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\core_cm3.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\core_cmFunc.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\core_cmInstr.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\core_cmSimd.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\stm32f10x.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\system_stm32f10x.h</name>
+                </file>
+            </group>
+            <group>
+                <name>src</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\src\system_stm32f10x.c</name>
+                </file>
+            </group>
             <file>
-                <name>$PROJ_DIR$\CMSIS\inc\arm_common_tables.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\CMSIS\inc\arm_const_structs.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\CMSIS\inc\arm_math.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\CMSIS\inc\core_cm4.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\CMSIS\inc\core_cmFunc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\CMSIS\inc\core_cmInstr.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\CMSIS\inc\core_cmSimd.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\CMSIS\inc\core_sc000.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\CMSIS\inc\core_sc300.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\CMSIS\inc\stm32f4xx.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\CMSIS\inc\system_stm32f4xx.h</name>
+                <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\startup_stm32f10x_md.s</name>
             </file>
         </group>
         <group>
-            <name>src</name>
+            <name>StdPeriph</name>
+            <group>
+                <name>inc</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\inc\misc.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\inc\stm32f10x_adc.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\inc\stm32f10x_bkp.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\inc\stm32f10x_can.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\inc\stm32f10x_cec.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\inc\stm32f10x_crc.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\inc\stm32f10x_dac.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\inc\stm32f10x_dbgmcu.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\inc\stm32f10x_dma.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\inc\stm32f10x_exti.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\inc\stm32f10x_flash.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\inc\stm32f10x_fsmc.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\inc\stm32f10x_gpio.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\inc\stm32f10x_i2c.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\inc\stm32f10x_iwdg.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\inc\stm32f10x_pwr.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\inc\stm32f10x_rcc.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\inc\stm32f10x_rtc.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\inc\stm32f10x_sdio.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\inc\stm32f10x_spi.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\inc\stm32f10x_tim.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\inc\stm32f10x_usart.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\inc\stm32f10x_wwdg.h</name>
+                </file>
+            </group>
+            <group>
+                <name>src</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\src\misc.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\src\stm32f10x_adc.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\src\stm32f10x_bkp.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\src\stm32f10x_can.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\src\stm32f10x_cec.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\src\stm32f10x_crc.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\src\stm32f10x_dac.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\src\stm32f10x_dbgmcu.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\src\stm32f10x_dma.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\src\stm32f10x_exti.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\src\stm32f10x_flash.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\src\stm32f10x_fsmc.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\src\stm32f10x_gpio.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\src\stm32f10x_i2c.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\src\stm32f10x_iwdg.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\src\stm32f10x_pwr.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\src\stm32f10x_rcc.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\src\stm32f10x_rtc.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\src\stm32f10x_sdio.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\src\stm32f10x_spi.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\src\stm32f10x_tim.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\src\stm32f10x_usart.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\src\stm32f10x_wwdg.c</name>
+                </file>
+            </group>
             <file>
-                <name>$PROJ_DIR$\CMSIS\src\system_stm32f4xx.c</name>
+                <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\stm32f10x_it.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\Projects_Library\F3\StdPeriph\stm32f10x_it.h</name>
             </file>
         </group>
         <file>
-            <name>$PROJ_DIR$\CMSIS\startup_stm32f411xe.s</name>
+            <name>$PROJ_DIR$\Projects_Library\F3\!Project_Library.h</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\Projects_Library\F3\main.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\Projects_Library\F3\Pin_Configuration.h</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\stm32f10x_conf.h</name>
         </file>
     </group>
     <group>
-        <name>Drivers</name>
+        <name>F4</name>
+        <excluded>
+            <configuration>F3</configuration>
+        </excluded>
         <group>
-            <name>ADC</name>
+            <name>CMSIS</name>
+            <group>
+                <name>inc</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\CMSIS\inc\arm_common_tables.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\CMSIS\inc\arm_const_structs.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\CMSIS\inc\arm_math.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\CMSIS\inc\core_cm4.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\CMSIS\inc\core_cmFunc.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\CMSIS\inc\core_cmInstr.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\CMSIS\inc\core_cmSimd.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\CMSIS\inc\core_sc000.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\CMSIS\inc\core_sc300.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\CMSIS\inc\stm32f4xx.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\CMSIS\inc\system_stm32f4xx.h</name>
+                </file>
+            </group>
+            <group>
+                <name>src</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\CMSIS\src\system_stm32f4xx.c</name>
+                </file>
+            </group>
             <file>
-                <name>$PROJ_DIR$\Drivers\ADC\ADC.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\Drivers\ADC\ADC.h</name>
+                <name>$PROJ_DIR$\Projects_Library\F4\CMSIS\startup_stm32f411xe.s</name>
             </file>
         </group>
         <group>
-            <name>GPIO</name>
-            <file>
-                <name>$PROJ_DIR$\Drivers\GPIO\gpio.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\Drivers\GPIO\gpio.h</name>
-            </file>
+            <name>Drivers</name>
+            <group>
+                <name>ADC</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\ADC\ADC.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\ADC\ADC.h</name>
+                </file>
+            </group>
+            <group>
+                <name>GPIO</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\GPIO\gpio.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\GPIO\gpio.h</name>
+                </file>
+            </group>
+            <group>
+                <name>SPI</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\SPI\SPI.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\SPI\SPI.h</name>
+                </file>
+            </group>
+            <group>
+                <name>SystemClock</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\SystemClock\clock.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\SystemClock\clock.h</name>
+                </file>
+            </group>
+            <group>
+                <name>USART</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\USART\USART.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\USART\USART.h</name>
+                </file>
+            </group>
         </group>
         <group>
-            <name>SPI</name>
-            <file>
-                <name>$PROJ_DIR$\Drivers\SPI\SPI.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\Drivers\SPI\SPI.h</name>
-            </file>
+            <name>Modules</name>
+            <group>
+                <name>SX1268</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\SX1268\sx126x.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\SX1268\sx126x.h</name>
+                </file>
+            </group>
+            <group>
+                <name>TemperatureSensorsAPI</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\TemperatureSensorsAPI\temp_api.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\TemperatureSensorsAPI\temp_api.h</name>
+                </file>
+            </group>
         </group>
         <group>
-            <name>SystemClock</name>
-            <file>
-                <name>$PROJ_DIR$\Drivers\SystemClock\clock.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\Drivers\SystemClock\clock.h</name>
-            </file>
-        </group>
-        <group>
-            <name>USART</name>
-            <file>
-                <name>$PROJ_DIR$\Drivers\USART\USART.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\Drivers\USART\USART.h</name>
-            </file>
-        </group>
-        <file>
-            <name>$PROJ_DIR$\Drivers\readme.txt</name>
-        </file>
-    </group>
-    <group>
-        <name>freertos</name>
-        <group>
-            <name>ARM_CM4F</name>
-            <file>
-                <name>$PROJ_DIR$\freertos\ARM_CM4F\port.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\ARM_CM4F\portasm.s</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\ARM_CM4F\portmacro.h</name>
-            </file>
-        </group>
-        <group>
-            <name>include</name>
-            <file>
-                <name>$PROJ_DIR$\freertos\include\atomic.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\include\croutine.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\include\deprecated_definitions.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\include\event_groups.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\include\FreeRTOS.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\include\list.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\include\message_buffer.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\include\mpu_prototypes.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\include\mpu_wrappers.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\include\portable.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\include\projdefs.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\include\queue.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\include\semphr.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\include\stack_macros.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\include\StackMacros.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\include\stream_buffer.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\include\task.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\include\timers.h</name>
-            </file>
-        </group>
-        <group>
-            <name>MemMang</name>
-            <file>
-                <name>$PROJ_DIR$\freertos\MemMang\heap_1.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\MemMang\heap_2.c</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\MemMang\heap_3.c</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\MemMang\heap_4.c</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\MemMang\heap_5.c</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
-            </file>
-        </group>
-        <group>
-            <name>UniversalFiles</name>
-            <file>
-                <name>$PROJ_DIR$\freertos\UniversalFiles\croutine.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\UniversalFiles\event_groups.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\UniversalFiles\list.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\UniversalFiles\queue.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\UniversalFiles\stream_buffer.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\UniversalFiles\tasks.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\freertos\UniversalFiles\timers.c</name>
-            </file>
-        </group>
-        <file>
-            <name>$PROJ_DIR$\freertos\FreeRTOSConfig.h</name>
-        </file>
-    </group>
-    <group>
-        <name>Modules</name>
-        <group>
-            <name>SX1268</name>
-            <file>
-                <name>$PROJ_DIR$\Modules\SX1268\sx126x.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\Modules\SX1268\sx126x.h</name>
-            </file>
-        </group>
-        <group>
-            <name>TemperatureSensorsAPI</name>
-            <file>
-                <name>$PROJ_DIR$\Modules\TemperatureSensorsAPI\temp_api.c</name>
-            </file>
-        </group>
-    </group>
-    <group>
-        <name>StdPeriph</name>
-        <group>
-            <name>inc</name>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\misc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_adc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_can.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_cec.h</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_crc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_cryp.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dac.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dbgmcu.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dcmi.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dfsdm.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dma.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dma2d.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dsi.h</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_exti.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_flash.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_flash_ramfunc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fmc.h</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fmpi2c.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fsmc.h</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_gpio.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_hash.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_iwdg.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_lptim.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_ltdc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_pwr.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_qspi.h</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_rcc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_rng.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_rtc.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_sai.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_sdio.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_spdifrx.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_spi.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_syscfg.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_tim.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_usart.h</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h</name>
-            </file>
-        </group>
-        <group>
-            <name>src</name>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\misc.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_adc.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_can.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_cec.c</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_crc.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_cryp.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_cryp_aes.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_cryp_des.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_cryp_tdes.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dac.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dbgmcu.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dcmi.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dfsdm.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dma.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dma2d.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dsi.c</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_exti.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_flash.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_flash_ramfunc.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_fmc.c</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_fmpi2c.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_fsmc.c</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_gpio.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_hash.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_hash_md5.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_hash_sha1.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_i2c.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_iwdg.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_lptim.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_ltdc.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_pwr.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_qspi.c</name>
-                <excluded>
-                    <configuration>Debug</configuration>
-                </excluded>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_rcc.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_rng.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_rtc.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_sai.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_sdio.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_spdifrx.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_spi.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_syscfg.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_tim.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_usart.c</name>
-            </file>
-            <file>
-                <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_wwdg.c</name>
+            <name>StdPeriph</name>
+            <group>
+                <name>inc</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\misc.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_adc.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_can.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_cec.h</name>
+                    <excluded>
+                        <configuration>F4</configuration>
+                    </excluded>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_crc.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_cryp.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dac.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dbgmcu.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dcmi.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dfsdm.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dma.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dma2d.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dsi.h</name>
+                    <excluded>
+                        <configuration>F4</configuration>
+                    </excluded>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_exti.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_flash.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_flash_ramfunc.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fmc.h</name>
+                    <excluded>
+                        <configuration>F4</configuration>
+                    </excluded>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fmpi2c.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fsmc.h</name>
+                    <excluded>
+                        <configuration>F4</configuration>
+                    </excluded>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_gpio.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_hash.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_i2c.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_iwdg.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_lptim.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_ltdc.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_pwr.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_qspi.h</name>
+                    <excluded>
+                        <configuration>F4</configuration>
+                    </excluded>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_rcc.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_rng.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_rtc.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_sai.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_sdio.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_spdifrx.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_spi.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_syscfg.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_tim.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_usart.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_wwdg.h</name>
+                </file>
+            </group>
+            <group>
+                <name>src</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\misc.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_adc.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_can.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_cec.c</name>
+                    <excluded>
+                        <configuration>F4</configuration>
+                    </excluded>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_crc.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_cryp.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_cryp_aes.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_cryp_des.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_cryp_tdes.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dac.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dbgmcu.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dcmi.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dfsdm.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dma.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dma2d.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dsi.c</name>
+                    <excluded>
+                        <configuration>F4</configuration>
+                    </excluded>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_exti.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_flash.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_flash_ramfunc.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_fmc.c</name>
+                    <excluded>
+                        <configuration>F4</configuration>
+                    </excluded>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_fmpi2c.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_fsmc.c</name>
+                    <excluded>
+                        <configuration>F4</configuration>
+                    </excluded>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_gpio.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_hash.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_hash_md5.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_hash_sha1.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_i2c.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_iwdg.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_lptim.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_ltdc.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_pwr.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_qspi.c</name>
+                    <excluded>
+                        <configuration>F4</configuration>
+                    </excluded>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_rcc.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_rng.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_rtc.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_sai.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_sdio.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_spdifrx.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_spi.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_syscfg.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_tim.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_usart.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_wwdg.c</name>
+                </file>
+            </group>
+            <file>
+                <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\stm32f4xx_it.c</name>
+            </file>
+            <file>
+                <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\stm32f4xx_it.h</name>
             </file>
         </group>
         <file>
-            <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\stm32f4xx_it.c</name>
+            <name>$PROJ_DIR$\Projects_Library\F4\!Project_library.h</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\STM32F4xx_StdPeriph_Driver\stm32f4xx_it.h</name>
+            <name>$PROJ_DIR$\Projects_Library\F4\main.c</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\Projects_Library\F4\Pin_Configuration.h</name>
+        </file>
+        <file>
+            <name>$PROJ_DIR$\Projects_Library\F4\stm32f4xx_conf.h</name>
         </file>
     </group>
-    <file>
-        <name>$PROJ_DIR$\!Project_library.h</name>
-    </file>
-    <file>
-        <name>$PROJ_DIR$\main.c</name>
-    </file>
-    <file>
-        <name>$PROJ_DIR$\Pin_Configuration.h</name>
-    </file>
-    <file>
-        <name>$PROJ_DIR$\stm32f4xx_conf.h</name>
-    </file>
 </project>
