@@ -1288,8 +1288,8 @@
                     <name>CCDefines</name>
                     <state>DEBUG</state>
                     <state>STM32</state>
-                    <state>STM32F1</state>
-                    <state>STM32F103C8Tx</state>
+                    <state>STM32F103xB</state>
+                    <state>STM32F10X_MD</state>
                     <state>USE_STDPERIPH_DRIVER</state>
                 </option>
                 <option>
@@ -1840,11 +1840,11 @@
                 </option>
                 <option>
                     <name>IlinkIcfOverride</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>IlinkIcfFile</name>
-                    <state>$TOOLKIT_DIR$\config\linker\ST\stm32f103x8.icf</state>
+                    <state>$PROJ_DIR$\Projects_Library\F3\stm32f10x_flash.icf</state>
                 </option>
                 <option>
                     <name>IlinkIcfFileSlave</name>
@@ -2138,32 +2138,35 @@
             <group>
                 <name>inc</name>
                 <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\cmsis_compiler.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\cmsis_iccarm.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\cmsis_version.h</name>
+                </file>
+                <file>
                     <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\core_cm3.h</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\core_cmFunc.h</name>
+                    <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\stm32f103xb.h</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\core_cmInstr.h</name>
+                    <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\stm32f1xx.h</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\core_cmSimd.h</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\stm32f10x.h</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\system_stm32f10x.h</name>
+                    <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\system_stm32f1xx.h</name>
                 </file>
             </group>
             <group>
                 <name>src</name>
                 <file>
-                    <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\src\system_stm32f10x.c</name>
+                    <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\src\system_stm32f1xx.c</name>
                 </file>
             </group>
             <file>
-                <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\startup_stm32f10x_md.s</name>
+                <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\startup_stm32f103xb.s</name>
             </file>
         </group>
         <group>
@@ -2329,7 +2332,7 @@
             <name>$PROJ_DIR$\Projects_Library\F3\Pin_Configuration.h</name>
         </file>
         <file>
-            <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\stm32f10x_conf.h</name>
+            <name>$PROJ_DIR$\Projects_Library\F3\stm32f10x_conf.h</name>
         </file>
     </group>
     <group>
