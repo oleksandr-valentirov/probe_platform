@@ -22,7 +22,7 @@ uint8_t HSE_Init(void){
         return 1;
     
     // настраиваем PLL
-    RCC_PLLConfig(RCC_PLLSource_HSE_Div2, 9);
+    RCC_PLLConfig(RCC_PLLSource_HSE_Div1, 6);
     
     // запускаем PLL
     SET_BIT(RCC->CR, RCC_CR_PLLON); i = 0;
@@ -32,16 +32,18 @@ uint8_t HSE_Init(void){
     if(!READ_BIT(RCC->CR, RCC_CR_PLLRDY))
         return 2;
     
-    // настраиваем скорость работы с памятью, питание и тактирование шин
-
-//    SET_BIT(FLASH->ACR, FLASH_ACR_PRFTEN |     // предварительное извлечение инструкций из памяти
-//        FLASH_ACR_ICEN |                // кеширование инструкций
-//            FLASH_ACR_DCEN |            // кеширование памяти
-//                FLASH_ACR_LATENCY_3WS);  // задержка в 4 цикла CPU
+    // настраиваем скорость работы с памятью и тактирование шин
+    FLASH_PrefetchBufferCmd(FLASH_PrefetchBuffer_Enable);
+    FLASH_SetLatency(FLASH_Latency_1);
     
     RCC_HCLKConfig(RCC_SYSCLK_Div1);    // AHB
+    FLASH_HalfCycleAccessCmd(FLASH_HalfCycleAccess_Disable);
+    /** @attention - here you can set AHB */
+//    RCC_HCLKConfig(RCC_SYSCLK_Div1);
+    /* ---------------------------------- */
+    
     RCC_PCLK1Config(RCC_HCLK_Div2);     // low-speed bus APB1
-    RCC_PCLK2Config(RCC_HCLK_Div2);     // fast-speed bus APB2
+    RCC_PCLK2Config(RCC_HCLK_Div1);     // fast-speed bus APB2
     
     // переключаемся на HSE
     RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);

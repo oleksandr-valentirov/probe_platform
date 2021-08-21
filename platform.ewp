@@ -1286,9 +1286,6 @@
                 <debug>1</debug>
                 <option>
                     <name>CCDefines</name>
-                    <state>DEBUG</state>
-                    <state>STM32</state>
-                    <state>STM32F103xB</state>
                     <state>STM32F10X_MD</state>
                     <state>USE_STDPERIPH_DRIVER</state>
                 </option>
@@ -1518,11 +1515,11 @@
                 </option>
                 <option>
                     <name>CCEncSource</name>
-                    <state>0</state>
+                    <state>2</state>
                 </option>
                 <option>
                     <name>CCEncOutput</name>
-                    <state>0</state>
+                    <state>2</state>
                 </option>
                 <option>
                     <name>CCEncOutputBom</name>
@@ -1530,7 +1527,7 @@
                 </option>
                 <option>
                     <name>CCEncInput</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>IccExceptions2</name>
@@ -2155,27 +2152,33 @@
                 </file>
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\stm32f10x.h</name>
-                    <excluded>
-                        <configuration>F3</configuration>
-                    </excluded>
                 </file>
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\stm32f1xx.h</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\system_stm32f10x.h</name>
                     <excluded>
                         <configuration>F3</configuration>
                     </excluded>
                 </file>
                 <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\system_stm32f10x.h</name>
+                </file>
+                <file>
                     <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\system_stm32f1xx.h</name>
+                    <excluded>
+                        <configuration>F3</configuration>
+                    </excluded>
                 </file>
             </group>
             <group>
                 <name>src</name>
                 <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\src\system_stm32f10x.c</name>
+                </file>
+                <file>
                     <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\src\system_stm32f1xx.c</name>
+                    <excluded>
+                        <configuration>F3</configuration>
+                    </excluded>
                 </file>
             </group>
             <file>
@@ -2348,7 +2351,7 @@
             </file>
         </group>
         <file>
-            <name>$PROJ_DIR$\Projects_Library\F3\!Project_Library.h</name>
+            <name>$PROJ_DIR$\Projects_Library\F3\!Project_library.h</name>
         </file>
         <file>
             <name>$PROJ_DIR$\Projects_Library\F3\main.c</name>

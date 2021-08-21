@@ -33,7 +33,7 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-#include "stm32f1xx.h"
+//#include "stm32f1xx.h"
 #include "stm32f10x_conf.h"
 
 /* User-defined code ---------------------------------------------------------*/
