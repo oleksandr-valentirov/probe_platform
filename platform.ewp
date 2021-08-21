@@ -1422,6 +1422,7 @@
                     <state>$PROJ_DIR$\Projects_Library\F3\StdPeriph\</state>
                     <state>$PROJ_DIR$\Projects_Library\F3\StdPeriph\inc\</state>
                     <state>$PROJ_DIR$\Projects_Library\F3\StdPeriph\src\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F3\Core\SystemClock\</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -2153,7 +2154,19 @@
                     <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\stm32f103xb.h</name>
                 </file>
                 <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\stm32f10x.h</name>
+                    <excluded>
+                        <configuration>F3</configuration>
+                    </excluded>
+                </file>
+                <file>
                     <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\stm32f1xx.h</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\system_stm32f10x.h</name>
+                    <excluded>
+                        <configuration>F3</configuration>
+                    </excluded>
                 </file>
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\system_stm32f1xx.h</name>
@@ -2168,6 +2181,18 @@
             <file>
                 <name>$PROJ_DIR$\Projects_Library\F3\CMSIS\startup_stm32f103xb.s</name>
             </file>
+        </group>
+        <group>
+            <name>Drivers</name>
+            <group>
+                <name>SystemClock</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\Core\SystemClock\clock.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\Core\SystemClock\clock.h</name>
+                </file>
+            </group>
         </group>
         <group>
             <name>StdPeriph</name>

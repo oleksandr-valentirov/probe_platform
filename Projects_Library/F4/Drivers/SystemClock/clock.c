@@ -52,8 +52,6 @@ uint8_t HSE_Init(void)
     RCC_DeInit();  // тактируемся от HSI
     uint16_t i = 0;
     
-    PWR->CR |= PWR_CR_VOS;  // второй режим питания (100 MHz)
-    
     // запускаем HSE
     SET_BIT(RCC->CR, RCC_CR_HSEON);
     while (i < 0xFFFF && (READ_BIT(RCC->CR, RCC_CR_HSERDY) == 0))
@@ -70,7 +68,7 @@ uint8_t HSE_Init(void)
     while (i < 0xFFFF && (READ_BIT(RCC->CR, RCC_CR_PLLRDY) == 0))
         i++;
     // если не запустился
-    if(!READ_BIT(RCC->CR, RCC_CR_HSERDY))
+    if(!READ_BIT(RCC->CR, RCC_CR_PLLRDY))
         return 2;
     
     // настраиваем скорость работы с памятью, питание и тактирование шин
