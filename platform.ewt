@@ -2421,10 +2421,19 @@
             <group>
                 <name>SystemClock</name>
                 <file>
-                    <name>$PROJ_DIR$\Projects_Library\F3\Core\SystemClock\clock.c</name>
+                    <name>$PROJ_DIR$\Projects_Library\F3\Drivers\SystemClock\clock.c</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\Projects_Library\F3\Core\SystemClock\clock.h</name>
+                    <name>$PROJ_DIR$\Projects_Library\F3\Drivers\SystemClock\clock.h</name>
+                </file>
+            </group>
+            <group>
+                <name>timers</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\Drivers\timers\timers.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\Drivers\timers\timers.h</name>
                 </file>
             </group>
         </group>
@@ -2680,6 +2689,15 @@
                 </file>
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\Drivers\SystemClock\clock.h</name>
+                </file>
+            </group>
+            <group>
+                <name>timers</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\timers\timers.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\timers\timers.h</name>
                 </file>
             </group>
             <group>

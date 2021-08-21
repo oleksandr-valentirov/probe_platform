@@ -28,9 +28,9 @@ void main(void)
     uint8_t res = 0;
     while(1)
     {
-        res = GetMCU_Temp(&temp);
-        while(!SPI_I2S_GetFlagStatus(SPI3, SPI_I2S_FLAG_TXE)){}
-        CLEAR_BIT(LORA_SPI_CS_PORT->ODR, LORA_SPI_CS_PIN);
-        SPI3_send_data(temp);
+//        res = GetMCU_Temp(&temp);
+//        while(!SPI_I2S_GetFlagStatus(SPI3, SPI_I2S_FLAG_TXE)){}
+//        CLEAR_BIT(LORA_SPI_CS_PORT->ODR, LORA_SPI_CS_PIN);
+//        SPI3_send_data(temp);
     }
 }
