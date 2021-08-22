@@ -1421,6 +1421,8 @@
                     <state>$PROJ_DIR$\Projects_Library\F3\StdPeriph\src\</state>
                     <state>$PROJ_DIR$\Projects_Library\F3\Drivers\SystemClock\</state>
                     <state>$PROJ_DIR$\Projects_Library\F3\Drivers\timers\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F3\Drivers\GPIO\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F3\Modules\OneWire\</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -2189,6 +2191,15 @@
         <group>
             <name>Drivers</name>
             <group>
+                <name>GPIO</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\Drivers\GPIO\gpio.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\Drivers\GPIO\gpio.h</name>
+                </file>
+            </group>
+            <group>
                 <name>SystemClock</name>
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F3\Drivers\SystemClock\clock.c</name>
@@ -2204,6 +2215,18 @@
                 </file>
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F3\Drivers\timers\timers.h</name>
+                </file>
+            </group>
+        </group>
+        <group>
+            <name>Modules</name>
+            <group>
+                <name>OneWire</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\Modules\OneWire\onewire.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F3\Modules\OneWire\onewire.h</name>
                 </file>
             </group>
         </group>

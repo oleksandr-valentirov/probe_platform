@@ -32,8 +32,9 @@
 /* Includes ------------------------------------------------------------------*/
 #include <stdint.h>
 #include <stdbool.h>
+#include <stddef.h>
 
-//#include "stm32f1xx.h"
+#include "stm32f10x.h"
 #include "stm32f10x_conf.h"
 
 /* User-defined code ---------------------------------------------------------*/
@@ -41,7 +42,7 @@
 //#include "USART.h"
 //#include "SPI.h"
 #include "clock.h"
-//#include "gpio.h"
+#include "gpio.h"
 
 
 /* FreeRTOS includes -------------------------------------------------------- */
@@ -53,10 +54,11 @@
 /* Modules -------------------------------------------------------------------*/
 //#include "sx126x.h"
 //#include "temp_api.h"
+#include "onewire.h"
 
 
 /* Exported types ------------------------------------------------------------*/
-#define weak    __weak
+#define weak    __WEAK
 
 
 /* Exported constants --------------------------------------------------------*/

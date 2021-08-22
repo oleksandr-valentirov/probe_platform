@@ -22,7 +22,7 @@ uint8_t HSE_Init(void){
         return 1;
     
     // настраиваем PLL
-    RCC_PLLConfig(RCC_PLLSource_HSE_Div1, 6);
+    RCC_PLLConfig(RCC_PLLSource_HSE_Div1, RCC_PLLMul_6);
     
     // запускаем PLL
     SET_BIT(RCC->CR, RCC_CR_PLLON); i = 0;
