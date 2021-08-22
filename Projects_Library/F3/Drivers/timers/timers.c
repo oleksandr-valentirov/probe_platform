@@ -1,6 +1,11 @@
 #include "timers.h"
 
 
+typedef struct{
+    void (*systick_callback)(void *params);
+    void *params;
+} Callback;
+
 /** @todo - перенести в L1 */
 //static void (*callback)(void) = NULL;
 ///**
@@ -35,13 +40,15 @@
 
 
 /* Private variables ---------------------------------------------------------*/
-static void (*systick_callback)(void) = NULL;
+static Callback SysTickCallback; 
 static bool systick_one_pulse = false;
 
-void SysTick_Init(uint32_t period, bool is_one_pulse, void (*callback_func)(void))
+void SysTick_Init(uint32_t period, bool is_one_pulse, void (*callback_func)(void *params), void *callback_params)
 {
     systick_one_pulse = is_one_pulse;
-    systick_callback = callback_func;
+   
+    SysTickCallback.systick_callback = callback_func;
+    SysTickCallback.params = callback_params;
     SysTick_Config(period);
 }
 
@@ -50,10 +57,10 @@ void SysTick_Handler(void)
 {
     if(systick_one_pulse)
         turn_off_systick();
-    if(systick_callback != NULL)
+    if(SysTickCallback.systick_callback != NULL)
     {
-        systick_callback();
-        systick_callback = NULL;
+        SysTickCallback.systick_callback(SysTickCallback.params);
+        SysTickCallback.systick_callback = NULL;
     }
 }
 
