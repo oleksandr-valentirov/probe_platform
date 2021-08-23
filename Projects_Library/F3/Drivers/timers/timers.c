@@ -53,19 +53,37 @@ void SysTick_Init(uint32_t period, bool is_one_pulse, void (*callback_func)(void
 }
 
 
+void SysTick_Callback_DeInit(void)
+{
+    SysTickCallback.systick_callback = NULL;
+    SysTickCallback.params = NULL;
+}
+
+
+void SysTick_Value_Update(uint32_t ticks)
+{
+    SysTick->LOAD  = (uint32_t)(ticks - 1UL);
+}
+
+
 void SysTick_Handler(void)
 {
     if(systick_one_pulse)
-        turn_off_systick();
+        toggle_systick(false);
     if(SysTickCallback.systick_callback != NULL)
     {
         SysTickCallback.systick_callback(SysTickCallback.params);
-        SysTickCallback.systick_callback = NULL;
     }
 }
 
-void turn_off_systick(void) {
-	CLEAR_BIT(SysTick->CTRL, (SysTick_CTRL_CLKSOURCE_Msk |
+void toggle_systick(bool state) {
+    if (state)
+	SET_BIT(SysTick->CTRL, (SysTick_CTRL_CLKSOURCE_Msk |
+                                SysTick_CTRL_TICKINT_Msk   |
+                                SysTick_CTRL_ENABLE_Msk)
+			);
+    else
+        CLEAR_BIT(SysTick->CTRL, (SysTick_CTRL_CLKSOURCE_Msk |
                                   SysTick_CTRL_TICKINT_Msk   |
                                   SysTick_CTRL_ENABLE_Msk)
 			);

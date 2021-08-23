@@ -1,6 +1,6 @@
 #include "onewire.h"
 
-
+/* Private functions ---------------------------------------------------------*/
 static void reset_callback(void *data);
 
 
@@ -20,23 +20,33 @@ void OneWireSendData(void* data)
         OneWireData casted_data = *((OneWireData*)data);
         
         data_to_send = (uint8_t*)casted_data.data;
-        size = casted_data.size;
+        size = casted_data.size * 8;
+        
+        // передаём первый бит и создаём коллбек на себя для запуска всего процесса
+        CLEAR_BIT(ONEWIRE_PORT->ODR, ONEWIRE_PIN);
+        SysTick_Init(((*data_to_send) & 1) ? 720 : 2880, true, &OneWireSendData, NULL);
+        (*data_to_send) >>= 1;  size--;
+        return;
     } 
     else if (data != NULL && size != 0)
         return;
 
     // проверяем size
     if (size == 0)
+    {
+        SysTick_Callback_DeInit();
         return;
+    }
+    
+    // ставим таймер с коллбеком на себя
+    if ((*data_to_send) & 1)
+        SysTick_Value_Update(720);  // задержка в 15 мкс
+    else
+        SysTick_Value_Update(2880);  // задержка в 60 мкс
     
     // передаём следующий бит и создаём коллбек на себя
     CLEAR_BIT(ONEWIRE_PORT->ODR, ONEWIRE_PIN);
-    // ставим таймер с коллбеком на себя
-    if ((*data_to_send) & 1)
-        SysTick_Init(720, true, &OneWireSendData, NULL);  // задержка в 15 мкс
-    else
-        SysTick_Init(2880, true, &OneWireSendData, NULL);  // задержка в 60 мкс
-    
+    toggle_systick(true);
     (*data_to_send) >>= 1;  size--;  // сдвигаем только-что переданный бит
 }
 
