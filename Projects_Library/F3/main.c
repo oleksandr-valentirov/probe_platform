@@ -9,14 +9,6 @@ void main (void)
     if (clock_status){}
     MyGPIO_Init();
     
-//    reset();
-    
-    uint8_t test_byte = 170;
-    OneWireData data;
-    data.size = 1;
-    data.data = &test_byte;
-    OneWireSendData(&data);
-    
     while(1)
     {
     }

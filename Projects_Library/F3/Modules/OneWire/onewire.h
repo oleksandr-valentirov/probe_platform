@@ -16,6 +16,6 @@ typedef struct {
 void reset(void);
 void OneWire_Write_Pin_Init(void);
 void OneWire_Read_Pin_Init(void);
-void OneWireSendData(void* data);
+void OneWireSendData(void);
 
 #endif
