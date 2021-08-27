@@ -17,7 +17,7 @@ void OneWireSendData(void)
 void reset(void)
 {
     CLEAR_BIT(ONEWIRE_PORT->ODR, ONEWIRE_PIN);
-    
+    // 500 us delay
 }
 
 

@@ -4,14 +4,18 @@
 
 #include "!Project_library.h"
 
-/** @todo - перенести в L1 */
-//void Tim6_Init(uint16_t period, bool is_one_pulse, void *callback_func);
+/* TIM9 general functions --------------------------------------------------- */
+void TIM9_Init(void);
+void TIM9_DeInit(void);
+void TIM9_Enable(void);
+void TIM9_Disable(void);
 
-void SysTick_Stop();
-void SysTick_Start();
-void SysTick_Init(uint32_t period, bool is_one_pulse, void (*callback_func)(void *data), void *callback_params);
-void SysTick_Value_Update(uint32_t ticks);
-void SysTick_Callback_DeInit(void);
+/* TIM9 CH 1 functions ------------------------------------------------------ */
+void TIM9_CH_1_Start(uint16_t period);
+void TIM9_CH_1_Restart(void);
 
+/* TIM9 CH 1 functions ------------------------------------------------------ */
+void TIM9_CH_2_Start(uint16_t period);
+void TIM9_CH_2_Restart(void);
 
 #endif
