@@ -15,17 +15,21 @@ void main(void)
     // прерывания
      __enable_irq();
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
+    TIM9_Init();
+    TIM9_CH_1_Start(5000);
+    TIM9_CH_2_Set_Mode(0);
+    TIM9_Enable();
     
     // инициализация переферии
-    ADC1_Init();
-    USART1_Init();
-    SPI3_Init();
+//    ADC1_Init();
+//    USART1_Init();
+//    SPI3_Init();
     
     // инициализация модулей
-    LoRa_Init();
+//    LoRa_Init();
     
-    int8_t temp = 0;
-    uint8_t res = 0;
+//    int8_t temp = 0;
+//    uint8_t res = 0;
     while(1)
     {
 //        res = GetMCU_Temp(&temp);

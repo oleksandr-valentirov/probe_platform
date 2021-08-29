@@ -42,6 +42,7 @@
 #include "SPI.h"
 #include "clock.h"
 #include "gpio.h"
+#include "timers.h"
 
 
 /* FreeRTOS includes -------------------------------------------------------- */

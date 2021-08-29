@@ -363,6 +363,7 @@
                     <state>$PROJ_DIR$\Projects_Library\F4\Drivers\SPI</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Drivers\SystemClock</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Drivers\GPIO</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Drivers\timers</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\SX1268</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\TemperatureSensorsAPI</state>
                 </option>
