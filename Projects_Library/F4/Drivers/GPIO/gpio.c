@@ -3,6 +3,7 @@
 
 static void USART_12_pins_init(void);
 static void SPI_pins_init(void);
+static void OneWire_Pin_Init(void);
 
 
 /**
@@ -17,6 +18,10 @@ void MyGPIO_Init(void)
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
+    
+    
+    OneWire_Pin_Init();
+
     
 #ifdef MCO1
     GPIO_InitTypeDef mco_1;
@@ -57,14 +62,14 @@ static void USART_12_pins_init(void)
     GPIO_PinAFConfig(USART_1_RX_PORT, USART_1_RX_AF_SRC, GPIO_AF_USART1);
     
     // USART2 TX pin
-    pin.GPIO_Pin = USART_2_TX_PIN;
-    GPIO_Init(USART_2_TX_PORT, &pin);
-    GPIO_PinAFConfig(USART_2_TX_PORT, USART_2_TX_AF_SRC, GPIO_AF_USART2);
+//    pin.GPIO_Pin = USART_2_TX_PIN;
+//    GPIO_Init(USART_2_TX_PORT, &pin);
+//    GPIO_PinAFConfig(USART_2_TX_PORT, USART_2_TX_AF_SRC, GPIO_AF_USART2);
     
     // USART2 RX pin
-    pin.GPIO_Pin = USART_2_RX_PIN;
-    GPIO_Init(USART_2_RX_PORT, &pin);
-    GPIO_PinAFConfig(USART_2_RX_PORT, USART_2_TX_AF_SRC, GPIO_AF_USART2);
+//    pin.GPIO_Pin = USART_2_RX_PIN;
+//    GPIO_Init(USART_2_RX_PORT, &pin);
+//    GPIO_PinAFConfig(USART_2_RX_PORT, USART_2_TX_AF_SRC, GPIO_AF_USART2);
 }
 
 
@@ -87,3 +92,20 @@ static void SPI_pins_init(void)
 }
 
 
+/**
+ * @brief configs TIM9 CH 2 pin to AF mode
+ */
+static void OneWire_Pin_Init(void)
+{
+    GPIO_InitTypeDef pin;
+    pin.GPIO_OType = GPIO_OType_PP;
+    pin.GPIO_PuPd = GPIO_PuPd_NOPULL;
+    pin.GPIO_Mode = GPIO_Mode_AF;
+    pin.GPIO_Speed = GPIO_Low_Speed;
+    pin.GPIO_Pin = GPIO_Pin_2;
+    GPIO_Init(GPIOA, &pin);
+    
+    CLEAR_BIT(GPIOA->ODR, GPIO_Pin_2);
+    
+    GPIO_PinAFConfig(GPIOA, GPIO_PinSource3, GPIO_AF_TIM9);
+}
