@@ -111,7 +111,7 @@ void UsageFault_Handler(void)
   * @param  None
   * @retval None
   */
-weak void SVC_Handler(void)
+void SVC_Handler(void)
 {
 }
 
@@ -129,7 +129,7 @@ void DebugMon_Handler(void)
   * @param  None
   * @retval None
   */
-weak void PendSV_Handler(void)
+void PendSV_Handler(void)
 {
 }
 
@@ -138,7 +138,7 @@ weak void PendSV_Handler(void)
   * @param  None
   * @retval None
   */
-weak void SysTick_Handler(void)
+void SysTick_Handler(void)
 {
 //  TimingDelay_Decrement();
 }
@@ -149,6 +149,38 @@ weak void SysTick_Handler(void)
 /*  available peripheral interrupt handler's name please refer to the startup */
 /*  file (startup_stm32f4xx.s).                                               */
 /******************************************************************************/
+
+/**
+  * @brief  This function handles TIM9 interrupt request for OneWire module.
+  * @param  None
+  * @retval None
+  */
+void TIM1_BRK_TIM9_IRQHandler(void)
+{
+    // CH 1 CC interrupt - data line state change
+    if(READ_BIT(TIM9->SR, TIM_SR_CC1IF))
+    {
+        // input mode
+        if(READ_BIT(TIM9->CCMR1, TIM_CCMR1_CC2S))
+        {
+        }
+        // output mode
+        else
+        {
+            /* 
+            при сработке нужно держать выход активным до переполнения
+            и начала передачи следующего бита
+            */
+        }
+    }
+    
+    // update interrupt - next bit transmittion
+    if(READ_BIT(TIM9->SR, TIM_SR_UIF))
+    {
+        Transmit_Bit();
+    }
+    TIM9->SR = 0;
+}
 
 /**
   * @brief  This function handles PPP interrupt request.

@@ -1,6 +1,12 @@
 #include "timers.h"
 
 
+#define Turn_CH_1_On()          SET_BIT(TIM9->CCER, TIM_CCER_CC1E)
+#define Turn_CH_1_Off()         CLEAR_BIT(TIM9->CCER, TIM_CCER_CC1E)
+
+
+
+
 /* TIM9 general functions --------------------------------------------------- */
 void TIM9_Init(void)
 {
@@ -8,8 +14,8 @@ void TIM9_Init(void)
     
     // basic init
     TIM_TimeBaseInitTypeDef tim;
-    tim.TIM_Prescaler = SystemCoreClock / 1000000;      // 1 us == 1 count
-    tim.TIM_ClockDivision = TIM_CKD_DIV1;               // relates to filters
+    tim.TIM_Prescaler = (SystemCoreClock / 1000000) - 1;        // 1 us == 1 count
+    tim.TIM_ClockDivision = TIM_CKD_DIV1;                       // relates to filters
     tim.TIM_CounterMode = TIM_CounterMode_Up;
     tim.TIM_RepetitionCounter = 0;                      // is used only in TIM1 and TIM 8
     tim.TIM_Period = 0;                                 // measured in us.
@@ -36,37 +42,6 @@ void TIM9_Start(uint16_t period)
     TIM_Cmd(TIM9, ENABLE);
 }
 
-void TIM9_Restart(void)
-{
-}
-
-
-void TIM9_Disable(void)
-{
-    TIM_Cmd(TIM9, DISABLE);
-}
-
-void TIM1_BRK_TIM9_IRQHandler(void)
-{
-    // CH 1 CC interrupt - data line state change
-    if(READ_BIT(TIM9->SR, TIM_SR_CC1IF))
-    {
-        // input mode
-        if(READ_BIT(TIM9->CCMR1, TIM_CCMR1_CC2S))
-        {
-        }
-        else  // output mode
-        {
-        }
-    }
-    
-    // update interrupt - next bit transmittion
-    if(READ_BIT(TIM9->SR, TIM_SR_UIF))
-    {  /** @todo - decide how to stop timer */
-    }
-    TIM9->SR = 0;
-}
-
 
 /* TIM9 CH 1 functions ------------------------------------------------------ */
 
@@ -76,20 +51,46 @@ void TIM1_BRK_TIM9_IRQHandler(void)
  */
 void TIM9_CH_1_Start(uint16_t period)
 {
+    TIM9->CCR1 = period;
+    Turn_CH_1_On();
 }
 
 void TIM9_CH_1_Restart(void)
 {
+    Turn_CH_1_On();
 }
 
+void TIM9_CH_1_Stop(void)
+{
+    Turn_CH_1_Off();
+}
 
+/* 
+функции для изменения состояния выхода при передаче.
+форсить состояние - один из возможных вариантов, как работать с СС в режиме выхода
+*/
+/**
+  * @brief - forces CH 1 output to be high
+  */
+void TIM9_CH_1_Set_High(void)
+{
+}
+
+/**
+  * @brief - forces CH 1 output to be low
+  */
+void TIM9_CH_1_Set_Low(void)
+{
+}
+/*----------------------------------------------------------------------------*/
 
 void TIM9_CH_1_Set_Mode(uint8_t mode)
 {
-    CLEAR_BIT(TIM9->CCER, TIM_CCER_CC1E);       // turn CH off
+    Turn_CH_1_Off();
     
     /* change mode ---------------------------------------------------------- */
-    switch(mode){
+    switch(mode)
+    {
     case 0:  // set input capture
         SET_BIT(TIM9->CCMR1, TIM_CCMR1_CC1S_0);  // CH1 to input mode from TI1
         CLEAR_BIT(TIM9->CCER, TIM_CCER_CC1P);    // polarity high
@@ -98,6 +99,4 @@ void TIM9_CH_1_Set_Mode(uint8_t mode)
         CLEAR_BIT(TIM9->CCMR1, TIM_CCMR1_CC1S);
     }
     /* ---------------------------------------------------------------------- */
-    
-    SET_BIT(TIM9->CCER, TIM_CCER_CC1E);         // turn CH on
 }

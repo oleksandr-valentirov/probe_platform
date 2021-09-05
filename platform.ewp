@@ -364,6 +364,7 @@
                     <state>$PROJ_DIR$\Projects_Library\F4\Drivers\SystemClock</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Drivers\GPIO</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Drivers\timers</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Drivers\OneWire</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\SX1268</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\TemperatureSensorsAPI</state>
                 </option>
@@ -2388,7 +2389,7 @@
             </file>
         </group>
         <file>
-            <name>$PROJ_DIR$\Projects_Library\F3\!Project_Library.h</name>
+            <name>$PROJ_DIR$\Projects_Library\F3\!Project_library.h</name>
         </file>
         <file>
             <name>$PROJ_DIR$\Projects_Library\F3\main.c</name>
@@ -2471,6 +2472,15 @@
                 </file>
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\Drivers\GPIO\gpio.h</name>
+                </file>
+            </group>
+            <group>
+                <name>OneWire</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\OneWire\onewire.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\OneWire\onewire.h</name>
                 </file>
             </group>
             <group>

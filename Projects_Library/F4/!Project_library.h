@@ -32,23 +32,19 @@
 /* Includes ------------------------------------------------------------------*/
 #include <stdint.h>
 #include <stdbool.h>
+#include <string.h> 
 
 #include "stm32f4xx.h"
 #include "stm32f4xx_conf.h"
 
-/* User-defined code ---------------------------------------------------------*/
+/* Drivers -------------------------------------------------------------------*/
 #include "ADC.h"
 #include "USART.h"
 #include "SPI.h"
 #include "clock.h"
 #include "gpio.h"
 #include "timers.h"
-
-
-/* FreeRTOS includes -------------------------------------------------------- */
-//#include "FreeRTOS.h"
-//#include "croutine.h"
-//#include "task.h"
+#include "onewire.h"
 
 
 /* Modules -------------------------------------------------------------------*/
