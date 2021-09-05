@@ -1,10 +1,20 @@
 #include "onewire.h"
 
 
+#define SENSORS_CNT     2
+
+
 typedef struct {
     uint8_t tx_buf[10];
     uint8_t bits_coutner;
 } TxStruct;
+
+
+typedef struct {
+    uint16_t data;
+    uint8_t bits_coutner;
+} RxStruct;
+
     
 typedef enum {
     INIT = 0,
@@ -13,6 +23,11 @@ typedef enum {
 
 /* private variables ---------------------------------------------------------*/
 static TxStruct tx_struct;
+static RxStruct rx_struct;
+
+static uint8_t cur_sensor;
+static uint8_t sensors_addresses[8][SENSORS_CNT];
+static uint16_t sensors_data[SENSORS_CNT];
 
 /* private functions ---------------------------------------------------------*/
 
@@ -54,7 +69,7 @@ void Transmit_Bit(void)
     
     // starting Tx CH to send current 1st bit;
     uint8_t curr_buf_index = tx_struct.bits_coutner / 8;
-    (tx_struct.tx_buf[curr_buf_index] & 1) ? TIM9_CH_1_Start(10) : TIM9_CH_1_Start(100);  /** @todo - заменить цифры */
+    (tx_struct.tx_buf[curr_buf_index] & 1) ? TIM9_CH_1_Start(10) : TIM9_CH_1_Start(30);  // 10 us to transmit 1 and 30 us to transmit 0
     
     // shifting buffer
     tx_struct.tx_buf[curr_buf_index] = tx_struct.tx_buf[curr_buf_index] >> 1;
@@ -78,6 +93,23 @@ void Start_Transaction(uint8_t *data_ptr, uint8_t size)
     TIM9_CH_1_Set_Mode(1);
 }
 
+void OneWire_Init(void)
+{
+    // Tx struct init
+    tx_struct.bits_coutner = 0;
+    memset(tx_struct.tx_buf, 0, 10);
+    // Rx struct init
+    rx_struct.bits_coutner = 0;
+    rx_struct.data = 0;
+}
+
 void OneWire_Main(void)
 {
+    if ((tx_struct.bits_coutner != 0) || (rx_struct.bits_coutner != 0))
+        return;
+    
+    
 }
+
+
+

@@ -18,6 +18,8 @@ void Receive_Bit(void);
 void Start_Transaction(uint8_t *data_ptr, uint8_t size);
 void Reset(void);
 void Send_Cmd(ROM_Cmd cmd);
+
+void OneWire_Init(void);
 void OneWire_Main(void);
 
 #endif
