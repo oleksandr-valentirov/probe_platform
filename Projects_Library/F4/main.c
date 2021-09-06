@@ -16,8 +16,8 @@ void main(void)
      __enable_irq();
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
     TIM9_Init();
-    TIM9_CH_1_Set_Mode(0);
-    TIM9_CH_1_Restart();
+    TIM9_CH_1_Set_Mode(1);
+    TIM9_CH_1_Start(15);
     TIM9_Start(60);
     
     // инициализация переферии

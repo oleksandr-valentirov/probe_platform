@@ -161,7 +161,7 @@ void TIM1_BRK_TIM9_IRQHandler(void)
     if(READ_BIT(TIM9->SR, TIM_SR_CC1IF))
     {
         // input mode
-        if(READ_BIT(TIM9->CCMR1, TIM_CCMR1_CC2S))
+        if(READ_BIT(TIM9->CCMR1, TIM_CCMR1_CC1S))
         {
         }
         // output mode
