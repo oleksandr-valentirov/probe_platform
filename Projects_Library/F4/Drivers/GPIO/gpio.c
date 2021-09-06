@@ -107,5 +107,5 @@ static void OneWire_Pin_Init(void)
     
     CLEAR_BIT(GPIOA->ODR, GPIO_Pin_2);
     
-    GPIO_PinAFConfig(GPIOA, GPIO_PinSource3, GPIO_AF_TIM9);
+    GPIO_PinAFConfig(GPIOA, GPIO_PinSource2, GPIO_AF_TIM9);
 }
