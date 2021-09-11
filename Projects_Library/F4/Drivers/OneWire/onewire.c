@@ -34,7 +34,6 @@ static uint8_t sensors_addresses[8][SENSORS_CNT];
 static uint16_t sensors_data[SENSORS_CNT];
 
 /* private functions ---------------------------------------------------------*/
-static void Pull_CH_1_Up(void);
 static void Pull_CH_1_Down(void);
 static void Pull_CH_1_NoPull(void);
 
@@ -62,6 +61,8 @@ void Send_Cmd(ROM_Cmd cmd)
 
 void Reset(void)
 {
+    Pull_CH_1_Down();
+    TIM9_Start(480);  // 480 us 
 }
 
 /**
@@ -75,12 +76,11 @@ void Transmit_Bit(void)
     Pull_CH_1_Down();
     
     // starting Tx CH to send current 1st bit;
-    uint8_t curr_buf_index = tx_struct.bits_counter / 8;
+    uint8_t curr_buf_index = --tx_struct.bits_counter / 8;
     (tx_struct.tx_buf[curr_buf_index] & 1) ? TIM9_CH_1_Start(10) : TIM9_CH_1_Start(30);  // 10 us to transmit 1 and 30 us to transmit 0
     
     // shifting buffer
     tx_struct.tx_buf[curr_buf_index] = tx_struct.tx_buf[curr_buf_index] >> 1;
-    tx_struct.bits_counter--;
 }
     
 /**
@@ -131,7 +131,7 @@ void OneWire_Main(void)
 }
 
 
-static void Pull_CH_1_Up(void)
+void Pull_CH_1_Up(void)
 {
     CLEAR_BIT(GPIOA->PUPDR, 32);
     SET_BIT(GPIOA->PUPDR, 16);

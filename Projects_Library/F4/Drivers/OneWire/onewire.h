@@ -21,5 +21,7 @@ void Send_Cmd(ROM_Cmd cmd);
 
 void OneWire_Init(void);
 void OneWire_Main(void);
+void Pull_CH_1_Up(void);
+
 
 #endif
