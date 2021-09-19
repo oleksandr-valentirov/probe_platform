@@ -1,10 +1,6 @@
 #include "timers.h"
 
 
-#define Turn_CH_1_On()          SET_BIT(TIM9->CCER, TIM_CCER_CC1E)
-#define Turn_CH_1_Off()         CLEAR_BIT(TIM9->CCER, TIM_CCER_CC1E)
-
-
 
 
 /* TIM9 general functions --------------------------------------------------- */
@@ -14,15 +10,17 @@ void TIM9_Init(void)
     
     // basic init
     TIM_TimeBaseInitTypeDef tim;
-    tim.TIM_Prescaler = (SystemCoreClock / 1000000) - 1;        // 1 us == 1 count
+    tim.TIM_Prescaler = 95;        // 1 us == 1 count
     tim.TIM_ClockDivision = TIM_CKD_DIV1;                       // relates to filters
     tim.TIM_CounterMode = TIM_CounterMode_Up;
     tim.TIM_RepetitionCounter = 0;                      // is used only in TIM1 and TIM 8
     tim.TIM_Period = 0;                                 // measured in us.
     TIM_TimeBaseInit(TIM9, &tim);
+    
+    TIM_SelectOnePulseMode(TIM9, TIM_OPMode_Single);
 
     // CH 1 init to be transmitter/receiver
-    SET_BIT(TIM9->CCER, TIM_CCER_CC1E);                 // enables capture/compare mode
+//    SET_BIT(TIM9->CCER, TIM_CCER_CC1E);                 // enables capture/compare mode
     
     // interrupts
     SET_BIT(TIM9->CR1, TIM_CR1_URS);                    // запрет на генерацию ивента обновления
@@ -40,6 +38,11 @@ void TIM9_Start(uint16_t period)
 {
     TIM9->ARR = period;
     TIM_Cmd(TIM9, ENABLE);
+}
+
+bool TIM9_Is_Busy(void)
+{
+    return READ_BIT(TIM9->CR1, TIM_CR1_CEN);
 }
 
 
@@ -87,15 +90,22 @@ void TIM9_CH_1_Set_Low(void)
 void TIM9_CH_1_Set_Mode(uint8_t mode)
 {
     Turn_CH_1_Off();
-    
+    StateType state = Get_Current_State();
+
     /* change mode ---------------------------------------------------------- */
     switch(mode)
     {
     case 0:  // set input capture
+        Data_Line_Set_AF();
         SET_BIT(TIM9->CCMR1, TIM_CCMR1_CC1S_0);  // CH1 to input mode from TI1
-        CLEAR_BIT(TIM9->CCER, TIM_CCER_CC1P);    // polarity high
+        if(state != INIT)
+            CLEAR_BIT(TIM9->CCER, TIM_CCER_CC1P);    // polarity high
+        else
+            SET_BIT(TIM9->CCER, TIM_CCER_CC1P);      // polarity low
+        Turn_CH_1_On();
         break;
     case 1:  // set output compare
+        Data_Line_Set_Out();
         CLEAR_BIT(TIM9->CCMR1, TIM_CCMR1_CC1S);
     }
     /* ---------------------------------------------------------------------- */

@@ -15,29 +15,83 @@ typedef struct {
     uint8_t bits_counter;
 } RxStruct;
 
-    
-typedef enum {
-    INIT,
-    READ,
-    ROMCOM,
-    FUNCCOM
-}StateType;
-
 
 /* private variables ---------------------------------------------------------*/
 static TxStruct tx_struct;
 static RxStruct rx_struct;
-static StateType state;
+static StateType state = INIT;
+static uint8_t status_flags = 0;
 
-static uint8_t cur_sensor;
+static uint8_t cur_sensor = 0;
 static uint8_t sensors_addresses[8][SENSORS_CNT];
 static uint16_t sensors_data[SENSORS_CNT];
 
 /* private functions ---------------------------------------------------------*/
-static void Pull_CH_1_Down(void);
-static void Pull_CH_1_NoPull(void);
+static uint8_t Invert(uint8_t x);
 
 
+
+
+// ---------------------------------- SysTick timer
+
+static uint32_t ticks_delay = 0;
+void turn_off_systick(void);
+
+void delay_ms(uint32_t milliseconds) {
+	SysTick_Config(96000);
+
+	uint32_t start = ticks_delay;
+	while((ticks_delay - start) < milliseconds);
+	ticks_delay = 0;
+	turn_off_systick();
+}
+
+void delay_us(uint32_t microseconds) {
+	SysTick_Config(96);
+
+	uint32_t start = ticks_delay;
+	while((ticks_delay - start) < microseconds);
+	ticks_delay = 0;
+	turn_off_systick();
+}
+
+//void SysTick_Handler(void) {
+//	ticks_delay++;
+//}
+
+void turn_off_systick(void) {
+	CLEAR_BIT(SysTick->CTRL, (SysTick_CTRL_CLKSOURCE_Msk |
+                   	   	   	  SysTick_CTRL_TICKINT_Msk   |
+							  SysTick_CTRL_ENABLE_Msk)
+			);
+}
+// -------------------------------------------------------
+
+
+
+
+/**
+  * @brief - func provides current state of state machine to external modules.
+  */
+StateType Get_Current_State(void)
+{
+    return state;
+}
+
+void Set_OneWire_Status(uint8_t mask)
+{
+    status_flags |= mask;
+}
+
+void Reset_OneWire_Status(uint8_t mask)
+{
+    CLEAR_BIT(status_flags, mask);
+}
+
+uint8_t Get_OneWire_Status(uint8_t mask)
+{
+    return status_flags & mask;
+}
 
 /**
   * @brief - appends CMD to Tx buffer
@@ -61,8 +115,11 @@ void Send_Cmd(ROM_Cmd cmd)
 
 void Reset(void)
 {
-    Pull_CH_1_Down();
-    TIM9_Start(480);  // 480 us 
+    TIM9_CH_1_Set_Mode(1);      // output-compare
+    Data_Line_Down();
+    TIM9_Start(920);            // 920 us 
+    TIM9_CH_1_Start(480);       // 480 us
+    Set_OneWire_Status(ONEWIRE_RESET_STATUS);
 }
 
 /**
@@ -71,36 +128,52 @@ void Reset(void)
 void Transmit_Bit(void)
 {
     if(tx_struct.bits_counter == 0)
+    {
+        for (uint8_t i = 0; i < 2; i++)
+        {
+            Data_Line_Set_Out();
+            Data_Line_Down();
+            for(uint8_t i = 0; i < 96; i++){}
+            Data_Line_Float();
+            for(uint16_t i = 0; i < (96 * 15); i++){}
+        }
         return;
+    }
     
-    Pull_CH_1_Down();
-    
+    TIM9_CH_1_Set_Mode(1);
+    Data_Line_Down();
+
     // starting Tx CH to send current 1st bit;
-    uint8_t curr_buf_index = --tx_struct.bits_counter / 8;
+    uint8_t curr_buf_index = (--tx_struct.bits_counter) / 8;
     (tx_struct.tx_buf[curr_buf_index] & 1) ? TIM9_CH_1_Start(10) : TIM9_CH_1_Start(30);  // 10 us to transmit 1 and 30 us to transmit 0
-    
+    TIM9_Start(60);
+
     // shifting buffer
     tx_struct.tx_buf[curr_buf_index] = tx_struct.tx_buf[curr_buf_index] >> 1;
 }
-    
+
 /**
   * @brief - receives next bit to Rx buffer, LSB first and shifts it
   */
 void Receive_Bit(void)
 {
-    Pull_CH_1_Down();
-    Pull_CH_1_NoPull();
+    if(TIM9_Is_Busy())  // сохранить текущий бит
+    {
+        // сохраняем, чтобы не похерить значение таймера, пока будем сравнивать
+        uint16_t temp = TIM9->CNT;
+        temp = (((1 < temp < 15) ? 128 : 0) << 8) + 128;
+        rx_struct.data = (rx_struct.data >> 1) | temp;
+    }
+    else                // начать приём следующего бита
+    {
+        TIM9_CH_1_Set_Mode(1);
+        Data_Line_Down();
+        
+        TIM9_CH_1_Start(2);
+        TIM9_Start(60);
+    }
 }
 
-
-void Start_Transaction(uint8_t *data_ptr, uint8_t size)
-{
-//    memcpy(tx_struct.tx_buf, data_ptr, size);
-//    tx_struct.bits_counter = size * 8;
-//    
-//    // timer setup
-//    TIM9_CH_1_Set_Mode(1);
-}
 
 void OneWire_Init(void)
 {
@@ -116,14 +189,49 @@ void OneWire_Init(void)
 
 void OneWire_Main(void)
 {
+    if (TIM9_Is_Busy())
+        return;
+
     if (state == INIT)
     {
+        if(!Get_OneWire_Status(ONEWIRE_RESET_STATUS))
+        {     // запускаем Reset
+            Reset();
+            return;
+        }
+        else if (Get_OneWire_Status(ONEWIRE_BUS_STATUS))  
+        {     // если есть Presence Pulse
+            state = ROMCOM;
+        }
+        Reset_OneWire_Status(ONEWIRE_RESET_STATUS);
     }
     else if (state == READ)
     {
     }
     else if (state == ROMCOM)
     {
+#if SENSORS_CNT > 1
+        if (!Get_OneWire_Status(ONEWIRE_SEARCH_ROM_STATUS))
+        {   // читаем адреса на старте девайса
+            tx_struct.tx_buf[0] = Search_ROM;
+            tx_struct.bits_counter = 8;
+//            state = READ;
+        }
+        else
+        {
+            tx_struct.tx_buf[8] = Match_ROM;
+            for(uint8_t i = 0; i < 8; i++)
+            {
+                tx_struct.tx_buf[7-i] = sensors_addresses[i][cur_sensor];
+            }
+            tx_struct.bits_counter = 72;
+//            state = FUNCCOM;
+        }
+#else
+        tx_struct.tx_buf[0] = Skip_ROM;
+        state = FUNCCOM;
+#endif
+        Transmit_Bit();
     }
     else if (state == FUNCCOM)
     {
@@ -131,21 +239,44 @@ void OneWire_Main(void)
 }
 
 
-void Pull_CH_1_Up(void)
+void Data_Line_Up(void)
 {
-    CLEAR_BIT(GPIOA->PUPDR, 32);
-    SET_BIT(GPIOA->PUPDR, 16);
+    GPIO_SetBits(GPIOA, GPIO_Pin_2);
 }
 
-static void Pull_CH_1_Down(void)
+void Data_Line_Down(void)
 {
-    CLEAR_BIT(GPIOA->PUPDR, 16);
-    SET_BIT(GPIOA->PUPDR, 32);
+    GPIO_ResetBits(GPIOA, GPIO_Pin_2);
 }
 
-static void Pull_CH_1_NoPull(void)
+void Data_Line_Float(void)
 {
-    CLEAR_BIT(GPIOA->PUPDR, 16);
-    CLEAR_BIT(GPIOA->PUPDR, 32);
+    CLEAR_BIT(GPIOA->MODER, GPIO_MODER_MODER2);
 }
 
+void Data_Line_Set_Out(void)
+{
+    CLEAR_BIT(GPIOA->MODER, GPIO_MODER_MODER2);
+    SET_BIT(GPIOA->MODER, GPIO_MODER_MODER2_0);
+}
+
+void Data_Line_Set_AF(void)
+{
+    CLEAR_BIT(GPIOA->MODER, GPIO_MODER_MODER2);
+    SET_BIT(GPIOA->MODER, GPIO_MODER_MODER2_1);
+}
+
+
+static uint8_t Invert(uint8_t x)
+{        
+    int base = 256;
+
+    uint8_t  res = 0;
+    while (x != 0) 
+    {
+        res += (x & 1) * (base >>= 1);
+        x >>= 1;
+    }
+
+    return res;
+}

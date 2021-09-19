@@ -1,6 +1,6 @@
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __ONEWIRE_H
-#define __ONEWIRE_H
+#ifndef __ONEWIRE_F4_H
+#define __ONEWIRE_F4_H
 
 #include "!Project_library.h"
 
@@ -13,15 +13,38 @@ typedef enum{
 } ROM_Cmd;
 
 
+typedef enum {
+    INIT,
+    READ,
+    ROMCOM,
+    FUNCCOM
+}StateType;
+        
+
+#define         ONEWIRE_RESET_STATUS            0x01
+#define         ONEWIRE_BUS_STATUS              0x02
+#define         ONEWIRE_SEARCH_ROM_STATUS       0x04
+#define         ONEWIRE_CONVERT_T_STATUS        0x08    
+
+
 void Transmit_Bit(void);
 void Receive_Bit(void);
-void Start_Transaction(uint8_t *data_ptr, uint8_t size);
+void OneWire_ReadWrite(void);
 void Reset(void);
 void Send_Cmd(ROM_Cmd cmd);
 
+StateType Get_Current_State(void);
+
+void Set_OneWire_Status(uint8_t mask);
+void Reset_OneWire_Status(uint8_t mask);
+uint8_t Get_OneWire_Status(uint8_t mask);
+
 void OneWire_Init(void);
 void OneWire_Main(void);
-void Pull_CH_1_Up(void);
-
+void Data_Line_Up(void);
+void Data_Line_Down(void);
+void Data_Line_Float(void);
+void Data_Line_Set_Out(void);
+void Data_Line_Set_AF(void);
 
 #endif

@@ -98,14 +98,12 @@ static void SPI_pins_init(void)
 static void OneWire_Pin_Init(void)
 {
     GPIO_InitTypeDef pin;
-    pin.GPIO_OType = GPIO_OType_PP;
+    pin.GPIO_OType = GPIO_OType_OD;
     pin.GPIO_PuPd = GPIO_PuPd_NOPULL;
-    pin.GPIO_Mode = GPIO_Mode_AF;
+    pin.GPIO_Mode = GPIO_Mode_OUT;
     pin.GPIO_Speed = GPIO_Low_Speed;
     pin.GPIO_Pin = GPIO_Pin_2;
     GPIO_Init(GPIOA, &pin);
-    
-    CLEAR_BIT(GPIOA->ODR, GPIO_Pin_2);
     
     GPIO_PinAFConfig(GPIOA, GPIO_PinSource2, GPIO_AF_TIM9);
 }

@@ -140,6 +140,7 @@ void PendSV_Handler(void)
   */
 void SysTick_Handler(void)
 {
+    asm("BKPT 0");
 //  TimingDelay_Decrement();
 }
 
@@ -157,27 +158,45 @@ void SysTick_Handler(void)
   */
 void TIM1_BRK_TIM9_IRQHandler(void)
 {
+    StateType state = Get_Current_State();
+
     // CH 1 CC interrupt - data line state change
     if(READ_BIT(TIM9->SR, TIM_SR_CC1IF))
     {
         // input mode
         if(READ_BIT(TIM9->CCMR1, TIM_CCMR1_CC1S))
         {
+            if (state == INIT)
+                Set_OneWire_Status(ONEWIRE_BUS_STATUS);
+            else
+            {
+                Receive_Bit();
+            }
         }
         // output mode
         else
         {
-            /* 
-            при сработке нужно держать выход активным до переполнения
-            и начала передачи следующего бита
-            */
+            Data_Line_Up();
+            if (state == INIT || state == READ)
+            {
+                TIM9_CH_1_Set_Mode(0);  // switch to input
+                Data_Line_Set_AF();
+            }
         }
     }
     
     // update interrupt - next bit transmittion
     if(READ_BIT(TIM9->SR, TIM_SR_UIF))
     {
-        Transmit_Bit();
+        Data_Line_Up();
+        if (state == READ)
+        {
+            Receive_Bit();
+        }
+        else if (state != INIT)
+        {
+            Transmit_Bit();
+        }
     }
     TIM9->SR = 0;
 }
