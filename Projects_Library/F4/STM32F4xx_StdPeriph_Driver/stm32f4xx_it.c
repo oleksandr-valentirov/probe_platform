@@ -188,6 +188,7 @@ void TIM1_BRK_TIM9_IRQHandler(void)
     // update interrupt - next bit transmittion
     if(READ_BIT(TIM9->SR, TIM_SR_UIF))
     {
+//        TIM_Cmd(TIM9, DISABLE);
         Data_Line_Up();
         if (state == READ)
         {

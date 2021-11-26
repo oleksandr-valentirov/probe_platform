@@ -17,13 +17,14 @@ void TIM9_Init(void)
     tim.TIM_Period = 0;                                 // measured in us.
     TIM_TimeBaseInit(TIM9, &tim);
     
-    TIM_SelectOnePulseMode(TIM9, TIM_OPMode_Single);
+    TIM_SelectOnePulseMode(TIM9, TIM_OPMode_Repetitive);
 
     // CH 1 init to be transmitter/receiver
 //    SET_BIT(TIM9->CCER, TIM_CCER_CC1E);                 // enables capture/compare mode
     
     // interrupts
-    SET_BIT(TIM9->CR1, TIM_CR1_URS);                    // запрет на генерацию ивента обновления
+    SET_BIT(TIM9->CR1, TIM_CR1_ARPE); 
+    //SET_BIT(TIM9->CR1, TIM_CR1_URS);                    // запрет на генерацию ивента обновления
     //                  * update IT    * capture/compare IT
     SET_BIT(TIM9->DIER, TIM_DIER_UIE | TIM_DIER_CC1IE);
     NVIC_EnableIRQ(TIM1_BRK_TIM9_IRQn);

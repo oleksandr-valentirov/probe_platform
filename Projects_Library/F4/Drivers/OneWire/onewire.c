@@ -1,7 +1,7 @@
 #include "onewire.h"
 
 
-#define SENSORS_CNT     2
+#define SENSORS_CNT     1
 
 
 typedef struct {
@@ -11,9 +11,17 @@ typedef struct {
 
 
 typedef struct {
-    uint16_t data;
+    uint8_t data[9];
     uint8_t bits_counter;
 } RxStruct;
+
+
+typedef struct {
+    uint8_t address[8];
+    uint16_t last_temp;
+    bool is_available;
+    uint8_t scratchpad[9];
+} DS18x20;
 
 
 /* private variables ---------------------------------------------------------*/
@@ -23,51 +31,37 @@ static StateType state = INIT;
 static uint8_t status_flags = 0;
 
 static uint8_t cur_sensor = 0;
-static uint8_t sensors_addresses[8][SENSORS_CNT];
-static uint16_t sensors_data[SENSORS_CNT];
+static uint8_t *cur_dest = NULL;   // временный поинтер для упрощения разработки
+static DS18x20 sensors[SENSORS_CNT];
+
+static uint16_t values[16] = {0};
+static uint8_t counter = 0;
 
 /* private functions ---------------------------------------------------------*/
-static uint8_t Invert(uint8_t x);
+static bool OneWire_Is_Busy(void);
 
 
-
-
-// ---------------------------------- SysTick timer
-
-static uint32_t ticks_delay = 0;
-void turn_off_systick(void);
-
-void delay_ms(uint32_t milliseconds) {
-	SysTick_Config(96000);
-
-	uint32_t start = ticks_delay;
-	while((ticks_delay - start) < milliseconds);
-	ticks_delay = 0;
-	turn_off_systick();
+/* Read functions ------------------------------------------------------------*/
+/**
+  * @brief читаем все 9 байт
+  */
+void Read_ScratchPad(void)
+{
+    cur_dest = sensors[cur_sensor].scratchpad;
+    rx_struct.bits_counter = 72;
 }
 
-void delay_us(uint32_t microseconds) {
-	SysTick_Config(96);
-
-	uint32_t start = ticks_delay;
-	while((ticks_delay - start) < microseconds);
-	ticks_delay = 0;
-	turn_off_systick();
+/**
+  * @brief читаем только 2 первых байта
+  */
+void Read_Temperature(void)
+{
+    cur_dest = sensors[cur_sensor].scratchpad;
+    rx_struct.bits_counter = 16;
 }
 
-//void SysTick_Handler(void) {
-//	ticks_delay++;
-//}
-
-void turn_off_systick(void) {
-	CLEAR_BIT(SysTick->CTRL, (SysTick_CTRL_CLKSOURCE_Msk |
-                   	   	   	  SysTick_CTRL_TICKINT_Msk   |
-							  SysTick_CTRL_ENABLE_Msk)
-			);
-}
-// -------------------------------------------------------
-
-
+// -----------------------------------------------------------------------------
+// -----------------------------------------------------------------------------
 
 
 /**
@@ -76,6 +70,11 @@ void turn_off_systick(void) {
 StateType Get_Current_State(void)
 {
     return state;
+}
+
+void Set_OneWire_Init_State(void)
+{
+    state = INIT;
 }
 
 void Set_OneWire_Status(uint8_t mask)
@@ -91,26 +90,6 @@ void Reset_OneWire_Status(uint8_t mask)
 uint8_t Get_OneWire_Status(uint8_t mask)
 {
     return status_flags & mask;
-}
-
-/**
-  * @brief - appends CMD to Tx buffer
-  */
-void Send_Cmd(ROM_Cmd cmd)
-{   
-    switch(cmd)
-    {
-    case Search_ROM:
-        break;
-    case Read_ROM:
-        break;
-    case Match_ROM:
-        break;
-    case Skip_ROM:
-        break;
-    default:
-        return;
-    }
 }
 
 void Reset(void)
@@ -129,13 +108,18 @@ void Transmit_Bit(void)
 {
     if(tx_struct.bits_counter == 0)
     {
-        for (uint8_t i = 0; i < 2; i++)
+        Reset_OneWire_Status(ONEWIRE_BUSY_STATUS);
+        switch (state)
         {
-            Data_Line_Set_Out();
-            Data_Line_Down();
-            for(uint8_t i = 0; i < 96; i++){}
-            Data_Line_Float();
-            for(uint16_t i = 0; i < (96 * 15); i++){}
+        case ROMCOM:
+            state = FUNCCOM;
+            break;
+        case FUNCCOM:
+            if (status_flags & ONEWIRE_READ_SCR_STATUS)
+                state = READ;
+            break;
+        default:
+            state = INIT;
         }
         return;
     }
@@ -145,31 +129,43 @@ void Transmit_Bit(void)
 
     // starting Tx CH to send current 1st bit;
     uint8_t curr_buf_index = (--tx_struct.bits_counter) / 8;
-    (tx_struct.tx_buf[curr_buf_index] & 1) ? TIM9_CH_1_Start(10) : TIM9_CH_1_Start(30);  // 10 us to transmit 1 and 30 us to transmit 0
-    TIM9_Start(60);
-
+    (tx_struct.tx_buf[curr_buf_index] & 1) ? TIM9_CH_1_Start(7) : TIM9_CH_1_Start(30);  // 10 us to transmit 1 and 30 us to transmit 0
     // shifting buffer
     tx_struct.tx_buf[curr_buf_index] = tx_struct.tx_buf[curr_buf_index] >> 1;
+    TIM9_Start(60);
 }
+
 
 /**
   * @brief - receives next bit to Rx buffer, LSB first and shifts it
   */
 void Receive_Bit(void)
 {
-    if(TIM9_Is_Busy())  // сохранить текущий бит
+    if(READ_BIT(TIM9->SR, TIM_SR_CC1IF))  // сохранить текущий бит
     {
-        // сохраняем, чтобы не похерить значение таймера, пока будем сравнивать
-        uint16_t temp = TIM9->CNT;
-        temp = (((1 < temp < 15) ? 128 : 0) << 8) + 128;
-        rx_struct.data = (rx_struct.data >> 1) | temp;
+        values[counter++] = TIM9->CNT;
+        
+        uint8_t curr_buf_index = (rx_struct.bits_counter) / 8;
+        uint8_t temp = (TIM9->CCR1 <= 15) ? 128 : 0;
+        rx_struct.data[curr_buf_index] = (rx_struct.data[curr_buf_index] >> 1) | temp;
+    }
+    else if (rx_struct.bits_counter == 0)
+    {
+        counter = 0;
+        memset(values, 0, 32);
+        
+        Reset_OneWire_Status(ONEWIRE_BUSY_STATUS | ONEWIRE_RESET_STATUS | ONEWIRE_BUS_STATUS | ONEWIRE_READ_SCR_STATUS);
+        state = INIT;
+        cur_dest = rx_struct.data;
     }
     else                // начать приём следующего бита
     {
+        rx_struct.bits_counter--;
+
         TIM9_CH_1_Set_Mode(1);
         Data_Line_Down();
-        
-        TIM9_CH_1_Start(2);
+
+        TIM9_CH_1_Start(1);
         TIM9_Start(60);
     }
 }
@@ -182,14 +178,14 @@ void OneWire_Init(void)
     memset(tx_struct.tx_buf, 0, 10);
     // Rx struct init
     rx_struct.bits_counter = 0;
-    rx_struct.data = 0;
+    memset(rx_struct.data, 0, 10);
     
     state = INIT;
 }
 
 void OneWire_Main(void)
 {
-    if (TIM9_Is_Busy())
+    if (OneWire_Is_Busy())
         return;
 
     if (state == INIT)
@@ -207,34 +203,52 @@ void OneWire_Main(void)
     }
     else if (state == READ)
     {
+        Receive_Bit();
     }
     else if (state == ROMCOM)
     {
 #if SENSORS_CNT > 1
-        if (!Get_OneWire_Status(ONEWIRE_SEARCH_ROM_STATUS))
-        {   // читаем адреса на старте девайса
-            tx_struct.tx_buf[0] = Search_ROM;
-            tx_struct.bits_counter = 8;
-//            state = READ;
-        }
-        else
+        if (Get_OneWire_Status(ONEWIRE_SEARCH_ROM_STATUS))
         {
             tx_struct.tx_buf[8] = Match_ROM;
             for(uint8_t i = 0; i < 8; i++)
             {
-                tx_struct.tx_buf[7-i] = sensors_addresses[i][cur_sensor];
+                tx_struct.tx_buf[7-i] = sensors[cur_sensor].address[i];
             }
             tx_struct.bits_counter = 72;
-//            state = FUNCCOM;
+            state = FUNCCOM;
+        }
+        else
+        {   // читаем адреса на старте девайса
+            tx_struct.tx_buf[0] = Search_ROM;
+            tx_struct.bits_counter = 8;
+            rx_struct.bits_counter = 8;
+            state = READ;
         }
 #else
         tx_struct.tx_buf[0] = Skip_ROM;
-        state = FUNCCOM;
+        tx_struct.bits_counter = 8;
 #endif
+        Set_OneWire_Status(ONEWIRE_BUSY_STATUS);
         Transmit_Bit();
     }
     else if (state == FUNCCOM)
     {
+        if (Get_OneWire_Status(ONEWIRE_CONVERT_T_STATUS))
+        {
+            tx_struct.tx_buf[0] = Read_SCR;
+            tx_struct.bits_counter = 8;
+            Read_Temperature();
+            Set_OneWire_Status(ONEWIRE_READ_SCR_STATUS);
+        }
+        else
+        {
+            tx_struct.tx_buf[0] = Conv_T;
+            tx_struct.bits_counter = 8;
+            Set_OneWire_Status(ONEWIRE_CONVERT_T_STATUS);
+        }
+        Set_OneWire_Status(ONEWIRE_BUSY_STATUS);
+        Transmit_Bit();
     }
 }
 
@@ -267,16 +281,7 @@ void Data_Line_Set_AF(void)
 }
 
 
-static uint8_t Invert(uint8_t x)
-{        
-    int base = 256;
-
-    uint8_t  res = 0;
-    while (x != 0) 
-    {
-        res += (x & 1) * (base >>= 1);
-        x >>= 1;
-    }
-
-    return res;
+static bool OneWire_Is_Busy(void)
+{
+    return Get_OneWire_Status(ONEWIRE_BUSY_STATUS);
 }
