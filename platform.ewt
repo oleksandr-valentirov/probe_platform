@@ -2615,7 +2615,7 @@
             </file>
         </group>
         <file>
-            <name>$PROJ_DIR$\Projects_Library\F3\!Project_library.h</name>
+            <name>$PROJ_DIR$\Projects_Library\F3\!Project_Library.h</name>
         </file>
         <file>
             <name>$PROJ_DIR$\Projects_Library\F3\main.c</name>
@@ -2698,6 +2698,15 @@
                 </file>
             </group>
             <group>
+                <name>I2C</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\I2C\i2c.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\I2C\i2c.h</name>
+                </file>
+            </group>
+            <group>
                 <name>OneWire</name>
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\Drivers\OneWire\onewire.c</name>
@@ -2745,6 +2754,15 @@
         </group>
         <group>
             <name>Modules</name>
+            <group>
+                <name>SIM800L</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\SIM800L\sim.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\SIM800L\sim.h</name>
+                </file>
+            </group>
             <group>
                 <name>SX1268</name>
                 <file>

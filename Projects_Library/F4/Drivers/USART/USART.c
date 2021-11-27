@@ -1,6 +1,26 @@
 #include "USART.h"
 
 
+#define Set_Busy_Flag()         SET_BIT(flags, 1)
+#define Reset_Busy_Flag()       CLEAR_BIT(flags, 1)
+
+
+static struct usart_state {
+    void(*end_of_trancsaction_callback)(void);
+    uint8_t* ptr;
+    size_t counter;
+} state;
+
+/* Flags -------------------------------------------------------------------- */
+static uint8_t flags;
+
+uint8_t USART1_Get_Busy_Flag(void)
+{
+    return READ_BIT(flags, 1);
+}
+
+/* -------------------------------------------------------------------------- */
+
 /**
   * @brief      инициалиазция многофункционального USART
   * @retval     None
@@ -14,6 +34,74 @@ void USART1_Init(void)
     USART_InitTypeDef init;
     USART_StructInit(&init);
     USART_Init(USART1, &init);   
+}
+
+
+void USART1_Set_EndOfTransactionCallback(void(*f)(void))
+{
+    state.end_of_trancsaction_callback = f;
+}
+
+
+void USART1_Start_Transmission(void* source, size_t counter)
+{
+    if (USART1_Get_Busy_Flag() || source == NULL || counter == 0)
+    {
+        return;
+    }
+    state.ptr = (uint8_t*) source;
+    state.counter = counter;
+    Set_Busy_Flag();
+    
+    /* platform logic */
+}
+
+
+void USART1_Start_Reception(void* destination, size_t counter)
+{
+    if (USART1_Get_Busy_Flag() || destination == NULL || counter == 0)
+    {
+        return;
+    }
+    state.ptr = (uint8_t*) destination;
+    state.counter = counter;
+    Set_Busy_Flag();
+    
+    /* platform logic */
+}
+
+/**
+ * @brief       Returns next byte to interrupt routine
+ */
+void USART1_Transmit_Next_Byte(void)
+{
+    if (state.ptr == NULL || state.counter == 0)
+    {
+        return;
+    }
+    if (--state.counter == 0)
+    {
+        Reset_Busy_Flag();
+    }
+    
+    USART1->DR = *(++state.ptr);
+}
+
+
+/**
+ * @brief       Gets next byte from interrupt routine
+ */
+void USART1_Receive_Next_Byte(void)
+{
+    if (state.ptr == NULL || state.counter == 0)
+    {
+        return;
+    }
+    if (--state.counter == 0)
+    {
+        Reset_Busy_Flag();
+    }
+    *(++state.ptr) = USART1->DR;
 }
 
 
@@ -53,29 +141,3 @@ uint8_t USART1_ReceiveByte(uint8_t *dest)
     *dest = USART1->DR;
     return 0;
 }
-
-
-/**
-  * @brief      UART to RS422 interface
-  * @retval     None
-  */
-void USART2_Init(void)
-{
-    USART_DeInit(USART2);
-    RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
-    USART_Cmd(USART2, ENABLE);
-    
-    USART_InitTypeDef init;
-    USART_StructInit(&init);
-    USART_Init(USART2, &init);   
-}
-
-
-//void USART1_IRQHandler(void)
-//{
-//}
-//
-//
-//void USART2_IRQHandler(void)
-//{
-//}
