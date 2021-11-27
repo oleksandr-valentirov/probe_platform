@@ -45,11 +45,13 @@
 #include "gpio.h"
 #include "timers.h"
 #include "onewire.h"
+#include "i2c.h"
 
 
 /* Modules -------------------------------------------------------------------*/
 #include "sx126x.h"
 #include "temp_api.h"
+#include "sim.h"
 
 
 /* Exported types ------------------------------------------------------------*/

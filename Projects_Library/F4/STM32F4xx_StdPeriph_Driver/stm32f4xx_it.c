@@ -202,6 +202,11 @@ void TIM1_BRK_TIM9_IRQHandler(void)
     TIM9->SR = 0;
 }
 
+void I2C1_EV_IRQHandler(void)
+{
+    
+}
+
 /**
   * @brief  This function handles PPP interrupt request.
   * @param  None
