@@ -4,6 +4,6 @@
 
 #include "!Project_library.h"
 
-
+void Sim_SetReadyFlag(void);
 
 #endif

@@ -90,24 +90,4 @@ void TIM9_CH_1_Set_Low(void)
 
 void TIM9_CH_1_Set_Mode(uint8_t mode)
 {
-    Turn_CH_1_Off();
-    StateType state = Get_Current_State();
-
-    /* change mode ---------------------------------------------------------- */
-    switch(mode)
-    {
-    case 0:  // set input capture
-        Data_Line_Set_AF();
-        SET_BIT(TIM9->CCMR1, TIM_CCMR1_CC1S_0);  // CH1 to input mode from TI1
-        if(state != INIT)
-            CLEAR_BIT(TIM9->CCER, TIM_CCER_CC1P);    // polarity high
-        else
-            SET_BIT(TIM9->CCER, TIM_CCER_CC1P);      // polarity low
-        Turn_CH_1_On();
-        break;
-    case 1:  // set output compare
-        Data_Line_Set_Out();
-        CLEAR_BIT(TIM9->CCMR1, TIM_CCMR1_CC1S);
-    }
-    /* ---------------------------------------------------------------------- */
 }

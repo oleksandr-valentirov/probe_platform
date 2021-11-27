@@ -1,8 +1,6 @@
 #include "i2c.h"
 
-
-#define Set_Busy_Flag()         SET_BIT(flags, 1)
-#define Reset_Busy_Flag()       CLEAR_BIT(flags, 1)
+#define FLAG_BUSY               1
 
 
 static struct i2c_state {
@@ -11,7 +9,18 @@ static struct i2c_state {
     size_t counter;
 } state;
 
+/* Flags -------------------------------------------------------------------- */
 static uint8_t flags;
+
+#define Set_Busy_Flag()         SET_BIT(flags, FLAG_BUSY)
+#define Reset_Busy_Flag()       CLEAR_BIT(flags, FLAG_BUSY)
+#define Get_Busy_Flag()         READ_BIT(flags, FLAG_BUSY)
+
+uint8_t I2C_Get_Busy_Flag(void)
+{
+    return Get_Busy_Flag();
+}
+/* -------------------------------------------------------------------------- */
 
 
 void I2C_Reset(void)
@@ -42,15 +51,9 @@ void I2C_Call_EnfOfTransactionCallback(void)
 }
 
 
-uint8_t I2C_Get_Busy_Flag(void)
-{
-    return READ_BIT(flags, 1);
-}
-
-
 void I2C_Start_Transmission(void* source, size_t counter)
 {
-    if (I2C_Get_Busy_Flag() || source == NULL || counter == 0)
+    if (Get_Busy_Flag() || source == NULL || counter == 0)
     {
         return;
     }
@@ -64,7 +67,7 @@ void I2C_Start_Transmission(void* source, size_t counter)
 
 void I2C_Start_Reception(void* destination, size_t counter)
 {
-    if (I2C_Get_Busy_Flag() || destination == NULL || counter == 0)
+    if (Get_Busy_Flag() || destination == NULL || counter == 0)
     {
         return;
     }

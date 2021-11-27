@@ -2487,6 +2487,9 @@
             </group>
             <group>
                 <name>OneWire</name>
+                <excluded>
+                    <configuration>F4</configuration>
+                </excluded>
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\Drivers\OneWire\onewire.c</name>
                 </file>

@@ -1,8 +1,8 @@
 #include "USART.h"
 
+#define FLAG_BUSY               1
 
-#define Set_Busy_Flag()         SET_BIT(flags, 1)
-#define Reset_Busy_Flag()       CLEAR_BIT(flags, 1)
+#define CALLBACK_FUNC           &Sim_SetReadyFlag
 
 
 static struct usart_state {
@@ -14,11 +14,14 @@ static struct usart_state {
 /* Flags -------------------------------------------------------------------- */
 static uint8_t flags;
 
+#define Set_Busy_Flag()         SET_BIT(flags, FLAG_BUSY)
+#define Reset_Busy_Flag()       CLEAR_BIT(flags, FLAG_BUSY)
+#define Get_Busy_Flag()         READ_BIT(flags, FLAG_BUSY)
+
 uint8_t USART1_Get_Busy_Flag(void)
 {
-    return READ_BIT(flags, 1);
+    return Get_Busy_Flag();
 }
-
 /* -------------------------------------------------------------------------- */
 
 /**
@@ -33,19 +36,20 @@ void USART1_Init(void)
     
     USART_InitTypeDef init;
     USART_StructInit(&init);
-    USART_Init(USART1, &init);   
-}
-
-
-void USART1_Set_EndOfTransactionCallback(void(*f)(void))
-{
-    state.end_of_trancsaction_callback = f;
+    USART_Init(USART1, &init);
+    
+    // set callback
+#ifdef CALLBACK_FUNC
+    state.end_of_trancsaction_callback = CALLBACK_FUNC;
+#else
+    state.end_of_trancsaction_callback = NULL;
+#endif
 }
 
 
 void USART1_Start_Transmission(void* source, size_t counter)
 {
-    if (USART1_Get_Busy_Flag() || source == NULL || counter == 0)
+    if (Get_Busy_Flag() || source == NULL || counter == 0)
     {
         return;
     }
@@ -59,7 +63,7 @@ void USART1_Start_Transmission(void* source, size_t counter)
 
 void USART1_Start_Reception(void* destination, size_t counter)
 {
-    if (USART1_Get_Busy_Flag() || destination == NULL || counter == 0)
+    if (Get_Busy_Flag() || destination == NULL || counter == 0)
     {
         return;
     }

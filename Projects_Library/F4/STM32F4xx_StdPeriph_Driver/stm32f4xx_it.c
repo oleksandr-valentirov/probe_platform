@@ -158,53 +158,14 @@ void SysTick_Handler(void)
   */
 void TIM1_BRK_TIM9_IRQHandler(void)
 {
-    StateType state = Get_Current_State();
-
-    // CH 1 CC interrupt - data line state change
-    if(READ_BIT(TIM9->SR, TIM_SR_CC1IF))
-    {
-        // input mode
-        if(READ_BIT(TIM9->CCMR1, TIM_CCMR1_CC1S))
-        {
-            if (state == INIT)
-                Set_OneWire_Status(ONEWIRE_BUS_STATUS);
-            else
-            {
-                Receive_Bit();
-            }
-        }
-        // output mode
-        else
-        {
-            Data_Line_Up();
-            if (state == INIT || state == READ)
-            {
-                TIM9_CH_1_Set_Mode(0);  // switch to input
-                Data_Line_Set_AF();
-            }
-        }
-    }
-    
-    // update interrupt - next bit transmittion
-    if(READ_BIT(TIM9->SR, TIM_SR_UIF))
-    {
-//        TIM_Cmd(TIM9, DISABLE);
-        Data_Line_Up();
-        if (state == READ)
-        {
-            Receive_Bit();
-        }
-        else if (state != INIT)
-        {
-            Transmit_Bit();
-        }
-    }
-    TIM9->SR = 0;
 }
 
 void I2C1_EV_IRQHandler(void)
 {
-    
+}
+
+void USART1_IRQHandler(void)
+{
 }
 
 /**

@@ -9,41 +9,30 @@ const char *CMD_DST_NUM = "AT+CMGS=\"+380981153182\"\r\n";
 const char *CMD_SEND_MSG = "+CMGS: 37";
 
 static char buffer[128];
+
+/* Flags -------------------------------------------------------------------- */
 static uint8_t flags;
+
+#define SetReadyFlag()          SET_BIT(flags, FLAG_READY)
+#define GetReadyFlag()          READ_BIT(flags, FLAG_READY)
+
+uint8_t Sim_GetReadyFlag(void)
+{
+    return GetReadyFlag();
+}
+
+/**
+  * @brief - only for UART callback
+  */
+void Sim_SetReadyFlag(void)
+{
+    SetReadyFlag();
+}
+/* -------------------------------------------------------------------------- */
 
 
 void Sim_PolInit(void)
 {
-    uint8_t i;
-    uint8_t res = 0;
-    
-    uint8_t msg_len = 11;
-    for(i = 0; i < msg_len; i++)
-    {
-        while(!USART_GetFlagStatus(USART1, USART_FLAG_TXE)){}
-        USART1_SendByte(CMD_TXT_MSG_FMT[i]);
-    }
-    while(USART_GetFlagStatus(USART1, USART_FLAG_RXNE)){}
-    USART1_ReceiveByte(&res);
-    if (res != 0)
-    {
-        return;
-    }
-
-    
-    /** @todo - read num from call */
-    msg_len = 25;
-    for(i = 0; i < msg_len; i++)
-    {
-        while(!USART_GetFlagStatus(USART1, USART_FLAG_TXE)){}
-        USART1_SendByte(CMD_DST_NUM[i]);
-    }
-    while(USART_GetFlagStatus(USART1, USART_FLAG_RXNE)){}
-    USART1_ReceiveByte(&res);
-    if (res != 0)
-    {
-        return;
-    }
 }
 
 
@@ -55,6 +44,7 @@ void Sim_SendMsg(void)
 void Sim_ReceiveCall(void)
 {
 }
+
 
 void Sim_StateMachine(void)
 {

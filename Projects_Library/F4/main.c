@@ -13,9 +13,9 @@ void main(void)
 //    uint8_t rtc_res = RTC_Init();
     
     // инициализация переферии
-    TIM9_Init();
+//    TIM9_Init();
 //    ADC1_Init();
-//    USART1_Init();
+    USART1_Init();
 //    SPI3_Init();
     
     // прерывания
@@ -23,11 +23,9 @@ void main(void)
      __enable_irq(); 
     
     // инициализация модулей
-     OneWire_Init();
 //    LoRa_Init();
 
     while(1)
     {
-        OneWire_Main();
     }
 }

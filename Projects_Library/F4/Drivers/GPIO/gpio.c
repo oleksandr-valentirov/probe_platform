@@ -19,10 +19,6 @@ void MyGPIO_Init(void)
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
     
-    
-    OneWire_Pin_Init();
-
-    
 #ifdef MCO1
     GPIO_InitTypeDef mco_1;
     mco_1.GPIO_Pin = MCO1_PIN;
@@ -37,9 +33,9 @@ void MyGPIO_Init(void)
     USART_12_pins_init();
     SPI_pins_init();
     
-#ifdef __SX1268_H
-    LoRa_PinsInit();
-#endif
+//#ifdef __SX1268_H
+//    LoRa_PinsInit();
+//#endif
 }
 
 
@@ -92,6 +88,8 @@ static void SPI_pins_init(void)
 }
 
 
+#ifdef __ONEWIRE_F4_H
+#warning("ONEWIRE IS DECLARED")
 /**
  * @brief configs TIM9 CH 2 pin to AF mode
  */
@@ -107,3 +105,4 @@ static void OneWire_Pin_Init(void)
     
     GPIO_PinAFConfig(GPIOA, GPIO_PinSource2, GPIO_AF_TIM9);
 }
+#endif
