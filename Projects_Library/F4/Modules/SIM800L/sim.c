@@ -4,9 +4,9 @@
 #define FLAG_MSG_SENT           2
 #define FLAG_CALL_RECEIVED      4
 
-const char CMD_TXT_MSG_FMT = "AT+CMGF=1\r\n";
-const char CMD_DST_NUM = "AT+CMGS=\"+380981153182\"\r\n";
-const char CMD_SEND_MSG = "+CMGS: 37";
+const char *CMD_TXT_MSG_FMT = "AT+CMGF=1\r\n";
+const char *CMD_DST_NUM = "AT+CMGS=\"+380981153182\"\r\n";
+const char *CMD_SEND_MSG = "+CMGS: 37";
 
 static char buffer[128];
 static uint8_t flags;
