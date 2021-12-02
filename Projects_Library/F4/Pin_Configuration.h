@@ -42,10 +42,8 @@
 
 
 // USART 1
-#define USART_1_TX_PORT         GPIOA
+#define USART_1_PORT            GPIOA
 #define USART_1_TX_PIN          GPIO_Pin_9
-
-#define USART_1_RX_PORT         GPIOA
 #define USART_1_RX_PIN          GPIO_Pin_10
 
 
@@ -62,30 +60,42 @@
 /* -------------------------------------------------------------------------- */
 
 
+/* -------------------------------------------------------------------------- */
+/* SIM800C ------------------------------------------------------------------ */
+#define SIM_PWRKEY_PORT             GPIOA
+#define SIM_PWRKEY_PIN              GPIO_Pin_11
+
+#define SIM_STATUS_PORT             GPIOA
+#define SIM_STATUS_PIN              GPIO_Pin_12
+
+/* -------------------------------------------------------------------------- */
+/* -------------------------------------------------------------------------- */
+
+
 
 /* -------------------------------------------------------------------------- */
 /* LoRa --------------------------------------------------------------------- */
-#define LORA_TXEN_PORT          GPIOB
-#define LORA_TXEN_PIN           GPIO_Pin_8
-
-#define LORA_RXEN_PORT          GPIOB
-#define LORA_RXEN_PIN           GPIO_Pin_7
-
-#define LORA_DIO1_PORT          GPIOB
-#define LORA_DIO1_PIN           GPIO_Pin_12
-
-#define LORA_DIO2_PORT          GPIOB
-#define LORA_DIO2_PIN           GPIO_Pin_13
-
-#define LORA_BUSY_PORT          GPIOB
-#define LORA_BUSY_PIN           GPIO_Pin_15
-
-#define LORA_NRESET_PORT        GPIOB
-#define LORA_NRESET_PIN         GPIO_Pin_14
-
-#define LORA_SPI_NUMBER         SPI3
-#define LORA_SPI_CS_PORT        GPIOB
-#define LORA_SPI_CS_PIN         GPIO_Pin_6
+//#define LORA_TXEN_PORT          GPIOB
+//#define LORA_TXEN_PIN           GPIO_Pin_8
+//
+//#define LORA_RXEN_PORT          GPIOB
+//#define LORA_RXEN_PIN           GPIO_Pin_7
+//
+//#define LORA_DIO1_PORT          GPIOB
+//#define LORA_DIO1_PIN           GPIO_Pin_12
+//
+//#define LORA_DIO2_PORT          GPIOB
+//#define LORA_DIO2_PIN           GPIO_Pin_13
+//
+//#define LORA_BUSY_PORT          GPIOB
+//#define LORA_BUSY_PIN           GPIO_Pin_15
+//
+//#define LORA_NRESET_PORT        GPIOB
+//#define LORA_NRESET_PIN         GPIO_Pin_14
+//
+//#define LORA_SPI_NUMBER         SPI3
+//#define LORA_SPI_CS_PORT        GPIOB
+//#define LORA_SPI_CS_PIN         GPIO_Pin_6
 /* -------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------- */
 

@@ -227,6 +227,7 @@
                     <state>USE_STDPERIPH_DRIVER</state>
                     <state>STM32F411xE</state>
                     <state>USE_HSE_BYPASS</state>
+                    <state>USE_FULL_ASSERT</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -367,7 +368,7 @@
                     <state>$PROJ_DIR$\Projects_Library\F4\Drivers\OneWire</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Drivers\I2C</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\SX1268</state>
-                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\SIM800L</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\SIM800</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\TemperatureSensorsAPI</state>
                 </option>
                 <option>
@@ -2518,6 +2519,12 @@
             <group>
                 <name>timers</name>
                 <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\timers\systick.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\timers\systick.h</name>
+                </file>
+                <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\Drivers\timers\timers.c</name>
                 </file>
                 <file>
@@ -2527,26 +2534,29 @@
             <group>
                 <name>USART</name>
                 <file>
-                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\USART\USART.c</name>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\USART\USART1.c</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\USART\USART.h</name>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\USART\USART1.h</name>
                 </file>
             </group>
         </group>
         <group>
             <name>Modules</name>
             <group>
-                <name>SIM800L</name>
+                <name>SIM800</name>
                 <file>
-                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\SIM800L\sim.c</name>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\SIM800\sim.c</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\SIM800L\sim.h</name>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\SIM800\sim.h</name>
                 </file>
             </group>
             <group>
                 <name>SX1268</name>
+                <excluded>
+                    <configuration>F4</configuration>
+                </excluded>
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\Modules\SX1268\sx126x.c</name>
                 </file>

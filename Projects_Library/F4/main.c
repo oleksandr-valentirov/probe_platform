@@ -1,6 +1,12 @@
 #include "!Project_library.h"
 
-
+#ifdef USE_FULL_ASSERT
+void assert_failed(u8* file, u32 line)
+{ 
+//    printf("\r\nassert_failed(). file: %s, line: %ld\r\n", file, line );
+    while (1){}
+}
+#endif
 
 void main(void)
 {   
@@ -13,7 +19,7 @@ void main(void)
 //    uint8_t rtc_res = RTC_Init();
     
     // инициализация переферии
-//    TIM9_Init();
+    SysTick_Init();
 //    ADC1_Init();
     USART1_Init();
 //    SPI3_Init();
@@ -23,6 +29,7 @@ void main(void)
      __enable_irq(); 
     
     // инициализация модулей
+     Sim_Init();
 //    LoRa_Init();
 
     while(1)

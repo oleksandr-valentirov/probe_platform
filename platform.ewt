@@ -2736,6 +2736,12 @@
             <group>
                 <name>timers</name>
                 <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\timers\systick.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\timers\systick.h</name>
+                </file>
+                <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\Drivers\timers\timers.c</name>
                 </file>
                 <file>
@@ -2745,22 +2751,22 @@
             <group>
                 <name>USART</name>
                 <file>
-                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\USART\USART.c</name>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\USART\USART1.c</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\USART\USART.h</name>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\USART\USART1.h</name>
                 </file>
             </group>
         </group>
         <group>
             <name>Modules</name>
             <group>
-                <name>SIM800L</name>
+                <name>SIM800</name>
                 <file>
-                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\SIM800L\sim.c</name>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\SIM800\sim.c</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\SIM800L\sim.h</name>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\SIM800\sim.h</name>
                 </file>
             </group>
             <group>

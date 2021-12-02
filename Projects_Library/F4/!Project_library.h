@@ -39,17 +39,18 @@
 
 /* Drivers -------------------------------------------------------------------*/
 #include "ADC.h"
-#include "USART.h"
+#include "USART1.h"
 #include "SPI.h"
 #include "clock.h"
 #include "gpio.h"
 #include "timers.h"
 //#include "onewire.h"
 #include "i2c.h"
+#include "systick.h"
 
 
 /* Modules -------------------------------------------------------------------*/
-#include "sx126x.h"
+//#include "sx126x.h"
 #include "temp_api.h"
 #include "sim.h"
 

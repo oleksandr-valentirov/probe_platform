@@ -133,16 +133,6 @@ void PendSV_Handler(void)
 {
 }
 
-/**
-  * @brief  This function handles SysTick Handler.
-  * @param  None
-  * @retval None
-  */
-void SysTick_Handler(void)
-{
-    asm("BKPT 0");
-//  TimingDelay_Decrement();
-}
 
 /******************************************************************************/
 /*                 STM32F4xx Peripherals Interrupt Handlers                   */
@@ -166,6 +156,14 @@ void I2C1_EV_IRQHandler(void)
 
 void USART1_IRQHandler(void)
 {
+    if(READ_BIT(USART1->SR, USART_FLAG_RXNE))
+    {
+        USART1_Receive_Next_Byte();
+    }
+    if(READ_BIT(USART1->SR, USART_FLAG_TC))
+    {
+        USART1_Transmit_Next_Byte();
+    }   
 }
 
 /**
