@@ -109,7 +109,7 @@ void USART1_Receive_Next_Byte(void)
     uint8_t data = USART1->DR;
     switch (data)
     {
-    case '\r:
+    case '\r':
     case '\n':
         if (state.end_of_trancsaction_callback != NULL)
             state.end_of_trancsaction_callback();
