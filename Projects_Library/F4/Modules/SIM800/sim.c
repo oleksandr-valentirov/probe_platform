@@ -9,12 +9,16 @@ const char *CMD_SEND_MSG = "+CMGS: 37";
 
 /* response buffer */
 static char resp_buffer[128];
+static char number[15];
 static uint8_t pos = 0;
 
 
 /* state machine */
 static uint8_t state = SIM_ST_POWER_ON;
-static uint8_t cur_cmd = SIM_CMD_INIT;
+static int8_t cur_cmd = SIM_CMD_INIT;
+
+/* not needed when parsing 'shutdown' msgs*/
+static uint32_t last_heart_bit = 0;
 
 
 /* Flags -------------------------------------------------------------------- */
@@ -41,7 +45,7 @@ void Sim_EndOfTransaction(void)
     pos = 0;
 }
 
-static void FlyMode(FunctionalState state)
+void FlyMode(FunctionalState state)
 {
     assert_param(IS_FUNCTIONAL_STATE(state));
     
@@ -56,7 +60,7 @@ static void FlyMode(FunctionalState state)
 }
 
 
-static void Sim_SendAT(void)
+void Sim_SendAT(void)
 {
     ClearReadyFlag;
     cur_cmd = SIM_CMD_AT;
@@ -82,15 +86,10 @@ void Sim_CMD(FunctionalState state)
 }
 
 
-void Sim_Init(void)
-{   
-    ClearReadyFlag;
-    USART1_Start_Transmission(CMD_BASIC_CONF, strlen(CMD_BASIC_CONF));
-}
-
-
 void Sim_SendMsg(void)
 {
+    ClearReadyFlag;
+    cur_cmd = SIM_CMD_SMS;
 }
 
 
@@ -99,6 +98,10 @@ void Sim_ReceiveCall(void)
 }
 
 
+/**
+  * @brief - handles initialization and parses responses.
+  *          Should be called after each CMD response received.
+  */
 void Sim_StateMachine(void)
 {
     if(!READ_BIT(flags, FLAG_READY))
@@ -131,11 +134,13 @@ void Sim_StateMachine(void)
             {
                 /* interface is OK */
                 state = 2;
+                cur_cmd = SIM_CMD_NULL;
+                last_heart_bit = SysTick_GetCurrentClock();
             }
             else
             {
                 /* keep state, reset cmd */
-                cur_cmd = SIM_CMD_NULL;
+                cur_cmd = SIM_CMD_REP;
             }
         }
         else
@@ -146,8 +151,38 @@ void Sim_StateMachine(void)
     case 2:
         break;
     default:
+        /* response parser */
         switch(cur_cmd)
         {
+        case SIM_CMD_AT:
+            if(strncmp("0", resp_buffer, 1) == 0)
+            {
+                last_heart_bit = SysTick_GetCurrentClock();
+            }
+            else
+            {
+            }
+            break;
+        case SIM_CMD_SMS:  /* check that SMS was sent */
+            if(strncmp("0", resp_buffer, 1) == 0)
+            {
+                cur_cmd = SIM_CMD_NULL;
+            }
+            else
+            {
+            }
+            break;
+        case SIM_CMD_FLY:
+            break;
+        case SIM_CMD_NULL:
+            break;
+        default:
+            /* parse +CLIP and send SMS */
+            if(strncmp("+CLIP", resp_buffer, 5) == 0)
+            {
+                strncpy(number, resp_buffer+7, 15);
+            }
+            return;
         }
     }
 }

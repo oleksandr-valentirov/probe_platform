@@ -29,10 +29,10 @@ void main(void)
      __enable_irq(); 
     
     // инициализация модулей
-     Sim_Init();
 //    LoRa_Init();
 
     while(1)
     {
+        Sim_StateMachine();
     }
 }
