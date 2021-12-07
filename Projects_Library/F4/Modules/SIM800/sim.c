@@ -7,10 +7,51 @@ const char *CMD_DST_NUM = "AT+CMGS=\"+380981153182\"\n";
 const char *CMD_SEND_MSG = "+CMGS: 37";
 
 
+typedef enum {
+    AUTO_T,
+    AWAITED_T,
+    RESP_CODE_T
+} CMD_TYPE;
+
+typedef enum {
+    OK,
+    RING,
+    NO_CARRIER,
+    SIM_ERROR
+} RESP_CODE;
+
+
+const char *auto_responses[12] = {
+    "RDY",                      /*     Startup messages     */
+    "+CFUN",                    /* functionality indication */
+    "+CPIN",                    /*                          */
+    "Call Ready",               /*                          */
+    "SMS Ready",                /* ------------------------ */
+    
+
+    "+CLIP",                    /* number checker */
+    "+CMTE",                    /* incorrect temperature */
+    
+    "UNDER-VOLTAGE POWER DOWN", /* Power-down messages */
+    "NORMAL POWER DOWN",        /*                     */
+    "OVER-VOLTAGE POWER DOWN",  /* ------------------- */
+    
+    "UNDER-VOLTAGE WARNNING",   /* Power warnings */
+    "OVER-VOLTAGE WARNNING"
+};
+
+const char *resp_codes[4] = {
+    "0\r\n",            /* OK */
+    "2\r\n",            /* ring */
+    "3\r\n",            /* no carrier (ex. - call was canceled) */
+    "4\r\n"             /* error */
+};
+
 /* response buffer */
 static char resp_buffer[128];
 static char number[15];
 static uint8_t pos = 0;
+static uint8_t cmd_led = 0;
 
 
 /* state machine */
@@ -42,7 +83,7 @@ uint8_t Sim_GetStatusVal(void)
 void Sim_EndOfTransaction(void)
 {
     SetReadyFlag;
-    pos = 0;
+    cmd_led = 0;
 }
 
 void FlyMode(FunctionalState state)
@@ -50,13 +91,13 @@ void FlyMode(FunctionalState state)
     assert_param(IS_FUNCTIONAL_STATE(state));
     
     /* default mode */
-    char cmd[10] = "AT+CFUN=1\n";
+    char cmd[11] = "AT+CFUN=1\r\n";
     if(state)
     {
         cmd[8] = '4';
     }
     ClearReadyFlag;
-    USART1_Start_Transmission(cmd, 10);
+    USART1_Start_Transmission(cmd, 11);
 }
 
 
@@ -95,6 +136,27 @@ void Sim_SendMsg(void)
 
 void Sim_ReceiveCall(void)
 {
+}
+
+
+CMD_TYPE Sim_ClassifyResponse(char *cmd)
+{
+    uint8_t i;
+    for (i = 0; i < 12; i++)
+    {
+        if (strstr(cmd, auto_responses[i]) != NULL)
+        {
+            return AUTO_T;
+        }
+    }
+    for (i = 0; i < 3; i++)
+    {
+        if (strstr(cmd, resp_codes[i]) != NULL)
+        {
+            return RESP_CODE_T;
+        }
+    }
+    return AWAITED_T;
 }
 
 

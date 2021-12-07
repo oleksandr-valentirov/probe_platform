@@ -22,6 +22,9 @@
 #define SIM_CMD_FLY             3
 
 
+
+
+
 /* states ------------------------------------------------------------------- */
 #define SIM_ST_DEFAULT          -1
 #define SIM_ST_POWER_ON         0
