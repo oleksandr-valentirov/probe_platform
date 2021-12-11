@@ -62,11 +62,16 @@
 
 /* -------------------------------------------------------------------------- */
 /* SIM800C ------------------------------------------------------------------ */
-#define SIM_PWRKEY_PORT             GPIOA
-#define SIM_PWRKEY_PIN              GPIO_Pin_11
+#define SIM_PWRKEY_PORT         GPIOA
+#define SIM_PWRKEY_PIN          GPIO_Pin_11
 
-#define SIM_STATUS_PORT             GPIOA
-#define SIM_STATUS_PIN              GPIO_Pin_12
+#define SIM_STATUS_PORT         GPIOA
+#define SIM_STATUS_PIN          GPIO_Pin_12
+#define SIM_STATUS_EXTI         EXTI_Line12
+
+#define SIM_RI_PORT             GPIOA
+#define SIM_RI_PIN              GPIO_Pin_13
+#define SIM_RI_EXTI             EXTI_Line13
 
 /* -------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------- */

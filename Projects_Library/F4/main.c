@@ -23,13 +23,13 @@ void main(void)
 //    ADC1_Init();
     USART1_Init();
 //    SPI3_Init();
+    EXTI_DeInit();
     
     // прерывания
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
      __enable_irq(); 
     
-    // инициализация модулей
-//    LoRa_Init();
+    /* modules init */
 
     while(1)
     {

@@ -37,6 +37,8 @@ void Sim_putc(uint8_t c);
 /* SIM module status functions ---------------------------------------------- */
 void Sim_StateMachine(void);
 void Sim_CMD(FunctionalState state);
+void Sim_StatusEXTI_Enable(void);
+void Sim_RI_EXTICmd(FunctionalState state);
 /* -------------------------------------------------------------------------- */
 
 #endif

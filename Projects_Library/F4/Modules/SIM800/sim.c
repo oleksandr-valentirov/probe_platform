@@ -34,6 +34,26 @@ uint8_t Sim_GetReadyFlag(void)
 }
 /* -------------------------------------------------------------------------- */
 
+void Sim_StatusEXTI_Enable(void)
+{
+    EXTI_InitTypeDef exti;
+    exti.EXTI_Line = SIM_STATUS_EXTI;
+    exti.EXTI_Mode = EXTI_Mode_Event;
+    exti.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
+    exti.EXTI_LineCmd = ENABLE;
+    EXTI_Init(&exti);
+}
+
+void Sim_RI_EXTICmd(FunctionalState state)
+{
+    EXTI_InitTypeDef exti;
+    exti.EXTI_Line = SIM_RI_EXTI;
+    exti.EXTI_Mode = EXTI_Mode_Interrupt;
+    exti.EXTI_Trigger = EXTI_Trigger_Falling;
+    exti.EXTI_LineCmd = state;
+    EXTI_Init(&exti);
+}
+
 uint8_t Sim_GetStatusVal(void)
 {
     return READ_BIT(SIM_STATUS_PORT->IDR, SIM_STATUS_PIN);
@@ -78,6 +98,10 @@ void Sim_ToggleState(void)
 
 void Sim_CMD(FunctionalState state)
 {
+    /* should be called before module shut-down
+       because line fall will trigger an interrupt*/
+    Sim_RI_EXTICmd(state);
+    
     uint8_t status_val = Sim_GetStatusVal();
     if((state && !status_val) || (!state && status_val))
     {
