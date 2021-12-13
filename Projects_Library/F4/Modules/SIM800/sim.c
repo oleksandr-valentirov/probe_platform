@@ -7,10 +7,37 @@ const char *CMD_DST_NUM = "AT+CMGS=\"+380981153182\"\n";
 const char *CMD_SEND_MSG = "+CMGS: 37";
 
 
+const char *auto_responses[12] = {
+    "RDY",                      /*     Startup messages     */
+    "+CFUN",                    /* functionality indication */
+    "+CPIN",                    /*                          */
+    "Call Ready",               /*                          */
+    "SMS Ready",                /* ------------------------ */
+    
+
+    "+CLIP",                    /* number checker */
+    "+CMTE",                    /* incorrect temperature */
+    
+    "UNDER-VOLTAGE POWER DOWN", /* Power-down messages */
+    "NORMAL POWER DOWN",        /*                     */
+    "OVER-VOLTAGE POWER DOWN",  /* ------------------- */
+    
+    "UNDER-VOLTAGE WARNNING",   /* Power warnings */
+    "OVER-VOLTAGE WARNNING"
+};
+
+const char *resp_codes[4] = {
+    "0\r\n",            /* OK */
+    "2\r\n",            /* ring */
+    "3\r\n",            /* no carrier (ex. - call was canceled) */
+    "4\r\n"             /* error */
+};
+
 /* response buffer */
 static char resp_buffer[128];
 static char number[15];
 static uint8_t pos = 0;
+static uint8_t cmd_led = 0;
 
 
 /* state machine */
@@ -18,7 +45,8 @@ static uint8_t state = SIM_ST_POWER_ON;
 static int8_t cur_cmd = SIM_CMD_INIT;
 
 /* not needed when parsing 'shutdown' msgs*/
-static uint32_t last_heart_bit = 0;
+static unsigned int last_heart_bit = 0;
+static unsigned int ri_low_start = 0;
 
 
 /* Flags -------------------------------------------------------------------- */
@@ -33,6 +61,7 @@ uint8_t Sim_GetReadyFlag(void)
     return GetReadyFlag;
 }
 /* -------------------------------------------------------------------------- */
+
 
 void Sim_StatusEXTI_Enable(void)
 {
@@ -54,6 +83,16 @@ void Sim_RI_EXTICmd(FunctionalState state)
     EXTI_Init(&exti);
 }
 
+void Sim_RIEventStart(void)
+{
+    SysTick_SetSimTimeMs(120);
+}
+
+uint8_t Sim_GetRIFlag(void)
+{
+    return READ_BIT(flags, SIM_FLAG_RI);
+}
+
 uint8_t Sim_GetStatusVal(void)
 {
     return READ_BIT(SIM_STATUS_PORT->IDR, SIM_STATUS_PIN);
@@ -62,7 +101,7 @@ uint8_t Sim_GetStatusVal(void)
 void Sim_EndOfTransaction(void)
 {
     SetReadyFlag;
-    pos = 0;
+    cmd_led = 0;
 }
 
 void FlyMode(FunctionalState state)
@@ -70,13 +109,13 @@ void FlyMode(FunctionalState state)
     assert_param(IS_FUNCTIONAL_STATE(state));
     
     /* default mode */
-    char cmd[10] = "AT+CFUN=1\n";
+    char cmd[11] = "AT+CFUN=1\r\n";
     if(state)
     {
         cmd[8] = '4';
     }
     ClearReadyFlag;
-    USART1_Start_Transmission(cmd, 10);
+    USART1_Start_Transmission(cmd, 11);
 }
 
 
@@ -84,7 +123,7 @@ void Sim_SendAT(void)
 {
     ClearReadyFlag;
     cur_cmd = SIM_CMD_AT;
-    USART1_Start_Transmission("AT\n", 3);
+    USART1_Start_Transmission("AT\r\n", 4);
 }
 
 
@@ -119,97 +158,36 @@ void Sim_SendMsg(void)
 
 void Sim_ReceiveCall(void)
 {
+    char *clip_ptr = strstr(resp_buffer, auto_responses[5]);
+    for(uint8_t i = 0; i < 15; i++)
+    {
+        number[i] = clip_ptr[i + 7];
+    }
+    USART1_Start_Transmission("ATH\r\n", 5);
+//    SET_BIT(flags, SIM_FLAG_CALL);
 }
 
 
-/**
-  * @brief - handles initialization and parses responses.
-  *          Should be called after each CMD response received.
-  */
-void Sim_StateMachine(void)
+CMD_TYPE Sim_ClassifyResponse(char *cmd)
 {
-    if(!READ_BIT(flags, FLAG_READY))
+    uint8_t i;
+    for (i = 0; i < 12; i++)
     {
-        return;
-    }
-    
-    switch(state)
-    {
-    case SIM_ST_POWER_ON:
-        Sim_CMD(ENABLE);
-        if(Sim_GetStatusVal())
+        if (strstr(cmd, auto_responses[i]) != NULL)
         {
-            state = SIM_ST_I_CONFIG;
-        }
-        else
-        {
-            return;
-        }
-        SysTick_WaitTill(SysTick_GetCurrentClock() + 1);
-        if(strncmp("RDY", resp_buffer, 3) == 0)
-        {/* skip state 1 - no need to config SIM baud rate if RDY received*/
-            state++;
-            break;
-        }
-    case SIM_ST_I_CONFIG:
-        if(cur_cmd == SIM_CMD_AT)
-        {/* process response to AT cmd; repeat if needed */
-            if((strncmp("OK", resp_buffer, 2) == 0) || (strncmp("0", resp_buffer, 1) == 0))
-            {
-                /* interface is OK */
-                state = 2;
-                cur_cmd = SIM_CMD_NULL;
-                last_heart_bit = SysTick_GetCurrentClock();
-            }
-            else
-            {
-                /* keep state, reset cmd */
-                cur_cmd = SIM_CMD_REP;
-            }
-        }
-        else
-        {
-            Sim_SendAT();
-        }
-        break;
-    case 2:
-        break;
-    default:
-        /* response parser */
-        switch(cur_cmd)
-        {
-        case SIM_CMD_AT:
-            if(strncmp("0", resp_buffer, 1) == 0)
-            {
-                last_heart_bit = SysTick_GetCurrentClock();
-            }
-            else
-            {
-            }
-            break;
-        case SIM_CMD_SMS:  /* check that SMS was sent */
-            if(strncmp("0", resp_buffer, 1) == 0)
-            {
-                cur_cmd = SIM_CMD_NULL;
-            }
-            else
-            {
-            }
-            break;
-        case SIM_CMD_FLY:
-            break;
-        case SIM_CMD_NULL:
-            break;
-        default:
-            /* parse +CLIP and send SMS */
-            if(strncmp("+CLIP", resp_buffer, 5) == 0)
-            {
-                strncpy(number, resp_buffer+7, 15);
-            }
-            return;
+            return AUTO_T;
         }
     }
+    for (i = 0; i < 3; i++)
+    {
+        if (strstr(cmd, resp_codes[i]) != NULL)
+        {
+            return RESP_CODE_T;
+        }
+    }
+    return AWAITED_T;
 }
+
 
 void Sim_putc(uint8_t c)
 {

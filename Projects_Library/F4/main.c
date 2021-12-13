@@ -8,8 +8,9 @@ void assert_failed(u8* file, u32 line)
 }
 #endif
 
+
 void main(void)
-{   
+{
     // настройка тактирования и пинов
     uint8_t hse_res = HSE_Init();
     MyGPIO_Init();
@@ -33,6 +34,15 @@ void main(void)
 
     while(1)
     {
-        Sim_StateMachine();
+        if (Sim_GetRIFlag())
+        {
+            if (SysTick_GetSimTime() && !0)
+            {/* process call */
+            }
+            else
+            {/* process URC/SMS */            
+            }
+        }
+//        Sim_StateMachine();
     }
 }
