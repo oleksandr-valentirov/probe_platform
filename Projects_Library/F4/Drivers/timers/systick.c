@@ -3,6 +3,20 @@
 
 static unsigned int clock = 0;
 
+#ifdef __SIM_H
+static unsigned int sim_clock = 0;
+
+void SysTick_SetSimTimeMs(unsigned int time)
+{
+    sim_clock = time;
+}
+
+unsigned int SysTick_GetSimTime(void)
+{
+    return sim_clock;
+}
+#endif
+
 
 void SysTick_Init(void)
 {
@@ -31,4 +45,10 @@ void SysTick_WaitTill(unsigned int val)
 void SysTick_Handler(void)
 {
     clock++;
+    
+    #ifdef __SIM_H
+    if(sim_clock > 0) sim_clock--;
+    #endif
 }
+
+
