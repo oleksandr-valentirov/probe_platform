@@ -34,15 +34,13 @@ const char *resp_codes[4] = {
 };
 
 /* response buffer */
-static char resp_buffer[128];
+static char resp_buffer[SIM_RESP_BUF_SIZE];
+static char rd_buffer[SIM_RD_BUF_SIZE];
 static char number[15];
-static uint8_t pos = 0;
-static uint8_t cmd_led = 0;
+static uint8_t wr_pos = 0;
+static uint8_t rd_pos = 0;
 
-
-/* state machine */
-static uint8_t state = SIM_ST_POWER_ON;
-static int8_t cur_cmd = SIM_CMD_INIT;
+static void Sim_gets(void);
 
 /* not needed when parsing 'shutdown' msgs*/
 static unsigned int last_heart_bit = 0;
@@ -52,13 +50,19 @@ static unsigned int ri_low_start = 0;
 /* Flags -------------------------------------------------------------------- */
 static uint8_t flags;
 
-#define SetReadyFlag            SET_BIT(flags, FLAG_READY)
-#define GetReadyFlag            READ_BIT(flags, FLAG_READY)
-#define ClearReadyFlag          CLEAR_BIT(flags, FLAG_READY)
+#define SetReadyFlag            SET_BIT(flags, SIM_FLAG_READY)
+#define GetReadyFlag            READ_BIT(flags, SIM_FLAG_READY)
+#define ClearReadyFlag          CLEAR_BIT(flags, SIM_FLAG_READY)
+#define GetNLFlag               READ_BIT(flags, SIM_FLAG_NL)
 
 uint8_t Sim_GetReadyFlag(void)
 {
     return GetReadyFlag;
+}
+
+uint8_t Sim_GetNLFlag(void)
+{
+    return GetNLFlag;
 }
 /* -------------------------------------------------------------------------- */
 
@@ -101,7 +105,6 @@ uint8_t Sim_GetStatusVal(void)
 void Sim_EndOfTransaction(void)
 {
     SetReadyFlag;
-    cmd_led = 0;
 }
 
 void FlyMode(FunctionalState state)
@@ -122,7 +125,6 @@ void FlyMode(FunctionalState state)
 void Sim_SendAT(void)
 {
     ClearReadyFlag;
-    cur_cmd = SIM_CMD_AT;
     USART1_Start_Transmission("AT\r\n", 4);
 }
 
@@ -152,13 +154,15 @@ void Sim_CMD(FunctionalState state)
 void Sim_SendMsg(void)
 {
     ClearReadyFlag;
-    cur_cmd = SIM_CMD_SMS;
 }
 
 
 void Sim_ReceiveCall(void)
 {
-    char *clip_ptr = strstr(resp_buffer, auto_responses[5]);
+    Sim_gets();
+    if (rd_buffer[0] == '2') {Sim_gets();} /* skip RING msg */
+
+    char *clip_ptr = strstr(rd_buffer, auto_responses[5]);
     for(uint8_t i = 0; i < 15; i++)
     {
         number[i] = clip_ptr[i + 7];
@@ -168,29 +172,60 @@ void Sim_ReceiveCall(void)
 }
 
 
-CMD_TYPE Sim_ClassifyResponse(char *cmd)
+void Sim_ProcessLine(void)
 {
-    uint8_t i;
-    for (i = 0; i < 12; i++)
-    {
-        if (strstr(cmd, auto_responses[i]) != NULL)
-        {
-            return AUTO_T;
-        }
+    Sim_gets();
+    
+    /* process response codes */
+    if (rd_buffer[0] == '0')
+    {/* OK */
     }
-    for (i = 0; i < 3; i++)
-    {
-        if (strstr(cmd, resp_codes[i]) != NULL)
-        {
-            return RESP_CODE_T;
-        }
+    else if(rd_buffer[0] == '2')
+    {/* RING */
     }
-    return AWAITED_T;
+    else if (strcmp("RDY", rd_buffer) == 0)
+    {
+    }
+    else if (strcmp("Call Ready", rd_buffer) == 0)
+    {
+        SET_BIT(flags, SIM_FLAG_CALL_READY);
+    }
+    else if (strcmp("SMS Ready", rd_buffer) == 0)
+    {
+        SET_BIT(flags, SIM_FLAG_SMS_READY);
+    }
 }
 
 
+/* Circular buffer simple IO functions */
 void Sim_putc(uint8_t c)
 {
-    resp_buffer[pos++] = c;
-    pos &= SIM_BUF_MASK;
+    if (c == '\n')
+    {
+        SET_BIT(flags, SIM_FLAG_NL);
+    }
+    resp_buffer[wr_pos++] = c;
+    wr_pos &= SIM_RESP_BUF_MASK;
 }
+
+uint8_t Sim_getc(void)
+{
+    uint8_t c = resp_buffer[rd_pos++];
+    rd_pos &= SIM_RESP_BUF_MASK;
+    return c;
+}
+
+static void Sim_gets(void)
+{
+    uint8_t c = 0, i = 0;
+    for(i = 0; i < SIM_RD_BUF_SIZE; i++)
+    {
+        rd_buffer[i] = 0;
+    }
+    i = 0;
+    while ((c = Sim_getc() != '\n') || i < SIM_RD_BUF_SIZE)
+    {
+        rd_buffer[i++] = c;
+    }
+}
+/* -------------------------------------- */

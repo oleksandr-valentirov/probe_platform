@@ -5,12 +5,17 @@
 #include "!Project_library.h"
 
 
-#define FLAG_READY              1
-#define FLAG_INIT               2
-#define FLAG_ALIVE              4
-#define SIM_FLAG_RI             8       /* call was received */
+#define SIM_FLAG_READY          1  /* transmittion finished */
+#define SIM_FLAG_NL             2  /* new line received */
+#define SIM_FLAG_ALIVE          4
+#define SIM_FLAG_RI             8  /* call was received */
+#define SIM_FLAG_CALL_READY     16
+#define SIM_FLAG_SMS_READY      32
 
-#define SIM_BUF_MASK            127
+#define SIM_RESP_BUF_SIZE       128
+#define SIM_RESP_BUF_MASK       127
+#define SIM_RD_BUF_SIZE         64
+#define SUN_RD_BUF_MASK         63
 
 /* commands ----------------------------------------------------------------- */
 /* 2 non-processible CMDs */
@@ -22,19 +27,6 @@
 #define SIM_CMD_SMS             2
 #define SIM_CMD_FLY             3
 
-
-typedef enum {
-    AUTO_T,
-    AWAITED_T,
-    RESP_CODE_T
-} CMD_TYPE;
-
-typedef enum {
-    OK,
-    RING,
-    NO_CARRIER,
-    SIM_ERROR
-} RESP_CODE;
 
 typedef enum {
     SIM_RI_SHORT,
@@ -51,6 +43,7 @@ typedef enum {
 /* SIM module IO functions -------------------------------------------------- */
 void Sim_EndOfTransaction(void);
 void Sim_putc(uint8_t c);
+uint8_t Sim_getc(void);
 /* -------------------------------------------------------------------------- */
 
 
@@ -61,8 +54,18 @@ void Sim_RI_EXTICmd(FunctionalState state);
 /* -------------------------------------------------------------------------- */
 
 
+/* SIM module logic functions ----------------------------------------------- */
+void Sim_ReceiveCall(void);
+void Sim_SendMsg(void);
+void Sim_ProcessLine(void);
+
+
 /* RI */
 uint8_t Sim_GetRIFlag(void);
 void Sim_RIEventStart(void);
+
+/* Flags */
+uint8_t Sim_GetReadyFlag(void);
+uint8_t Sim_GetNLFlag(void);
 
 #endif

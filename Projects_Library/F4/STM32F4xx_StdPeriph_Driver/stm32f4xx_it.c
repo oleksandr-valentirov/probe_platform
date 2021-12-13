@@ -158,7 +158,7 @@ void USART1_IRQHandler(void)
 {
     if(READ_BIT(USART1->SR, USART_FLAG_RXNE))
     {
-        USART1_Receive_Next_Byte();
+        Sim_putc(USART1->DR);
     }
     if(READ_BIT(USART1->SR, USART_FLAG_TC))
     {
@@ -170,6 +170,8 @@ void EXTI15_10_IRQHandler(void)
 {
     if(EXTI_GetITStatus(SIM_RI_EXTI))
     {
+        EXTI_ClearITPendingBit(SIM_RI_EXTI);
+        SysTick_SetSimTimeMs(120);
     }
 }
 

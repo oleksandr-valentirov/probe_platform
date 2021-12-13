@@ -31,18 +31,34 @@ void main(void)
      __enable_irq(); 
     
     /* modules init */
+    Sim_StatusEXTI_Enable();
+    Sim_CMD(ENABLE);
 
     while(1)
     {
-        if (Sim_GetRIFlag())
+        if (EXTI_GetFlagStatus(SIM_STATUS_EXTI))
         {
-            if (SysTick_GetSimTime() && !0)
-            {/* process call */
+            EXTI_ClearFlag(SIM_STATUS_EXTI);
+            /* repot SIM module status change */
+        }
+
+        if (Sim_GetNLFlag())
+        {
+            if (Sim_GetRIFlag() && !SysTick_GetSimTime())
+            {
+                if (READ_BIT(SIM_RI_PORT->IDR, SIM_RI_PIN))
+                {/* process call */
+                    Sim_ReceiveCall();
+                }
+                else
+                {/* process URC/SMS */
+                    Sim_ProcessLine();
+                }
             }
-            else
-            {/* process URC/SMS */            
+            else if (!Sim_GetRIFlag())
+            {/* process regular CMD response */
+                Sim_ProcessLine();
             }
         }
-//        Sim_StateMachine();
     }
 }

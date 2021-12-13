@@ -10,7 +10,7 @@ void SysTick_WaitTill(unsigned int val);
 
 
 /* SIM800 */
-void SysTick_SetSimTimeMS(unsigned int time);
+void SysTick_SetSimTimeMs(unsigned int time);
 unsigned int SysTick_GetSimTime(void);
 
 #endif

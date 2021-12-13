@@ -66,18 +66,6 @@ void USART1_Start_Transmission(void* source, size_t counter)
 }
 
 
-//void USART1_Start_Reception(void)
-//{
-//    if (Get_Busy_Flag)
-//    {
-//        return;
-//    }
-//    Set_Busy_Flag;
-//    
-//    /* platform logic */
-//    USART1_Receive_Next_Byte();
-//}
-
 /**
  * @brief       Returns next byte to interrupt routine
  */
@@ -98,23 +86,6 @@ void USART1_Transmit_Next_Byte(void)
     }
     
     USART1->DR = *(state.ptr++);
-}
-
-
-/**
- * @brief       Gets next byte from interrupt routine
- */
-void USART1_Receive_Next_Byte(void)
-{
-    uint8_t data = USART1->DR;
-    switch (data)
-    {
-    case '\n':
-        if (state.end_of_trancsaction_callback != NULL)
-            state.end_of_trancsaction_callback();
-    default:
-        Sim_putc(data);
-    }
 }
 
 
