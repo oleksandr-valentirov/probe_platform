@@ -166,6 +166,13 @@ void USART1_IRQHandler(void)
     }   
 }
 
+void EXTI15_10_IRQHandler(void)
+{
+    if(EXTI_GetITStatus(SIM_RI_EXTI))
+    {
+    }
+}
+
 /**
   * @brief  This function handles PPP interrupt request.
   * @param  None
