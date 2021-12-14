@@ -11,6 +11,7 @@
 #define SIM_FLAG_RI             8  /* call was received */
 #define SIM_FLAG_CALL_READY     16
 #define SIM_FLAG_SMS_READY      32
+#define SIM_FLAG_CALL           64 /* number was fetched, ready to send SMS */
 
 #define SIM_RESP_BUF_SIZE       128
 #define SIM_RESP_BUF_MASK       127

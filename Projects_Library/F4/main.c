@@ -34,7 +34,10 @@ void main(void)
     
     /* modules init */
     Sim_StatusEXTI_Enable();
-    Sim_CMD(ENABLE);
+//    if (!READ_BIT(SIM_STATUS_PORT->IDR, SIM_STATUS_PIN))
+    {
+        Sim_CMD(ENABLE);
+    }
 
     while(1)
     {
@@ -46,25 +49,18 @@ void main(void)
 
         if (Sim_GetNLFlag())
         {
-            if (Sim_GetRIFlag() && !SysTick_GetSimTime() && Sim_OperationReady())
-            {
-                if (!READ_BIT(SIM_RI_PORT->IDR, SIM_RI_PIN))
-                {/* process call */
-                    Sim_ReceiveCall();
-                }
-                else
-                {/* process URC/SMS */
-                    Sim_ProcessLine();  /** @todo - think about this */
-                }
+            if (Sim_GetRIFlag() && !SysTick_GetSimTime() && !READ_BIT(SIM_RI_PORT->IDR, SIM_RI_PIN))
+            {/* process call */
+                Sim_ReceiveCall();
                 Sim_ClearRIFlag();
             }
-            else if (!Sim_OperationReady())
-            {
+            else if (Sim_GetRIFlag() && !SysTick_GetSimTime() && READ_BIT(SIM_RI_PORT->IDR, SIM_RI_PIN))
+            {/* process URS/SMS */
+                Sim_ProcessLine();
                 Sim_ClearRIFlag();
             }
-
-            if (!Sim_GetRIFlag())
-            {/* process regular CMD response*/
+            else
+            {/* process all other messages */
                 Sim_ProcessLine();
             }
         }

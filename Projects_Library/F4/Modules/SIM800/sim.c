@@ -99,8 +99,8 @@ void Sim_RI_EXTICmd(FunctionalState state)
 
 void Sim_RIEventStart(void)
 {
-    SET_BIT(flags, SIM_FLAG_RI);
     SysTick_SetSimTimeMs(120);
+    SET_BIT(flags, SIM_FLAG_RI);
 }
 
 uint8_t Sim_GetRIFlag(void)
@@ -172,7 +172,7 @@ void Sim_ReceiveCall(void)
 {
     Sim_gets();
     if (rd_buffer[0] == '2') 
-    { /* skip RING msg and what for +CLIP msg */
+    { /* skip RING msg and wait for +CLIP msg */
         while(Sim_GetNLFlag())
         Sim_gets();
     }
@@ -183,7 +183,7 @@ void Sim_ReceiveCall(void)
         number[i] = clip_ptr[i + 7];
     }
     USART1_Start_Transmission("ATH\r\n", 5);
-//    SET_BIT(flags, SIM_FLAG_CALL);
+    SET_BIT(flags, SIM_FLAG_CALL);
 }
 
 
