@@ -51,18 +51,19 @@ void USART1_Init(void)
 }
 
 
-void USART1_Start_Transmission(void* source, size_t counter)
+uint8_t USART1_Start_Transmission(void* source, size_t counter)
 {
     if (Get_Busy_Flag || source == NULL || counter == 0)
     {
-        return;
+        return 1;
     }
     state.ptr = (uint8_t*) source;
     state.counter = counter;
-//    Set_Busy_Flag;
+    Set_Busy_Flag;
     
     /* platform logic */
     USART1_Transmit_Next_Byte();
+    return 0;
 }
 
 
@@ -71,12 +72,12 @@ void USART1_Start_Transmission(void* source, size_t counter)
  */
 void USART1_Transmit_Next_Byte(void)
 {
-    if (state.ptr == NULL || state.counter == 0)
+    if (state.ptr == NULL)
     {
         USART_ClearITPendingBit(USART1, USART_IT_TC);
         return;
     }
-    if (state.counter-- == 0)
+    if (--state.counter == 0)
     {
         Reset_Busy_Flag;
         if (state.end_of_trancsaction_callback != NULL)

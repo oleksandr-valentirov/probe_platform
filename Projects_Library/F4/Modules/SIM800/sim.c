@@ -1,21 +1,10 @@
 #include  "sim.h"
 
 
-char CMD_BASIC_CONF[] = "ATE0V0+CMEE=1;&W\n";
-const char *CMD_TXT_MSG_FMT = "AT+CMGF=1\n";
-const char *CMD_DST_NUM = "AT+CMGS=\"+380981153182\"\n";
-const char *CMD_SEND_MSG = "+CMGS: 37";
 
+const char *auto_responses[7] = {
+    "+CFUN",                    /* functionality indication */    
 
-const char *auto_responses[12] = {
-    "RDY",                      /*     Startup messages     */
-    "+CFUN",                    /* functionality indication */
-    "+CPIN",                    /*                          */
-    "Call Ready",               /*                          */
-    "SMS Ready",                /* ------------------------ */
-    
-
-    "+CLIP",                    /* number checker */
     "+CMTE",                    /* incorrect temperature */
     
     "UNDER-VOLTAGE POWER DOWN", /* Power-down messages */
@@ -26,12 +15,6 @@ const char *auto_responses[12] = {
     "OVER-VOLTAGE WARNNING"
 };
 
-const char *resp_codes[4] = {
-    "0\r\n",            /* OK */
-    "2\r\n",            /* ring */
-    "3\r\n",            /* no carrier (ex. - call was canceled) */
-    "4\r\n"             /* error */
-};
 
 /* response buffer */
 static char resp_buffer[SIM_RESP_BUF_SIZE] = {0};
@@ -41,6 +24,8 @@ static uint8_t wr_pos = 0;
 static uint8_t rd_pos = 0;
 
 static void Sim_gets(void);
+
+static uint8_t next_cmd_num = 0;
 
 /* not needed when parsing 'shutdown' msgs*/
 static unsigned int last_heart_bit = 0;
@@ -54,6 +39,7 @@ static uint8_t flags = 0;
 #define GetReadyFlag            READ_BIT(flags, SIM_FLAG_READY)
 #define ClearReadyFlag          CLEAR_BIT(flags, SIM_FLAG_READY)
 #define GetNLFlag               READ_BIT(flags, SIM_FLAG_NL)
+#define GetCallFlag             READ_BIT(flags, SIM_FLAG_CALL)
 
 uint8_t Sim_GetReadyFlag(void)
 {
@@ -73,6 +59,16 @@ uint8_t Sim_OperationReady(void)
 void Sim_ClearRIFlag(void)
 {
     CLEAR_BIT(flags, SIM_FLAG_RI);
+}
+
+uint8_t Sim_GetCallFlag(void)
+{
+    return GetCallFlag;
+}
+
+void Sim_ClearCallFlag(void)
+{
+    CLEAR_BIT(flags, SIM_FLAG_CALL);
 }
 /* -------------------------------------------------------------------------- */
 
@@ -165,6 +161,16 @@ void Sim_CMD(FunctionalState state)
 void Sim_SendMsg(void)
 {
     ClearReadyFlag;
+    
+    char msg[72] = {0};
+    strncpy(msg, "AT+CMGS=", 8);
+    strncat(msg, number, 15);
+    strncat(msg, "\r", 1);
+    strncat(msg, "Programming, motherfucker! Do you speak it ?!", 45);
+    msg[69] = 26;
+    msg[70] = '\r';
+    msg[71] = '\n';
+    while(USART1_Start_Transmission(msg, 72) != 0){}
 }
 
 
@@ -177,7 +183,7 @@ void Sim_ReceiveCall(void)
         Sim_gets();
     }
 
-    char *clip_ptr = strstr(rd_buffer, auto_responses[5]);
+    char *clip_ptr = strstr(rd_buffer, "+CLIP");
     for(uint8_t i = 0; i < 15; i++)
     {
         number[i] = clip_ptr[i + 7];

@@ -13,6 +13,7 @@
 #define SIM_FLAG_SMS_READY      32
 #define SIM_FLAG_CALL           64 /* number was fetched, ready to send SMS */
 
+
 #define SIM_RESP_BUF_SIZE       128
 #define SIM_RESP_BUF_MASK       127
 #define SIM_RD_BUF_SIZE         64
@@ -71,5 +72,7 @@ uint8_t Sim_GetNLFlag(void);
 uint8_t Sim_GetRIFlag(void);
 void Sim_ClearRIFlag(void);
 uint8_t Sim_OperationReady(void);
+uint8_t Sim_GetCallFlag(void);
+void Sim_ClearCallFlag(void);
 
 #endif

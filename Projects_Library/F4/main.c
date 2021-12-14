@@ -64,5 +64,11 @@ void main(void)
                 Sim_ProcessLine();
             }
         }
+        
+        if (Sim_GetCallFlag())
+        {
+            Sim_ClearCallFlag();
+            Sim_SendMsg();
+        }
     }
 }
