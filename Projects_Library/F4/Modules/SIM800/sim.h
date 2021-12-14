@@ -61,11 +61,14 @@ void Sim_ProcessLine(void);
 
 
 /* RI */
-uint8_t Sim_GetRIFlag(void);
 void Sim_RIEventStart(void);
+
 
 /* Flags */
 uint8_t Sim_GetReadyFlag(void);
 uint8_t Sim_GetNLFlag(void);
+uint8_t Sim_GetRIFlag(void);
+void Sim_ClearRIFlag(void);
+uint8_t Sim_OperationReady(void);
 
 #endif

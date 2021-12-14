@@ -24,7 +24,9 @@ void main(void)
 //    ADC1_Init();
     USART1_Init();
 //    SPI3_Init();
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_EXTIT, ENABLE);
     EXTI_DeInit();
+    NVIC_EnableIRQ(EXTI15_10_IRQn);
     
     // прерывания
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
@@ -44,19 +46,25 @@ void main(void)
 
         if (Sim_GetNLFlag())
         {
-            if (Sim_GetRIFlag() && !SysTick_GetSimTime())
+            if (Sim_GetRIFlag() && !SysTick_GetSimTime() && Sim_OperationReady())
             {
-                if (READ_BIT(SIM_RI_PORT->IDR, SIM_RI_PIN))
+                if (!READ_BIT(SIM_RI_PORT->IDR, SIM_RI_PIN))
                 {/* process call */
                     Sim_ReceiveCall();
                 }
                 else
                 {/* process URC/SMS */
-                    Sim_ProcessLine();
+                    Sim_ProcessLine();  /** @todo - think about this */
                 }
+                Sim_ClearRIFlag();
             }
-            else if (!Sim_GetRIFlag())
-            {/* process regular CMD response */
+            else if (!Sim_OperationReady())
+            {
+                Sim_ClearRIFlag();
+            }
+
+            if (!Sim_GetRIFlag())
+            {/* process regular CMD response*/
                 Sim_ProcessLine();
             }
         }

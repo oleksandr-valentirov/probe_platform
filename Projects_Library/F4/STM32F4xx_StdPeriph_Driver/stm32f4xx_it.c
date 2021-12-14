@@ -171,7 +171,7 @@ void EXTI15_10_IRQHandler(void)
     if(EXTI_GetITStatus(SIM_RI_EXTI))
     {
         EXTI_ClearITPendingBit(SIM_RI_EXTI);
-        SysTick_SetSimTimeMs(120);
+        Sim_RIEventStart();
     }
 }
 

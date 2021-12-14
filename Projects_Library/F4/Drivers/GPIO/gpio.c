@@ -64,6 +64,7 @@ static void SIM_pins_init(void)
     
     /* Status pin */
     pin.GPIO_Mode = GPIO_Mode_IN;
+    pin.GPIO_PuPd = GPIO_PuPd_UP;
     pin.GPIO_Pin = SIM_STATUS_PIN | SIM_RI_PIN;
     GPIO_Init(SIM_STATUS_PORT, &pin);
 }

@@ -34,8 +34,8 @@ const char *resp_codes[4] = {
 };
 
 /* response buffer */
-static char resp_buffer[SIM_RESP_BUF_SIZE];
-static char rd_buffer[SIM_RD_BUF_SIZE];
+static char resp_buffer[SIM_RESP_BUF_SIZE] = {0};
+static char rd_buffer[SIM_RD_BUF_SIZE] = {0};
 static char number[15];
 static uint8_t wr_pos = 0;
 static uint8_t rd_pos = 0;
@@ -48,7 +48,7 @@ static unsigned int ri_low_start = 0;
 
 
 /* Flags -------------------------------------------------------------------- */
-static uint8_t flags;
+static uint8_t flags = 0;
 
 #define SetReadyFlag            SET_BIT(flags, SIM_FLAG_READY)
 #define GetReadyFlag            READ_BIT(flags, SIM_FLAG_READY)
@@ -63,6 +63,16 @@ uint8_t Sim_GetReadyFlag(void)
 uint8_t Sim_GetNLFlag(void)
 {
     return GetNLFlag;
+}
+
+uint8_t Sim_OperationReady(void)
+{
+    return (READ_BIT(flags, SIM_FLAG_CALL_READY) && READ_BIT(flags, SIM_FLAG_SMS_READY));
+}
+
+void Sim_ClearRIFlag(void)
+{
+    CLEAR_BIT(flags, SIM_FLAG_RI);
 }
 /* -------------------------------------------------------------------------- */
 
@@ -89,6 +99,7 @@ void Sim_RI_EXTICmd(FunctionalState state)
 
 void Sim_RIEventStart(void)
 {
+    SET_BIT(flags, SIM_FLAG_RI);
     SysTick_SetSimTimeMs(120);
 }
 
@@ -132,7 +143,7 @@ void Sim_SendAT(void)
 void Sim_ToggleState(void)
 {
     SET_BIT(SIM_PWRKEY_PORT->BSRRL, SIM_PWRKEY_PIN);
-    SysTick_WaitTill(SysTick_GetCurrentClock() + 1000);
+    SysTick_WaitTill(SysTick_GetCurrentClock() + 3000);
     SET_BIT(SIM_PWRKEY_PORT->BSRRH, SIM_PWRKEY_PIN);
 }
 
@@ -160,7 +171,11 @@ void Sim_SendMsg(void)
 void Sim_ReceiveCall(void)
 {
     Sim_gets();
-    if (rd_buffer[0] == '2') {Sim_gets();} /* skip RING msg */
+    if (rd_buffer[0] == '2') 
+    { /* skip RING msg and what for +CLIP msg */
+        while(Sim_GetNLFlag())
+        Sim_gets();
+    }
 
     char *clip_ptr = strstr(rd_buffer, auto_responses[5]);
     for(uint8_t i = 0; i < 15; i++)
@@ -183,14 +198,14 @@ void Sim_ProcessLine(void)
     else if(rd_buffer[0] == '2')
     {/* RING */
     }
-    else if (strcmp("RDY", rd_buffer) == 0)
+    else if (strncmp("RDY", rd_buffer, 3) == 0)
     {
     }
-    else if (strcmp("Call Ready", rd_buffer) == 0)
+    else if (strncmp("Call Ready", rd_buffer, 10) == 0)
     {
         SET_BIT(flags, SIM_FLAG_CALL_READY);
     }
-    else if (strcmp("SMS Ready", rd_buffer) == 0)
+    else if (strncmp("SMS Ready", rd_buffer, 9) == 0)
     {
         SET_BIT(flags, SIM_FLAG_SMS_READY);
     }
@@ -210,7 +225,8 @@ void Sim_putc(uint8_t c)
 
 uint8_t Sim_getc(void)
 {
-    uint8_t c = resp_buffer[rd_pos++];
+    uint8_t c = resp_buffer[rd_pos];
+    resp_buffer[rd_pos++] = 0;
     rd_pos &= SIM_RESP_BUF_MASK;
     return c;
 }
@@ -220,12 +236,14 @@ static void Sim_gets(void)
     uint8_t c = 0, i = 0;
     for(i = 0; i < SIM_RD_BUF_SIZE; i++)
     {
+        c = Sim_getc();
+        rd_buffer[i] = c;
+        if (c == '\n') {break;}
+    }
+    for(; i < SIM_RD_BUF_SIZE; i++)
+    {
         rd_buffer[i] = 0;
     }
-    i = 0;
-    while ((c = Sim_getc() != '\n') || i < SIM_RD_BUF_SIZE)
-    {
-        rd_buffer[i++] = c;
-    }
+    CLEAR_BIT(flags, SIM_FLAG_NL);
 }
 /* -------------------------------------- */
