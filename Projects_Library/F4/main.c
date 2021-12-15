@@ -65,10 +65,18 @@ void main(void)
             }
         }
         
-        if (Sim_GetCallFlag())
+        if (Sim_GetReadyFlag())
         {
-            Sim_ClearCallFlag();
-            Sim_SendMsg();
+            if (Sim_GetCallFlag())
+            {
+                Sim_ClearCallFlag();
+                Sim_SendSMSCmd();
+            }
+            if (Sim_GetTxtInFlag())
+            {
+                Sim_ClearTxtInFlag();
+                Sim_SendMsg();
+            }
         }
     }
 }

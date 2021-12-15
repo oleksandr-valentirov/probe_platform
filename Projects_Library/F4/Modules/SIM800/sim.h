@@ -12,6 +12,7 @@
 #define SIM_FLAG_CALL_READY     16
 #define SIM_FLAG_SMS_READY      32
 #define SIM_FLAG_CALL           64 /* number was fetched, ready to send SMS */
+#define SIM_FLAG_TXT_IN         128
 
 
 #define SIM_RESP_BUF_SIZE       128
@@ -58,6 +59,7 @@ void Sim_RI_EXTICmd(FunctionalState state);
 
 /* SIM module logic functions ----------------------------------------------- */
 void Sim_ReceiveCall(void);
+void Sim_SendSMSCmd(void);
 void Sim_SendMsg(void);
 void Sim_ProcessLine(void);
 
@@ -74,5 +76,7 @@ void Sim_ClearRIFlag(void);
 uint8_t Sim_OperationReady(void);
 uint8_t Sim_GetCallFlag(void);
 void Sim_ClearCallFlag(void);
+uint8_t Sim_GetTxtInFlag(void);
+uint8_t Sim_ClearTxtInFlag(void);
 
 #endif

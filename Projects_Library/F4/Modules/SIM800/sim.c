@@ -2,18 +2,18 @@
 
 
 
-const char *auto_responses[7] = {
-    "+CFUN",                    /* functionality indication */    
-
-    "+CMTE",                    /* incorrect temperature */
-    
-    "UNDER-VOLTAGE POWER DOWN", /* Power-down messages */
-    "NORMAL POWER DOWN",        /*                     */
-    "OVER-VOLTAGE POWER DOWN",  /* ------------------- */
-    
-    "UNDER-VOLTAGE WARNNING",   /* Power warnings */
-    "OVER-VOLTAGE WARNNING"
-};
+//const char *auto_responses[7] = {
+//    "+CFUN",                    /* functionality indication */    
+//
+//    "+CMTE",                    /* incorrect temperature */
+//    
+//    "UNDER-VOLTAGE POWER DOWN", /* Power-down messages */
+//    "NORMAL POWER DOWN",        /*                     */
+//    "OVER-VOLTAGE POWER DOWN",  /* ------------------- */
+//    
+//    "UNDER-VOLTAGE WARNNING",   /* Power warnings */
+//    "OVER-VOLTAGE WARNNING"
+//};
 
 
 /* response buffer */
@@ -40,6 +40,8 @@ static uint8_t flags = 0;
 #define ClearReadyFlag          CLEAR_BIT(flags, SIM_FLAG_READY)
 #define GetNLFlag               READ_BIT(flags, SIM_FLAG_NL)
 #define GetCallFlag             READ_BIT(flags, SIM_FLAG_CALL)
+#define SetMsgTxtInFlag         SET_BIT(flags, SIM_FLAG_TXT_IN)
+#define ClearMsgTxtInFlag       CLEAR_BIT(flags, SIM_FLAG_TXT_IN)
 
 uint8_t Sim_GetReadyFlag(void)
 {
@@ -69,6 +71,16 @@ uint8_t Sim_GetCallFlag(void)
 void Sim_ClearCallFlag(void)
 {
     CLEAR_BIT(flags, SIM_FLAG_CALL);
+}
+
+uint8_t Sim_GetTxtInFlag(void)
+{
+    return READ_BIT(flags, SIM_FLAG_TXT_IN);
+}
+
+uint8_t Sim_ClearTxtInFlag(void)
+{
+    CLEAR_BIT(flags, SIM_FLAG_TXT_IN);
 }
 /* -------------------------------------------------------------------------- */
 
@@ -158,19 +170,27 @@ void Sim_CMD(FunctionalState state)
 }
 
 
-void Sim_SendMsg(void)
+void Sim_SendSMSCmd(void)
 {
     ClearReadyFlag;
     
-    char msg[72] = {0};
-    strncpy(msg, "AT+CMGS=", 8);
-    strncat(msg, number, 15);
-    strncat(msg, "\r", 1);
-    strncat(msg, "Programming, motherfucker! Do you speak it ?!", 45);
-    msg[69] = 26;
-    msg[70] = '\r';
-    msg[71] = '\n';
-    while(USART1_Start_Transmission(msg, 72) != 0){}
+    char cmd[24] = {0};
+    strncpy(cmd, "AT+CMGS=", 8);
+    strncat(cmd, number, 15);
+    strncat(cmd, "\r", 1);
+
+    USART1_Start_Transmission(cmd, 24);
+}
+
+void Sim_SendMsg(void)
+{
+    ClearReadyFlag;
+
+    char msg[46] = {0};
+    strncpy(msg, "Programming, motherfucker! Do you speak it ?!", 45);
+    msg[45] = 26;
+    
+    USART1_Start_Transmission(msg, 46);
 }
 
 
@@ -225,14 +245,18 @@ void Sim_putc(uint8_t c)
     {
         SET_BIT(flags, SIM_FLAG_NL);
     }
+    else if (c == '>')
+    {
+        SetMsgTxtInFlag;
+    }
     resp_buffer[wr_pos++] = c;
     wr_pos &= SIM_RESP_BUF_MASK;
 }
 
 uint8_t Sim_getc(void)
 {
-    uint8_t c = resp_buffer[rd_pos];
-    resp_buffer[rd_pos++] = 0;
+    uint8_t c = resp_buffer[rd_pos++];
+//    resp_buffer[rd_pos++] = 0;
     rd_pos &= SIM_RESP_BUF_MASK;
     return c;
 }
