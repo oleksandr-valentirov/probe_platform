@@ -162,6 +162,7 @@ void USART1_IRQHandler(void)
     }
     if(READ_BIT(USART1->SR, USART_FLAG_TC))
     {
+        USART_ClearITPendingBit(USART1, USART_IT_TC);
         USART1_Transmit_Next_Byte();
     }   
 }

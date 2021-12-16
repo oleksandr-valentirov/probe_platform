@@ -74,19 +74,23 @@ void USART1_Transmit_Next_Byte(void)
 {
     if (state.ptr == NULL)
     {
-        USART_ClearITPendingBit(USART1, USART_IT_TC);
         return;
     }
-    if (--state.counter == 0)
+    
+    if (state.counter > 0)
+    {
+        state.counter--;
+        USART1->DR = *(state.ptr++);
+    }
+    else if (state.counter == 0)
     {
         Reset_Busy_Flag;
+        state.ptr = NULL;
         if (state.end_of_trancsaction_callback != NULL)
         {
             state.end_of_trancsaction_callback();
         }
     }
-    
-    USART1->DR = *(state.ptr++);
 }
 
 
