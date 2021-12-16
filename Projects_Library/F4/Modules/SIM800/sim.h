@@ -5,6 +5,13 @@
 #include "!Project_library.h"
 
 
+typedef struct
+{
+    int8_t rssi;        /* AT+CSQ */
+    char my_num[15];    /* AT+CNUM */
+} Sim_state_t;
+
+
 #define SIM_FLAG_READY          1  /* transmittion finished */
 #define SIM_FLAG_NL             2  /* new line received */
 #define SIM_FLAG_ALIVE          4
@@ -62,6 +69,8 @@ void Sim_ReceiveCall(void);
 void Sim_SendSMSCmd(void);
 void Sim_SendMsg(void);
 void Sim_ProcessLine(void);
+void Sim_StateInit(void);
+void Sim_ResetCurCmd(void);
 
 
 /* RI */
@@ -77,6 +86,6 @@ uint8_t Sim_OperationReady(void);
 uint8_t Sim_GetCallFlag(void);
 void Sim_ClearCallFlag(void);
 uint8_t Sim_GetTxtInFlag(void);
-uint8_t Sim_ClearTxtInFlag(void);
+void Sim_ClearTxtInFlag(void);
 
 #endif

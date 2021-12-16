@@ -11,6 +11,8 @@ void assert_failed(u8* file, u32 line)
 
 void main(void)
 {
+    uint8_t call_flag = 0, sms_txt_in_flag = 0;
+    
     // настройка тактирования и пинов
     uint8_t hse_res = HSE_Init();
     MyGPIO_Init();
@@ -38,6 +40,7 @@ void main(void)
     {
         Sim_CMD(ENABLE);
     }
+    Sim_StateInit();
 
     while(1)
     {
@@ -67,12 +70,20 @@ void main(void)
         
         if (Sim_GetReadyFlag())
         {
-            if (Sim_GetCallFlag())
+            call_flag = Sim_GetCallFlag();
+            sms_txt_in_flag = Sim_GetTxtInFlag();
+
+            if (!SysTick_GetSimStateClock() && !sms_txt_in_flag)
+            {
+                Sim_StateUpdateRSSI();
+                SysTick_SimStateClockUpdate();
+            }
+            else if (call_flag)
             {
                 Sim_ClearCallFlag();
                 Sim_SendSMSCmd();
             }
-            if (Sim_GetTxtInFlag())
+            else if (sms_txt_in_flag)
             {
                 Sim_ClearTxtInFlag();
                 Sim_SendMsg();

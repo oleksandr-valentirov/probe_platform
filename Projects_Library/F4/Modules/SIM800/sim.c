@@ -25,11 +25,11 @@ static uint8_t rd_pos = 0;
 
 static void Sim_gets(void);
 
-static uint8_t next_cmd_num = 0;
+static uint8_t cur_cmd_num = 0;
+static Sim_state_t state;
 
 /* not needed when parsing 'shutdown' msgs*/
 static unsigned int last_heart_bit = 0;
-static unsigned int ri_low_start = 0;
 
 
 /* Flags -------------------------------------------------------------------- */
@@ -78,11 +78,29 @@ uint8_t Sim_GetTxtInFlag(void)
     return READ_BIT(flags, SIM_FLAG_TXT_IN);
 }
 
-uint8_t Sim_ClearTxtInFlag(void)
+void Sim_ClearTxtInFlag(void)
 {
     CLEAR_BIT(flags, SIM_FLAG_TXT_IN);
 }
 /* -------------------------------------------------------------------------- */
+
+/**/
+void Sim_StateInit(void)
+{
+    for (uint8_t i = 0; i < 15; i++)
+    {
+        state.my_num[i] = 0;
+    }
+    state.rssi = 0;
+}
+
+void Sim_StateUpdateRSSI(void)
+{
+    ClearReadyFlag;
+    USART1_Start_Transmission("AT+CSQ\r\n", 8);
+}
+
+/**/
 
 
 void Sim_StatusEXTI_Enable(void)
@@ -124,6 +142,11 @@ uint8_t Sim_GetStatusVal(void)
 void Sim_EndOfTransaction(void)
 {
     SetReadyFlag;
+}
+
+void Sim_ResetCurCmd(void)
+{
+    cur_cmd_num = 0;
 }
 
 void FlyMode(FunctionalState state)
@@ -216,6 +239,8 @@ void Sim_ReceiveCall(void)
 void Sim_ProcessLine(void)
 {
     Sim_gets();
+    char *temp_str = NULL;
+    
     
     /* process response codes */
     if (rd_buffer[0] == '0')
@@ -230,10 +255,19 @@ void Sim_ProcessLine(void)
     else if (strncmp("Call Ready", rd_buffer, 10) == 0)
     {
         SET_BIT(flags, SIM_FLAG_CALL_READY);
+        if (Sim_OperationReady())
+            SetReadyFlag;
     }
     else if (strncmp("SMS Ready", rd_buffer, 9) == 0)
     {
         SET_BIT(flags, SIM_FLAG_SMS_READY);
+        if (Sim_OperationReady())
+            SetReadyFlag;
+    }
+    else if ((temp_str = strstr(rd_buffer, "+CSQ")) != NULL)
+    {
+        state.rssi = (temp_str[6] - 48) * 10;
+        state.rssi = state.rssi + temp_str[7] - 48;
     }
 }
 
@@ -255,8 +289,8 @@ void Sim_putc(uint8_t c)
 
 uint8_t Sim_getc(void)
 {
-    uint8_t c = resp_buffer[rd_pos++];
-//    resp_buffer[rd_pos++] = 0;
+    uint8_t c = resp_buffer[rd_pos];
+    resp_buffer[rd_pos++] = 0;
     rd_pos &= SIM_RESP_BUF_MASK;
     return c;
 }
