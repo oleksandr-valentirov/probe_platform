@@ -3,7 +3,7 @@
 
 static unsigned int clock = 0;
 static unsigned int sim_ri_clock = 0;
-static unsigned short sim_state_clock = 20000;
+static unsigned int sim_state_clock = 20000;
 
 
 /* SIM */

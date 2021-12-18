@@ -24,12 +24,9 @@ static uint8_t wr_pos = 0;
 static uint8_t rd_pos = 0;
 
 static void Sim_gets(void);
+static void Sim_ATHEventStart(void);
 
-static uint8_t cur_cmd_num = 0;
 static Sim_state_t state;
-
-/* not needed when parsing 'shutdown' msgs*/
-static unsigned int last_heart_bit = 0;
 
 
 /* Flags -------------------------------------------------------------------- */
@@ -40,6 +37,7 @@ static uint8_t flags = 0;
 #define ClearReadyFlag          CLEAR_BIT(flags, SIM_FLAG_READY)
 #define GetNLFlag               READ_BIT(flags, SIM_FLAG_NL)
 #define GetCallFlag             READ_BIT(flags, SIM_FLAG_CALL)
+#define ClearCallFlag           CLEAR_BIT(flags, SIM_FLAG_CALL)
 #define SetMsgTxtInFlag         SET_BIT(flags, SIM_FLAG_TXT_IN)
 #define ClearMsgTxtInFlag       CLEAR_BIT(flags, SIM_FLAG_TXT_IN)
 
@@ -66,11 +64,6 @@ void Sim_ClearRIFlag(void)
 uint8_t Sim_GetCallFlag(void)
 {
     return GetCallFlag;
-}
-
-void Sim_ClearCallFlag(void)
-{
-    CLEAR_BIT(flags, SIM_FLAG_CALL);
 }
 
 uint8_t Sim_GetTxtInFlag(void)
@@ -144,10 +137,6 @@ void Sim_EndOfTransaction(void)
     SetReadyFlag;
 }
 
-void Sim_ResetCurCmd(void)
-{
-    cur_cmd_num = 0;
-}
 
 void FlyMode(FunctionalState state)
 {
@@ -202,7 +191,10 @@ void Sim_SendSMSCmd(void)
     strncat(cmd, number, 15);
     strncat(cmd, "\r", 1);
 
-    USART1_Start_Transmission(cmd, 24);
+    if(USART1_Start_Transmission(cmd, 24) == 0)
+    {
+        ClearCallFlag;
+    }
 }
 
 void Sim_SendMsg(void)
@@ -213,7 +205,10 @@ void Sim_SendMsg(void)
     strncpy(msg, "Programming, motherfucker! Do you speak it ?!", 45);
     msg[45] = 26;
     
-    USART1_Start_Transmission(msg, 46);
+    if(USART1_Start_Transmission(msg, 46) == 0)
+    {
+        ClearMsgTxtInFlag;
+    }
 }
 
 
@@ -231,8 +226,11 @@ void Sim_ReceiveCall(void)
     {
         number[i] = clip_ptr[i + 7];
     }
-    USART1_Start_Transmission("ATH\r\n", 5);
-    SET_BIT(flags, SIM_FLAG_CALL);
+    if(USART1_Start_Transmission("ATH\r\n", 5) == 0)
+    {
+        Sim_ATHEventStart();
+        SET_BIT(flags, SIM_FLAG_CALL);
+    }
 }
 
 
@@ -311,3 +309,8 @@ static void Sim_gets(void)
     CLEAR_BIT(flags, SIM_FLAG_NL);
 }
 /* -------------------------------------- */
+
+static void Sim_ATHEventStart(void)
+{
+    SysTick_SetSimTimeMs(10000);
+}

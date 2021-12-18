@@ -70,7 +70,7 @@ void Sim_SendSMSCmd(void);
 void Sim_SendMsg(void);
 void Sim_ProcessLine(void);
 void Sim_StateInit(void);
-void Sim_ResetCurCmd(void);
+void Sim_StateUpdateRSSI(void);
 
 
 /* RI */
@@ -84,8 +84,6 @@ uint8_t Sim_GetRIFlag(void);
 void Sim_ClearRIFlag(void);
 uint8_t Sim_OperationReady(void);
 uint8_t Sim_GetCallFlag(void);
-void Sim_ClearCallFlag(void);
 uint8_t Sim_GetTxtInFlag(void);
-void Sim_ClearTxtInFlag(void);
 
 #endif

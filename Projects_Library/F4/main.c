@@ -32,7 +32,7 @@ void main(void)
     
     // прерывания
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
-     __enable_irq(); 
+     __enable_irq();
     
     /* modules init */
     Sim_StatusEXTI_Enable();
@@ -68,7 +68,7 @@ void main(void)
             }
         }
         
-        if (Sim_GetReadyFlag())
+        if (Sim_GetReadyFlag() && !SysTick_GetSimTime())
         {
             call_flag = Sim_GetCallFlag();
             sms_txt_in_flag = Sim_GetTxtInFlag();
@@ -80,12 +80,10 @@ void main(void)
             }
             else if (call_flag)
             {
-                Sim_ClearCallFlag();
                 Sim_SendSMSCmd();
             }
             else if (sms_txt_in_flag)
             {
-                Sim_ClearTxtInFlag();
                 Sim_SendMsg();
             }
         }
