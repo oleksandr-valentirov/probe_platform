@@ -2761,6 +2761,15 @@
         <group>
             <name>Modules</name>
             <group>
+                <name>GPS</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\gps.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\gps.h</name>
+                </file>
+            </group>
+            <group>
                 <name>SIM800</name>
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\Modules\SIM800\sim.c</name>

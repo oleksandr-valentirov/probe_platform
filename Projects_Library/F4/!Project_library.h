@@ -53,6 +53,7 @@
 //#include "sx126x.h"
 #include "temp_api.h"
 #include "sim.h"
+#include "gps.h"
 
 
 /* Exported types ------------------------------------------------------------*/

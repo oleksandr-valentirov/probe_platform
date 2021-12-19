@@ -176,6 +176,14 @@ void EXTI15_10_IRQHandler(void)
     }
 }
 
+void SPI3_IRQHandler(void)
+{
+    if (SPI_I2S_GetITStatus(SPI3, SPI_I2S_IT_TXE))
+    {
+        SPI3_ExchangeBytes();
+    }
+}
+
 /**
   * @brief  This function handles PPP interrupt request.
   * @param  None
