@@ -369,6 +369,7 @@
                     <state>$PROJ_DIR$\Projects_Library\F4\Drivers\I2C</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\SX1268</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\SIM800</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\GPS</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\TemperatureSensorsAPI</state>
                 </option>
                 <option>
@@ -2543,6 +2544,15 @@
         </group>
         <group>
             <name>Modules</name>
+            <group>
+                <name>GPS</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\gps.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\gps.h</name>
+                </file>
+            </group>
             <group>
                 <name>SIM800</name>
                 <file>
