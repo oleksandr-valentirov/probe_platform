@@ -15,4 +15,9 @@ unsigned int SysTick_GetSimTime(void);
 void SysTick_SimStateClockUpdate(void);
 unsigned short SysTick_GetSimStateClock(void);
 
+/* GPS */
+void SysTick_UpdateGPSClock(void);
+unsigned int SysTick_GetGPSClock(void);
+
+
 #endif

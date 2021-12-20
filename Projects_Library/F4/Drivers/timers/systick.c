@@ -4,6 +4,19 @@
 static unsigned int clock = 0;
 static unsigned int sim_ri_clock = 0;
 static unsigned int sim_state_clock = 20000;
+static unsigned int gps_clock = 0;
+
+/* GPS */
+void SysTick_UpdateGPSClock(void)
+{
+    gps_clock = 3000; /* poll GPS each second */
+}
+
+unsigned int SysTick_GetGPSClock(void)
+{
+    return gps_clock;
+}
+/* ------------------------------------------ */
 
 
 /* SIM */
@@ -64,6 +77,12 @@ void SysTick_Handler(void)
     if (sim_state_clock > 0) 
     {
         sim_state_clock--;
+    }
+    
+    /* GPS */
+    if (gps_clock > 0)
+    {
+        gps_clock--;
     }
 }
 

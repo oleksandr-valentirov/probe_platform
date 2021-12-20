@@ -5,19 +5,7 @@ static char rd_buffer[GPS_RD_BUF_SIZE] = {0};
 static uint8_t wr_pos = 0;
 static uint8_t rd_pos = 0;
 
-static struct 
-{
-    int32_t lat_m;
-    int32_t lon_m;
-
-    union
-    {
-        int32_t d;
-        int16_t d_arr[2];       /* 0 - lat; 1 - lon degrees */
-    };
-
-    uint8_t status;             /* 1 - valid, 0 - not valid */
-} gps_data;
+static GPS_DataT gps_data;
 
 
 static void GPS_gets(void);
