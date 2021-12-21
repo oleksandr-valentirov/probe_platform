@@ -21,11 +21,8 @@ typedef struct
 #define SIM_FLAG_CALL           64 /* number was fetched, ready to send SMS */
 #define SIM_FLAG_TXT_IN         128
 
+#define SIM_BUF_SIZE            64
 
-#define SIM_RESP_BUF_SIZE       128
-#define SIM_RESP_BUF_MASK       127
-#define SIM_RD_BUF_SIZE         64
-#define SUN_RD_BUF_MASK         63
 
 /* commands ----------------------------------------------------------------- */
 /* 2 non-processible CMDs */
@@ -50,40 +47,20 @@ typedef enum {
 #define SIM_ST_I_CONFIG         1  /* interface config */
 
 
-/* SIM module IO functions -------------------------------------------------- */
-void Sim_EndOfTransaction(void);
-void Sim_putc(uint8_t c);
-uint8_t Sim_getc(void);
-/* -------------------------------------------------------------------------- */
-
-
 /* SIM module status functions ---------------------------------------------- */
 void Sim_CMD(FunctionalState state);
-void Sim_StatusEXTI_Enable(void);
 void Sim_RI_EXTICmd(FunctionalState state);
 /* -------------------------------------------------------------------------- */
 
 
-/* SIM module logic functions ----------------------------------------------- */
-void Sim_ReceiveCall(void);
-void Sim_SendSMSCmd(void);
-void Sim_SendMsg(void);
-void Sim_ProcessLine(void);
-void Sim_StateInit(void);
-void Sim_StateUpdateRSSI(void);
+/* SIM module extern functions ---------------------------------------------- */
+void Sim_main(void);
+void Sim_EndOfTransaction(void);
+void Sim_init(void);
 
 
 /* RI */
 void Sim_RIEventStart(void);
 
-
-/* Flags */
-uint8_t Sim_GetReadyFlag(void);
-uint8_t Sim_GetNLFlag(void);
-uint8_t Sim_GetRIFlag(void);
-void Sim_ClearRIFlag(void);
-uint8_t Sim_OperationReady(void);
-uint8_t Sim_GetCallFlag(void);
-uint8_t Sim_GetTxtInFlag(void);
 
 #endif

@@ -17,14 +17,18 @@
 
 
 /* response buffer */
-static char resp_buffer[SIM_RESP_BUF_SIZE] = {0};
-static char rd_buffer[SIM_RD_BUF_SIZE] = {0};
+static char buffer[SIM_BUF_SIZE] = {0};
+static uint8_t buf_pos = 0;
 static char number[15];
-static uint8_t wr_pos = 0;
-static uint8_t rd_pos = 0;
 
+/* static functions */
 static void Sim_gets(void);
 static void Sim_ATHEventStart(void);
+static void Sim_ProcessLine(void);
+static void Sim_SendSMSCmd(void);
+static void Sim_ReceiveCall(void);
+static void Sim_SendMsg(void);
+static void Sim_StatusEXTI_Enable(void);
 
 static Sim_state_t state;
 
@@ -36,8 +40,11 @@ static uint8_t flags = 0;
 #define GetReadyFlag            READ_BIT(flags, SIM_FLAG_READY)
 #define ClearReadyFlag          CLEAR_BIT(flags, SIM_FLAG_READY)
 #define GetNLFlag               READ_BIT(flags, SIM_FLAG_NL)
+#define SetNLFlag               SET_BIT(flags, SIM_FLAG_NL)
+#define ClearNLFlag             CLEAR_BIT(flags, SIM_FLAG_NL)
 #define GetCallFlag             READ_BIT(flags, SIM_FLAG_CALL)
 #define ClearCallFlag           CLEAR_BIT(flags, SIM_FLAG_CALL)
+#define GetMsgTxtInFlag         READ_BIT(flags, SIM_FLAG_TXT_IN)
 #define SetMsgTxtInFlag         SET_BIT(flags, SIM_FLAG_TXT_IN)
 #define ClearMsgTxtInFlag       CLEAR_BIT(flags, SIM_FLAG_TXT_IN)
 
@@ -77,15 +84,22 @@ void Sim_ClearTxtInFlag(void)
 }
 /* -------------------------------------------------------------------------- */
 
-/**/
-void Sim_StateInit(void)
+void Sim_init(void)
 {
+    Sim_StatusEXTI_Enable();
+//    if (!READ_BIT(SIM_STATUS_PORT->IDR, SIM_STATUS_PIN))
+    {
+        Sim_CMD(ENABLE);
+    }
+    
+    /* SIM state init */
     for (uint8_t i = 0; i < 15; i++)
     {
         state.my_num[i] = 0;
     }
     state.rssi = 0;
 }
+
 
 void Sim_StateUpdateRSSI(void)
 {
@@ -96,7 +110,7 @@ void Sim_StateUpdateRSSI(void)
 /**/
 
 
-void Sim_StatusEXTI_Enable(void)
+static void Sim_StatusEXTI_Enable(void)
 {
     EXTI_InitTypeDef exti;
     exti.EXTI_Line = SIM_STATUS_EXTI;
@@ -182,7 +196,7 @@ void Sim_CMD(FunctionalState state)
 }
 
 
-void Sim_SendSMSCmd(void)
+static void Sim_SendSMSCmd(void)
 {
     ClearReadyFlag;
     
@@ -197,7 +211,7 @@ void Sim_SendSMSCmd(void)
     }
 }
 
-void Sim_SendMsg(void)
+static void Sim_SendMsg(void)
 {
     ClearReadyFlag;
 
@@ -212,16 +226,16 @@ void Sim_SendMsg(void)
 }
 
 
-void Sim_ReceiveCall(void)
+static void Sim_ReceiveCall(void)
 {
-    Sim_gets();
-    if (rd_buffer[0] == '2') 
+    if (buffer[0] == '2') 
     { /* skip RING msg and wait for +CLIP msg */
-        while(Sim_GetNLFlag())
-        Sim_gets();
+        return;  /** @todo - need to test this */
     }
 
-    char *clip_ptr = strstr(rd_buffer, "+CLIP");
+    char *clip_ptr = strstr(buffer, "+CLIP");
+    if (clip_ptr == NULL) return;
+
     for(uint8_t i = 0; i < 15; i++)
     {
         number[i] = clip_ptr[i + 7];
@@ -234,35 +248,34 @@ void Sim_ReceiveCall(void)
 }
 
 
-void Sim_ProcessLine(void)
+static void Sim_ProcessLine(void)
 {
-    Sim_gets();
     char *temp_str = NULL;
     
     
     /* process response codes */
-    if (rd_buffer[0] == '0')
+    if (buffer[0] == '0')
     {/* OK */
     }
-    else if(rd_buffer[0] == '2')
+    else if(buffer[0] == '2')
     {/* RING */
     }
-    else if (strncmp("RDY", rd_buffer, 3) == 0)
+    else if (strncmp("RDY", buffer, 3) == 0)
     {
     }
-    else if (strncmp("Call Ready", rd_buffer, 10) == 0)
+    else if (strncmp("Call Ready", buffer, 10) == 0)
     {
         SET_BIT(flags, SIM_FLAG_CALL_READY);
         if (Sim_OperationReady())
             SetReadyFlag;
     }
-    else if (strncmp("SMS Ready", rd_buffer, 9) == 0)
+    else if (strncmp("SMS Ready", buffer, 9) == 0)
     {
         SET_BIT(flags, SIM_FLAG_SMS_READY);
         if (Sim_OperationReady())
             SetReadyFlag;
     }
-    else if ((temp_str = strstr(rd_buffer, "+CSQ")) != NULL)
+    else if ((temp_str = strstr(buffer, "+CSQ")) != NULL)
     {
         state.rssi = (temp_str[6] - 48) * 10;
         state.rssi = state.rssi + temp_str[7] - 48;
@@ -270,47 +283,85 @@ void Sim_ProcessLine(void)
 }
 
 
-/* Circular buffer simple IO functions */
-void Sim_putc(uint8_t c)
-{
-    if (c == '\n')
-    {
-        SET_BIT(flags, SIM_FLAG_NL);
-    }
-    else if (c == '>')
-    {
-        SetMsgTxtInFlag;
-    }
-    resp_buffer[wr_pos++] = c;
-    wr_pos &= SIM_RESP_BUF_MASK;
-}
-
-uint8_t Sim_getc(void)
-{
-    uint8_t c = resp_buffer[rd_pos];
-    resp_buffer[rd_pos++] = 0;
-    rd_pos &= SIM_RESP_BUF_MASK;
-    return c;
-}
-
 static void Sim_gets(void)
 {
-    uint8_t c = 0, i = 0;
-    for(i = 0; i < SIM_RD_BUF_SIZE; i++)
-    {
-        c = Sim_getc();
-        rd_buffer[i] = c;
-        if (c == '\n') {break;}
+    uint8_t c = 0;
+    
+    if (buf_pos == 0)
+    {   /* new line was before this call, so we need to clean buffer */
+        while(buf_pos < SIM_BUF_SIZE)
+        {
+            buffer[buf_pos++] = 0;
+        }
+        buf_pos = 0;
     }
-    for(; i < SIM_RD_BUF_SIZE; i++)
-    {
-        rd_buffer[i] = 0;
+    
+    while(buf_pos < SIM_BUF_SIZE && USART1_getc(&c))
+    {   /* read to buffer from UART buffer before NL symbol */
+        buffer[buf_pos++] = c;
+        if (c == '\n')
+        {
+            SetNLFlag;
+            buf_pos = 0;
+            break;
+        }
+        else if (c == '>')
+        {
+            SetMsgTxtInFlag;
+        }
     }
-    CLEAR_BIT(flags, SIM_FLAG_NL);
 }
 /* -------------------------------------- */
 
 static void Sim_ATHEventStart(void)
 {
     SysTick_SetSimTimeMs(10000);
+}
+
+
+void Sim_main(void)
+{
+    Sim_gets();
+    
+    if (EXTI_GetFlagStatus(SIM_STATUS_EXTI))
+    {
+        EXTI_ClearFlag(SIM_STATUS_EXTI);
+        /* repot SIM module status change */
+    }
+    
+    if (GetNLFlag)
+    {
+        if (Sim_GetRIFlag() && !SysTick_GetSimTime() && !READ_BIT(SIM_RI_PORT->IDR, SIM_RI_PIN))
+        {/* process call */
+            Sim_ReceiveCall();
+            Sim_ClearRIFlag();
+        }
+        else if (Sim_GetRIFlag() && !SysTick_GetSimTime() && READ_BIT(SIM_RI_PORT->IDR, SIM_RI_PIN))
+        {/* process URS/SMS */
+            Sim_ProcessLine();
+            Sim_ClearRIFlag();
+        }
+        else
+        {/* process all other messages */
+            Sim_ProcessLine();
+        }
+        ClearNLFlag;
+    }
+
+    if (GetReadyFlag && !SysTick_GetSimTime())
+    {
+        if (!SysTick_GetSimStateClock() && !GetMsgTxtInFlag)
+        {
+            Sim_StateUpdateRSSI();
+            SysTick_SimStateClockUpdate();
+        }
+        else if (GetCallFlag)
+        {
+            Sim_SendSMSCmd();
+        }
+        else if (GetMsgTxtInFlag)
+        {
+            Sim_SendMsg();
+        }
+    }
 }

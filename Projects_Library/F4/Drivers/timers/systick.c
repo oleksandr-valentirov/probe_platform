@@ -58,11 +58,11 @@ void SysTick_Handler(void)
     clock++;
     
     /* SIM */
-    if(sim_ri_clock > 0) 
+    if (sim_ri_clock > 0) 
     {
         sim_ri_clock--;
     }
-    if(sim_state_clock > 0) 
+    if (sim_state_clock > 0) 
     {
         sim_state_clock--;
     }

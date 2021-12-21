@@ -11,6 +11,11 @@ static struct usart_state {
     size_t counter;
 } state;
 
+static uint8_t resp_buffer[USART1_BUF_SIZE] = {0};
+static uint8_t rd_pos = 0;
+static uint8_t wr_pos = 0;
+
+
 /* Flags -------------------------------------------------------------------- */
 static uint8_t flags;
 
@@ -82,7 +87,7 @@ void USART1_Transmit_Next_Byte(void)
         state.counter--;
         USART1->DR = *(state.ptr++);
     }
-    else if (state.counter == 0)
+    else
     {
         Reset_Busy_Flag;
         state.ptr = NULL;
@@ -93,40 +98,21 @@ void USART1_Transmit_Next_Byte(void)
     }
 }
 
-
-/**
- * @brief       отправляет байт
- *
- * @param dest: указатель на переменную с байтом для передачи
- *
- * @retval      результат попытки передачи байта
- *              @arg 0: OK
- *              @arg 1: байт не был отправлен
- */
-uint8_t USART1_SendByte(uint8_t data)
+/* IO -------------------------- */
+void USART1_putc(uint8_t c)
 {
-    if(!USART_GetFlagStatus(USART1, USART_FLAG_TXE))
-        return 1;
-    
-    USART1->DR = data;
-    return 0;
+    resp_buffer[wr_pos++] = c;
+    wr_pos &= USART1_BUF_MASK;
 }
 
-
-/**
- * @brief       вычитывает байт
- *
- * @param dest: указатель на переменную для сохранения вычитанного байта
- *
- * @retval      результат попытки чтения байта
- *              @arg 0: OK
- *              @arg 1: байт не был прочитан
- */
-uint8_t USART1_ReceiveByte(uint8_t *dest)
+uint8_t USART1_getc(uint8_t *ptr)
 {
-    if(USART_GetFlagStatus(USART1, USART_FLAG_RXNE))
-        return 1;
-    
-    *dest = USART1->DR;
-    return 0;
+    if (wr_pos == rd_pos)
+    {
+        return 0;
+    }
+    *ptr = resp_buffer[rd_pos++];
+    rd_pos &= USART1_BUF_MASK;
+    return 1;
 }
+/* ---------------------------- */

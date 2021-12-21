@@ -158,7 +158,7 @@ void USART1_IRQHandler(void)
 {
     if(READ_BIT(USART1->SR, USART_FLAG_RXNE))
     {
-        Sim_putc(USART1->DR);
+        USART1_putc(USART1->DR);
     }
     if(READ_BIT(USART1->SR, USART_FLAG_TC))
     {
