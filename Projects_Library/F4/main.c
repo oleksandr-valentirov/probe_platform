@@ -11,7 +11,7 @@ void assert_failed(u8* file, u32 line)
 
 void main(void)
 {    
-    // настройка тактирования и пинов
+    /* clocks */
     uint8_t hse_res = HSE_Init();
     MyGPIO_Init();
     uint8_t lse_res = LSE_Init();
@@ -19,16 +19,20 @@ void main(void)
     RCC_GetClocksFreq(&clocks);
 //    uint8_t rtc_res = RTC_Init();
     
-    // инициализация переферии
+    /* periph init */
     SysTick_Init();
 //    ADC1_Init();
     USART1_Init();
 //    SPI3_Init();
+    
+    /* exti init */
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
+    SYSCFG_DeInit();
     RCC_APB2PeriphClockCmd(RCC_APB2Periph_EXTIT, ENABLE);
     EXTI_DeInit();
     NVIC_EnableIRQ(EXTI15_10_IRQn);
     
-    // прерывания
+    /* interrupts */
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
      __enable_irq();
     

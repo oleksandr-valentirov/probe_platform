@@ -87,7 +87,7 @@ void Sim_ClearTxtInFlag(void)
 void Sim_init(void)
 {
     Sim_StatusEXTI_Enable();
-//    if (!READ_BIT(SIM_STATUS_PORT->IDR, SIM_STATUS_PIN))
+    if (!READ_BIT(SIM_STATUS_PORT->IDR, SIM_STATUS_PIN))
     {
         Sim_CMD(ENABLE);
     }
@@ -112,8 +112,10 @@ void Sim_StateUpdateRSSI(void)
 
 static void Sim_StatusEXTI_Enable(void)
 {
+    SYSCFG_EXTILineConfig(SIM_STATUS_EXTI_PORT, SIM_STATUS_EXTI_SRC);
+    
     EXTI_InitTypeDef exti;
-    exti.EXTI_Line = SIM_STATUS_EXTI;
+    exti.EXTI_Line = SIM_STATUS_EXTI_LINE;
     exti.EXTI_Mode = EXTI_Mode_Event;
     exti.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
     exti.EXTI_LineCmd = ENABLE;
@@ -323,9 +325,10 @@ void Sim_main(void)
 {
     Sim_gets();
     
-    if (EXTI_GetFlagStatus(SIM_STATUS_EXTI))
+    if (EXTI_GetFlagStatus(SIM_STATUS_EXTI_LINE))
     {
-        EXTI_ClearFlag(SIM_STATUS_EXTI);
+        EXTI_ClearFlag(SIM_STATUS_EXTI_LINE);
+        state.is_emabled = READ_BIT(SIM_STATUS_PORT->IDR, SIM_STATUS_PIN);
         /* repot SIM module status change */
     }
     

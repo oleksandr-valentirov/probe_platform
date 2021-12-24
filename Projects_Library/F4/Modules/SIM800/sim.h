@@ -9,6 +9,7 @@ typedef struct
 {
     int8_t rssi;        /* AT+CSQ */
     char my_num[15];    /* AT+CNUM */
+    uint8_t is_emabled  :1;
 } Sim_state_t;
 
 

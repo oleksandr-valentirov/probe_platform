@@ -67,7 +67,9 @@
 
 #define SIM_STATUS_PORT         GPIOA
 #define SIM_STATUS_PIN          GPIO_Pin_12
-#define SIM_STATUS_EXTI         EXTI_Line12
+#define SIM_STATUS_EXTI_PORT    EXTI_PortSourceGPIOA
+#define SIM_STATUS_EXTI_SRC     EXTI_PinSource12
+#define SIM_STATUS_EXTI_LINE    EXTI_Line12
 
 #define SIM_RI_PORT             GPIOA
 #define SIM_RI_PIN              GPIO_Pin_15
