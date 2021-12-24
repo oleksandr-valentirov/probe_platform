@@ -83,10 +83,14 @@ void Sim_ClearTxtInFlag(void)
     CLEAR_BIT(flags, SIM_FLAG_TXT_IN);
 }
 /* -------------------------------------------------------------------------- */
+void Sim_SetStatus(uint8_t status)
+{
+    state.is_enabled = status;
+}
 
 void Sim_init(void)
 {
-    Sim_StatusEXTI_Enable();
+//    Sim_StatusEXTI_Enable();
     if (!READ_BIT(SIM_STATUS_PORT->IDR, SIM_STATUS_PIN))
     {
         Sim_CMD(ENABLE);
@@ -112,11 +116,11 @@ void Sim_StateUpdateRSSI(void)
 
 static void Sim_StatusEXTI_Enable(void)
 {
-    SYSCFG_EXTILineConfig(SIM_STATUS_EXTI_PORT, SIM_STATUS_EXTI_SRC);
+//    SYSCFG_EXTILineConfig(SIM_STATUS_EXTI_PORT, SIM_STATUS_EXTI_SRC);
     
     EXTI_InitTypeDef exti;
     exti.EXTI_Line = SIM_STATUS_EXTI_LINE;
-    exti.EXTI_Mode = EXTI_Mode_Event;
+    exti.EXTI_Mode = EXTI_Mode_Interrupt;
     exti.EXTI_Trigger = EXTI_Trigger_Rising_Falling;
     exti.EXTI_LineCmd = ENABLE;
     EXTI_Init(&exti);
@@ -323,14 +327,15 @@ static void Sim_ATHEventStart(void)
 
 void Sim_main(void)
 {
-    Sim_gets();
-    
-    if (EXTI_GetFlagStatus(SIM_STATUS_EXTI_LINE))
+    uint8_t status_pin = READ_BIT(SIM_STATUS_PORT->IDR, SIM_STATUS_PIN);
+    if (state.is_enabled != status_pin)
     {
-        EXTI_ClearFlag(SIM_STATUS_EXTI_LINE);
-        state.is_emabled = READ_BIT(SIM_STATUS_PORT->IDR, SIM_STATUS_PIN);
-        /* repot SIM module status change */
+        state.is_enabled = status_pin;
+        /** @todo - report status change */
     }
+//    if (!status_pin) {return;}
+    
+    Sim_gets();
     
     if (GetNLFlag)
     {

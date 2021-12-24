@@ -26,9 +26,7 @@ void main(void)
 //    SPI3_Init();
     
     /* exti init */
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_SYSCFG, ENABLE);
-    SYSCFG_DeInit();
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_EXTIT, ENABLE);
+//    RCC_APB2PeriphClockCmd(RCC_APB2Periph_EXTIT, ENABLE);
     EXTI_DeInit();
     NVIC_EnableIRQ(EXTI15_10_IRQn);
     
