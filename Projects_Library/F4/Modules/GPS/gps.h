@@ -7,7 +7,6 @@
 
 #define GPS_RESP_BUF_SIZE       128
 #define GPS_RESP_BUF_MASK       127
-#define GPS_RD_BUF_SIZE         64
 
 #define GPS_FLAG_NL     1
 
