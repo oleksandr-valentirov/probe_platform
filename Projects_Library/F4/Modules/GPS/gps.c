@@ -57,7 +57,7 @@ void GPS_main(void)
         SysTick_UpdateGPSClock();
 
         SPI3_SetMutex(GPS_CS_PORT, GPS_CS_PIN, SPI_DEV_ID);
-        SPI3_RegisterCallback(&GPS_SpiOpCallback);
+        SPI3_RegisterCallback(&GPS_SpiOpCallback, SPI_DEV_ID);
         transaction_data_counter = SPI_DATA_TR_LEN;
         SPI3_StartReading(transaction_data_counter, SPI_DEV_ID, 0xFF);
         SetOPFlag;
@@ -99,7 +99,7 @@ static void GPS_gets(void)
 {
     uint8_t c = 0;
 
-    while(rd_pos < GPS_RESP_BUF_SIZE && SPI3_getc(&c) && transaction_data_counter--)
+    while(rd_pos < GPS_RESP_BUF_SIZE && !SPI3_getc(&c) && transaction_data_counter--)
     {
         resp_buffer[rd_pos++] = c;
         rd_pos &= GPS_RESP_BUF_MASK;

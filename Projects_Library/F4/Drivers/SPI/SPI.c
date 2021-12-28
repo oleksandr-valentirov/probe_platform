@@ -44,7 +44,7 @@ void SPI3_Init(void)
     init_struct.SPI_NSS = SPI_NSS_Soft;
     
     /* Initialize the SPI_BaudRatePrescaler member */
-    init_struct.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_16;  /* 48 Mhz APB1 -> 3 MHz GPS */
+    init_struct.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_32;  /* 48 Mhz APB1 -> 3 MHz GPS */
     
     SPI_Init(SPI3, &init_struct);
     SPI_I2S_ITConfig(SPI3, SPI_I2S_IT_TXE, ENABLE);
@@ -57,9 +57,9 @@ void SPI3_Init(void)
 }
 
 
-uint8_t SPI3_RegisterCallback(void(*callback)(void))
+uint8_t SPI3_RegisterCallback(void(*callback)(void), SPIDev_t device)
 {
-    if (state.current_device != SPI_None) {return 1;}
+    if (state.current_device != device) {return 1;}
     state.end_of_trancsaction_callback = callback;
     return 0;
 }
@@ -109,6 +109,7 @@ void SPI3_ExchangeBytes(void)
         if (state.end_of_trancsaction_callback != NULL)
         {
             state.end_of_trancsaction_callback();
+            state.end_of_trancsaction_callback = NULL;
         }
     }
 }
@@ -118,8 +119,8 @@ uint8_t SPI3_getc(uint8_t *dst)
 {
     if (wr_pos == rd_pos) {return 1;}
 
-    *dst = resp_buffer[rd_pos];
-    resp_buffer[rd_pos++] = 0;
+    *dst = resp_buffer[rd_pos++];
+//    resp_buffer[rd_pos++] = 0;
     rd_pos &= SPI_BUF_MASK;
     return 0;
 }
