@@ -183,7 +183,7 @@ void Sim_SendAT(void)
 void Sim_ToggleState(void)
 {
     SET_BIT(SIM_PWRKEY_PORT->BSRRL, SIM_PWRKEY_PIN);
-    SysTick_WaitTill(SysTick_GetCurrentClock() + 3000);
+    SysTick_WaitTill(SysTick_GetCurrentClock() + 1500);
     SET_BIT(SIM_PWRKEY_PORT->BSRRH, SIM_PWRKEY_PIN);
 }
 

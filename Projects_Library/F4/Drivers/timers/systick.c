@@ -31,8 +31,7 @@ unsigned short SysTick_GetSimStateClock(void)
 
 void SysTick_Init(void)
 {
-    SystemCoreClockUpdate();
-    SysTick_Config(SystemCoreClock / 1000);  // milisecond timer
+    SysTick_Config(96000);  // milisecond timer
 }
 
 
