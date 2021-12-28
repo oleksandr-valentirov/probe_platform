@@ -23,7 +23,7 @@ void main(void)
     SysTick_Init();
 //    ADC1_Init();
     USART1_Init();
-//    SPI3_Init();
+    SPI3_Init();
     
     /* exti init */
 //    RCC_APB2PeriphClockCmd(RCC_APB2Periph_EXTIT, ENABLE);
@@ -36,9 +36,11 @@ void main(void)
     
     /* modules init */
     Sim_init();
-    
+    GPS_InitSPI();
+
     while(1)
     {   
         Sim_main();
+        GPS_main();
     }
 }

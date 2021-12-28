@@ -8,7 +8,8 @@
 #define GPS_RESP_BUF_SIZE       128
 #define GPS_RESP_BUF_MASK       127
 
-#define GPS_FLAG_NL     1
+#define GPS_FLAG_NL             1  /* new line flag */
+#define GPS_FLAG_OP             2  /* performing IO operation right now */
 
 typedef struct 
 {
@@ -23,5 +24,10 @@ typedef struct
 
     uint8_t status;             /* 1 - valid, 0 - not valid */
 } GPS_DataT;
+
+
+void GPS_InitSPI(void);
+void GPS_InitUART(void);
+void GPS_main(void);
 
 #endif

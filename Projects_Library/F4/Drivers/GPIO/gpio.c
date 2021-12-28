@@ -70,6 +70,21 @@ static void SIM_pins_init(void)
 }
 #endif
 
+#ifdef __GPS_H
+static void GPS_pins_init(void)
+{
+    GPIO_InitTypeDef pin;
+    
+    /* D_SEL pin */
+    pin.GPIO_OType = GPIO_OType_PP;
+    pin.GPIO_PuPd = GPIO_PuPd_NOPULL;
+    pin.GPIO_Mode = GPIO_Mode_OUT;
+    pin.GPIO_Pin = GPS_DSEL_PIN;
+    pin.GPIO_Speed = GPIO_Low_Speed;
+    GPIO_Init(GPS_DSEL_PORT, &pin);
+}
+#endif
+
 
 #ifdef __ONEWIRE_F4_H
 #warning("ONEWIRE IS DECLARED")
@@ -124,5 +139,9 @@ void MyGPIO_Init(void)
     
 #ifdef __SX1268_H
     LoRa_PinsInit();
+#endif
+    
+#ifdef __GPS_H
+    GPS_pins_init();
 #endif
 }
