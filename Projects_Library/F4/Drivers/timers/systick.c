@@ -9,7 +9,7 @@ static unsigned int gps_clock = 0;
 /* GPS */
 void SysTick_UpdateGPSClock(void)
 {
-    gps_clock = 3000; /* poll GPS each second */
+    gps_clock = 200; /* poll GPS each second */
 }
 
 unsigned int SysTick_GetGPSClock(void)
