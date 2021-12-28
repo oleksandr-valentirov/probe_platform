@@ -51,38 +51,43 @@ void SPI3_Init(void)
     
     state.flags = 0;
     state.current_device = SPI_None;
+    state.src = NULL;
     
-    SPI_Cmd(SPI3, ENABLE);
-//    NVIC_EnableIRQ(SPI3_IRQn);
+    NVIC_EnableIRQ(SPI3_IRQn);
+}
+
+
+uint8_t SPI3_RegisterCallback(void(*callback)(void))
+{
+    if (state.current_device != SPI_None) {return 1;}
+    state.end_of_trancsaction_callback = callback;
+    return 0;
 }
 
 
 uint8_t SPI3_StartReading(size_t size, SPIDev_t device, uint8_t dummy_byte)
 {
     if (device != state.current_device) {return 1;}
+
     state.dummy_byte = dummy_byte;
     state.size = size;
-    SPI3_ExchangeBytes();
+    SPI_Cmd(SPI3, ENABLE);
     return 0;
 }
 
 uint8_t SPI3_StartWriting(uint8_t *src, size_t size, SPIDev_t device)
 {
     if (device != state.current_device || src == NULL) {return 1;}
+    
     state.src = src;
     state.size = size;
-    SPI3_ExchangeBytes();
+    SPI_Cmd(SPI3, ENABLE);
     return 0;
 }
 
 
 void SPI3_ExchangeBytes(void)
-{
-    if (state.src == NULL)
-    {
-        return;
-    }
-    
+{   
     if (state.size > 0)
     {
         state.size--;
@@ -99,6 +104,7 @@ void SPI3_ExchangeBytes(void)
     }
     else
     {
+        SPI_Cmd(SPI3, DISABLE);
         state.src = NULL;
         if (state.end_of_trancsaction_callback != NULL)
         {
@@ -137,7 +143,7 @@ void SPI3_FreeMutex(GPIO_TypeDef *GPIOx, uint32_t GPIO_Pin)
 
 uint8_t SPI3_IsMine(SPIDev_t device)
 {
-    return state.current_device == device ? 1 : 0;
+    return (state.current_device == device) ? 1 : 0;
 }
 
 uint8_t SPI3_IsFree(void)

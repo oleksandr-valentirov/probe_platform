@@ -55,8 +55,13 @@
 #define USART_2_RX_PIN          GPIO_Pin_3
 
 
-// USB
+// GPS
 /* -------------------------------------------------------------------------- */
+#define GPS_CS_PORT             GPIOB
+#define GPS_CS_PIN              GPIO_Pin_6
+
+#define GPS_DSEL_PORT           GPIOB
+#define GPS_DSEL_PIN            GPIO_Pin_7
 /* -------------------------------------------------------------------------- */
 
 
