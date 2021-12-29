@@ -40,6 +40,7 @@
 /* Drivers -------------------------------------------------------------------*/
 #include "ADC.h"
 #include "USART1.h"
+#include "USART2.h"
 #include "SPI.h"
 #include "clock.h"
 #include "gpio.h"
@@ -54,6 +55,7 @@
 #include "temp_api.h"
 #include "sim.h"
 #include "gps.h"
+#include "max_m8.h"
 
 
 /* Exported types ------------------------------------------------------------*/

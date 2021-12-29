@@ -5,11 +5,9 @@
 
 #include "!Project_library.h"
 
-#define GPS_RESP_BUF_SIZE       512
-#define GPS_RESP_BUF_MASK       511
-
 #define GPS_FLAG_NL             1  /* new line flag */
 #define GPS_FLAG_OP             2  /* performing IO operation right now */
+#define GPS_FLAG_PACK           4  /* packet start byte was detected */
 
 typedef struct 
 {
@@ -24,10 +22,5 @@ typedef struct
 
     uint8_t status;             /* 1 - valid, 0 - not valid */
 } GPS_DataT;
-
-
-void GPS_InitSPI(void);
-void GPS_InitUART(void);
-void GPS_main(void);
 
 #endif

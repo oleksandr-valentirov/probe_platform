@@ -14,19 +14,17 @@ static void USART_12_pins_init(void)
     GPIO_Init(USART_1_PORT, &pin);
     GPIO_PinAFConfig(USART_1_PORT, USART_1_TX_AF_SRC, GPIO_AF_USART1);
     GPIO_PinAFConfig(USART_1_PORT, USART_1_RX_AF_SRC, GPIO_AF_USART1);
-    /* ---------------------------------------------------------------------- */
 
     
     /* USART 2 -------------------------------------------------------------- */
-    /* TX pin */
-//    pin.GPIO_Pin = USART_2_TX_PIN;
-//    GPIO_Init(USART_2_TX_PORT, &pin);
-//    GPIO_PinAFConfig(USART_2_TX_PORT, USART_2_TX_AF_SRC, GPIO_AF_USART2);
-    
-    /* RX pin */
-//    pin.GPIO_Pin = USART_2_RX_PIN;
-//    GPIO_Init(USART_2_RX_PORT, &pin);
-//    GPIO_PinAFConfig(USART_2_RX_PORT, USART_2_TX_AF_SRC, GPIO_AF_USART2);
+    pin.GPIO_OType = GPIO_OType_PP;
+    pin.GPIO_PuPd = GPIO_PuPd_NOPULL;
+    pin.GPIO_Mode = GPIO_Mode_AF;
+    pin.GPIO_Pin = USART_2_TX_PIN | USART_2_RX_PIN;
+    pin.GPIO_Speed = GPIO_High_Speed;
+    GPIO_Init(USART_2_PORT, &pin);
+    GPIO_PinAFConfig(USART_2_PORT, USART_2_TX_AF_SRC, GPIO_AF_USART1);
+    GPIO_PinAFConfig(USART_2_PORT, USART_2_RX_AF_SRC, GPIO_AF_USART1);
 }
 
 
@@ -75,6 +73,7 @@ static void GPS_pins_init(void)
 {
     GPIO_InitTypeDef pin;
     
+#ifdef __NEO_M8
     /* D_SEL pin */
     pin.GPIO_OType = GPIO_OType_PP;
     pin.GPIO_PuPd = GPIO_PuPd_NOPULL;
@@ -82,6 +81,7 @@ static void GPS_pins_init(void)
     pin.GPIO_Pin = GPS_DSEL_PIN;
     pin.GPIO_Speed = GPIO_Low_Speed;
     GPIO_Init(GPS_DSEL_PORT, &pin);
+#endif
 }
 #endif
 
@@ -118,17 +118,6 @@ void MyGPIO_Init(void)
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOC, ENABLE);
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
-    
-#ifdef MCO1
-    GPIO_InitTypeDef mco_1;
-    mco_1.GPIO_Pin = MCO1_PIN;
-    mco_1.GPIO_Speed = GPIO_Low_Speed;
-    mco_1.GPIO_Mode = GPIO_Mode_AF;
-    mco_1.GPIO_OType = GPIO_OType_PP;
-    mco_1.GPIO_PuPd = GPIO_PuPd_NOPULL;
-    GPIO_Init(MCO1_PORT, &mco_1);
-    GPIO_PinAFConfig(MCO1_PORT, MCO1_AF_PIN, GPIO_AF_MCO);
-#endif
     
     USART_12_pins_init();
     SPI_pins_init();
