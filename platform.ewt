@@ -2756,12 +2756,27 @@
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\Drivers\USART\USART1.h</name>
                 </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\USART\USART2.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\USART\USART2.h</name>
+                </file>
             </group>
         </group>
         <group>
             <name>Modules</name>
             <group>
                 <name>GPS</name>
+                <group>
+                    <name>MAX_M8</name>
+                    <file>
+                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\max_m8\max_m8.c</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\max_m8\max_m8.h</name>
+                    </file>
+                </group>
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\gps.c</name>
                 </file>

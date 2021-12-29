@@ -8,12 +8,6 @@
 /* -------------------------------------------------------------------------- */
 /* Альтернативные функции --------------------------------------------------- */
 
-//#define MCO1
-#define MCO1_PORT               GPIOA
-#define MCO1_PIN                GPIO_Pin_8
-#define MCO1_AF_PIN             GPIO_PinSource8
-
-
 // SPI3
 #define SPI3_MISO_AF            GPIO_PinSource4
 #define SPI3_MOSI_AF            GPIO_PinSource5
@@ -48,10 +42,8 @@
 
 
 // USART 2
-#define USART_2_TX_PORT         GPIOA
+#define USART_2_PORT            GPIOA
 #define USART_2_TX_PIN          GPIO_Pin_2
-
-#define USART_2_RX_PORT         GPIOA
 #define USART_2_RX_PIN          GPIO_Pin_3
 
 

@@ -167,6 +167,19 @@ void USART1_IRQHandler(void)
     }   
 }
 
+void USART2_IRQHandler(void)
+{
+    if(READ_BIT(USART2->SR, USART_FLAG_RXNE))
+    {
+        USART2_putc(USART2->DR);
+    }
+    if(READ_BIT(USART2->SR, USART_FLAG_TC))
+    {
+        USART_ClearITPendingBit(USART2, USART_IT_TC);
+//        USART2_Transmit_Next_Byte();
+    }
+}
+
 void EXTI15_10_IRQHandler(void)
 {
     if(EXTI_GetITStatus(SIM_RI_EXTI))
