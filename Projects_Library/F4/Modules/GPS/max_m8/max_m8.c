@@ -15,6 +15,7 @@ static GPS_DataT gps_data;
 
 #define SetNLFlag       SET_BIT(flags, GPS_FLAG_NL)
 #define GetNLFlag       READ_BIT(flags, GPS_FLAG_NL)
+#define ClearNLFlag     CLEAR_BIT(flags, GPS_FLAG_NL)
 #define GetOPFlag       READ_BIT(flags, GPS_FLAG_OP)
 #define SetOPFlag       SET_BIT(flags, GPS_FLAG_OP)
 //#define GetPackFlag     READ_BIT(flags, GPS_FLAG_PACK)
@@ -33,6 +34,7 @@ void GPS_main(void)
     
     if (GetNLFlag)
     {
+        ClearNLFlag;
         if (buffer[1] == 'P')
         {   /* proprietary message start */
         }
@@ -111,15 +113,17 @@ static void GPS_ParseRMS(void)
             if (segment[0] == 'V') status = 0;
             break;
         case 3: /* lat */
+            gps_data.lat_m = (segment[0] - 48) * 10 + (segment[1] - 48);
             break;
         case 4: /* N/S hemisphere */
             break;
         case 5: /* lon */
+            gps_data.lon_m = (segment[0] - 48) * 10 + (segment[1] - 48);
             break;
         case 6: /* E/W hemisphere */
             break;
         }
-        strtok(NULL, ",");
+        segment = strtok(NULL, ",");
         i++;
     }
     
@@ -128,6 +132,50 @@ static void GPS_ParseRMS(void)
 
 static void GPS_ParseGGA(void)
 {
+    uint8_t i = 0, temp = 0;
+    char *segment = strtok(buffer, ",");
+    
+    while (segment != NULL)
+    {
+        switch (i)
+        {
+        case 1: /* time */
+            break;
+        case 2: /* lat */
+            gps_data.lat_m = (segment[0] - 48) * 10 + (segment[1] - 48);
+            break;
+        case 3: /* N/S hemisphere */
+            break;
+        case 4: /* lon */
+            gps_data.lon_m = (segment[0] - 48) * 10 + (segment[1] - 48);
+            break;
+        case 5: /* E/W hemisphere */
+            break;
+        case 6: /* quality */
+            gps_data.quality = (*segment) - 48;
+            break;
+        case 7: /* numbers of satelites used */
+            break;
+        case 9: /* altitude */
+            temp = strlen(segment) - 2;
+            uint8_t m = 0;
+            uint16_t temp_alt = 0;
+            gps_data.alt = 0;
+            while (temp > 0)
+            {
+                temp_alt = segment[m] - 48;
+                for (uint8_t n = 0; n < temp; n++)
+                {
+                    temp_alt *= 10;
+                }
+                temp--; m++;
+                gps_data.alt += temp_alt;
+            }
+            break;
+        }
+        segment = strtok(NULL, ",");
+        i++;
+    }
 }
 
 

@@ -32,7 +32,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include <stdint.h>
 #include <stdbool.h>
-#include <string.h> 
+#include <string.h>
+#include <stdlib.h>
 
 #include "stm32f4xx.h"
 #include "stm32f4xx_conf.h"
