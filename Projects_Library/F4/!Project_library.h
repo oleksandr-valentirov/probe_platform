@@ -40,7 +40,7 @@
 
 /* Drivers -------------------------------------------------------------------*/
 #include "ADC.h"
-#include "USART1.h"
+#include "USART6.h"
 #include "USART2.h"
 #include "SPI.h"
 #include "clock.h"

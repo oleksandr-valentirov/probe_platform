@@ -5,15 +5,15 @@ static void USART_12_pins_init(void)
 {
     GPIO_InitTypeDef pin;
 
-    /* USART 1 -------------------------------------------------------------- */
+    /* USART 6 -------------------------------------------------------------- */
     pin.GPIO_OType = GPIO_OType_PP;
     pin.GPIO_PuPd = GPIO_PuPd_NOPULL;
     pin.GPIO_Mode = GPIO_Mode_AF;
-    pin.GPIO_Pin = USART_1_TX_PIN | USART_1_RX_PIN;
+    pin.GPIO_Pin = USART_6_TX_PIN | USART_6_RX_PIN;
     pin.GPIO_Speed = GPIO_High_Speed;
-    GPIO_Init(USART_1_PORT, &pin);
-    GPIO_PinAFConfig(USART_1_PORT, USART_1_TX_AF_SRC, GPIO_AF_USART1);
-    GPIO_PinAFConfig(USART_1_PORT, USART_1_RX_AF_SRC, GPIO_AF_USART1);
+    GPIO_Init(USART_6_PORT, &pin);
+    GPIO_PinAFConfig(USART_6_PORT, USART_6_TX_AF_SRC, GPIO_AF_USART6);
+    GPIO_PinAFConfig(USART_6_PORT, USART_6_RX_AF_SRC, GPIO_AF_USART6);
 
     
     /* USART 2 -------------------------------------------------------------- */

@@ -22,7 +22,7 @@ void main(void)
     /* periph init */
     SysTick_Init();
 //    ADC1_Init();
-    USART1_Init();
+    USART6_Init();
     USART2_Init();
     SPI3_Init();
     

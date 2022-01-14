@@ -14,9 +14,9 @@
 #define SPI3_CLK_AF             GPIO_PinSource3
 
 
-// USART 1
-#define USART_1_TX_AF_SRC       GPIO_PinSource9
-#define USART_1_RX_AF_SRC       GPIO_PinSource10
+// USART 6
+#define USART_6_TX_AF_SRC       GPIO_PinSource11
+#define USART_6_RX_AF_SRC       GPIO_PinSource12
 // USART 2
 #define USART_2_TX_AF_SRC       GPIO_PinSource2
 #define USART_2_RX_AF_SRC       GPIO_PinSource3
@@ -35,10 +35,10 @@
 #define SPI3_CLK_PIN            GPIO_Pin_3
 
 
-// USART 1
-#define USART_1_PORT            GPIOA
-#define USART_1_TX_PIN          GPIO_Pin_9
-#define USART_1_RX_PIN          GPIO_Pin_10
+// USART 6
+#define USART_6_PORT            GPIOA
+#define USART_6_TX_PIN          GPIO_Pin_11
+#define USART_6_RX_PIN          GPIO_Pin_12
 
 
 // USART 2
@@ -59,18 +59,18 @@
 
 /* -------------------------------------------------------------------------- */
 /* SIM800C ------------------------------------------------------------------ */
-#define SIM_PWRKEY_PORT         GPIOA
-#define SIM_PWRKEY_PIN          GPIO_Pin_11
+#define SIM_PWRKEY_PORT         GPIOB
+#define SIM_PWRKEY_PIN          GPIO_Pin_14
 
-#define SIM_STATUS_PORT         GPIOA
-#define SIM_STATUS_PIN          GPIO_Pin_12
-#define SIM_STATUS_EXTI_PORT    EXTI_PortSourceGPIOA
-#define SIM_STATUS_EXTI_SRC     EXTI_PinSource12
-#define SIM_STATUS_EXTI_LINE    EXTI_Line12
+#define SIM_STATUS_PORT         GPIOB
+#define SIM_STATUS_PIN          GPIO_Pin_0
+#define SIM_STATUS_EXTI_PORT    EXTI_PortSourceGPIOB
+#define SIM_STATUS_EXTI_SRC     EXTI_PinSource0
+#define SIM_STATUS_EXTI_LINE    EXTI_Line0
 
 #define SIM_RI_PORT             GPIOA
-#define SIM_RI_PIN              GPIO_Pin_15
-#define SIM_RI_EXTI             EXTI_Line15
+#define SIM_RI_PIN              GPIO_Pin_6
+#define SIM_RI_EXTI             EXTI_Line6
 
 /* -------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------- */

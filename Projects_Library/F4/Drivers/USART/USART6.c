@@ -1,4 +1,4 @@
-#include "USART1.h"
+#include "USART6.h"
 
 #define FLAG_BUSY               1
 
@@ -11,7 +11,7 @@ static struct usart_state {
     size_t counter;
 } state;
 
-static uint8_t resp_buffer[USART1_BUF_SIZE] = {0};
+static uint8_t resp_buffer[USART6_BUF_SIZE] = {0};
 static uint8_t rd_pos = 0;
 static uint8_t wr_pos = 0;
 
@@ -23,7 +23,7 @@ static uint8_t flags;
 #define Reset_Busy_Flag       CLEAR_BIT(flags, FLAG_BUSY)
 #define Get_Busy_Flag         READ_BIT(flags, FLAG_BUSY)
 
-uint8_t USART1_Get_Busy_Flag(void)
+uint8_t USART6_Get_Busy_Flag(void)
 {
     return Get_Busy_Flag;
 }
@@ -33,16 +33,16 @@ uint8_t USART1_Get_Busy_Flag(void)
   * @brief      инициалиазция многофункционального USART
   * @retval     None
   */
-void USART1_Init(void)
+void USART6_Init(void)
 {
-    USART_DeInit(USART1);
-    RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1, ENABLE);
+    USART_DeInit(USART6);
+    RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART6, ENABLE);
     
     USART_InitTypeDef init;
     USART_StructInit(&init);
-    USART_Init(USART1, &init);
-    USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
-    USART_ITConfig(USART1, USART_IT_TC, ENABLE);
+    USART_Init(USART6, &init);
+    USART_ITConfig(USART6, USART_IT_RXNE, ENABLE);
+    USART_ITConfig(USART6, USART_IT_TC, ENABLE);
 
     // set callback
 #ifdef CALLBACK_FUNC
@@ -51,12 +51,12 @@ void USART1_Init(void)
     state.end_of_trancsaction_callback = NULL;
 #endif
     
-    USART_Cmd(USART1, ENABLE);
-    NVIC_EnableIRQ(USART1_IRQn);
+    USART_Cmd(USART6, ENABLE);
+    NVIC_EnableIRQ(USART6_IRQn);
 }
 
 
-uint8_t USART1_Start_Transmission(void* source, size_t counter)
+uint8_t USART6_Start_Transmission(void* source, size_t counter)
 {
     if (Get_Busy_Flag || source == NULL || counter == 0)
     {
@@ -67,7 +67,7 @@ uint8_t USART1_Start_Transmission(void* source, size_t counter)
     Set_Busy_Flag;
     
     /* platform logic */
-    USART1_Transmit_Next_Byte();
+    USART6_Transmit_Next_Byte();
     return 0;
 }
 
@@ -75,7 +75,7 @@ uint8_t USART1_Start_Transmission(void* source, size_t counter)
 /**
  * @brief       Returns next byte to interrupt routine
  */
-void USART1_Transmit_Next_Byte(void)
+void USART6_Transmit_Next_Byte(void)
 {
     if (state.ptr == NULL)
     {
@@ -85,7 +85,7 @@ void USART1_Transmit_Next_Byte(void)
     if (state.counter > 0)
     {
         state.counter--;
-        USART1->DR = *(state.ptr++);
+        USART6->DR = *(state.ptr++);
     }
     else
     {
@@ -99,20 +99,20 @@ void USART1_Transmit_Next_Byte(void)
 }
 
 /* IO -------------------------- */
-void USART1_putc(uint8_t c)
+void USART6_putc(uint8_t c)
 {
     resp_buffer[wr_pos++] = c;
-    wr_pos &= USART1_BUF_MASK;
+    wr_pos &= USART6_BUF_MASK;
 }
 
-uint8_t USART1_getc(uint8_t *ptr)
+uint8_t USART6_getc(uint8_t *ptr)
 {
     if (wr_pos == rd_pos)
     {
         return 0;
     }
     *ptr = resp_buffer[rd_pos++];
-    rd_pos &= USART1_BUF_MASK;
+    rd_pos &= USART6_BUF_MASK;
     return 1;
 }
 /* ---------------------------- */
