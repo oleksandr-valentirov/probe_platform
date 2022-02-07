@@ -60,7 +60,7 @@ uint8_t Sim_GetNLFlag(void)
 
 uint8_t Sim_OperationReady(void)
 {
-    return (READ_BIT(flags, SIM_FLAG_CALL_READY) && READ_BIT(flags, SIM_FLAG_SMS_READY));
+    return (READ_BIT(flags, SIM_FLAG_CALL_READY) & READ_BIT(flags, SIM_FLAG_SMS_READY));
 }
 
 void Sim_ClearRIFlag(void)
@@ -102,6 +102,7 @@ void Sim_init(void)
         state.my_num[i] = 0;
     }
     state.rssi = 0;
+    state.aw_cmd = 0;
 }
 
 
@@ -262,6 +263,8 @@ static void Sim_ProcessLine(void)
     /* process response codes */
     if (buffer[0] == '0')
     {/* OK */
+        state.aw_cmd = 0;
+        SysTick_SetSimTimeMs(0);
     }
     else if(buffer[0] == '2')
     {/* RING */
@@ -321,6 +324,7 @@ static void Sim_gets(void)
 
 static void Sim_ATHEventStart(void)
 {
+    state.aw_cmd = ATH;
     SysTick_SetSimTimeMs(10000);
 }
 

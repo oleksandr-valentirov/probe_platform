@@ -5,9 +5,24 @@
 #include "!Project_library.h"
 
 
+typedef enum
+{
+    ATH = 1,
+    SAPBR,
+    CIPGSMLOC,
+} Sim_Awaitable_CMD_t;
+
+
 typedef struct
 {
     int8_t rssi;        /* AT+CSQ */
+    uint8_t aw_cmd;
+    /* CIPGSMLOC */
+    char lat[10];
+    char lon[9];
+    char date[10];
+    char time[8];
+    /* --------- */
     char my_num[15];    /* AT+CNUM */
     uint8_t is_enabled  :1;
 } Sim_state_t;
@@ -25,27 +40,10 @@ typedef struct
 #define SIM_BUF_SIZE            64
 
 
-/* commands ----------------------------------------------------------------- */
-/* 2 non-processible CMDs */
-#define SIM_CMD_NULL            -2  /* there is no current CMD */
-#define SIM_CMD_REP             -1  /* repeat previous CMD     */
-/*----------------------------- */
-#define SIM_CMD_INIT            0
-#define SIM_CMD_AT              1
-#define SIM_CMD_SMS             2
-#define SIM_CMD_FLY             3
-
-
 typedef enum {
     SIM_RI_SHORT,
     SIM_RI_LONG
 } SIM_RI_TYPE;
-
-
-/* states ------------------------------------------------------------------- */
-#define SIM_ST_DEFAULT          -1
-#define SIM_ST_POWER_ON         0
-#define SIM_ST_I_CONFIG         1  /* interface config */
 
 
 /* SIM module status functions ---------------------------------------------- */
