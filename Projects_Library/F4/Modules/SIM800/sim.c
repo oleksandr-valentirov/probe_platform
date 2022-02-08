@@ -23,12 +23,16 @@ static char number[15];
 
 /* static functions */
 static void Sim_gets(void);
-static void Sim_ATHEventStart(void);
 static void Sim_ProcessLine(void);
 static void Sim_SendSMSCmd(void);
 static void Sim_ReceiveCall(void);
 static void Sim_SendMsg(void);
 static void Sim_StatusEXTI_Enable(void);
+
+/* awaitable commands */
+static void Sim_ATHEventStart(void);
+static void Sim_SAPBREventStart(void);
+static void Sim_CIPGSMLOCEventStart(void);
 
 static Sim_state_t state;
 
@@ -263,6 +267,13 @@ static void Sim_ProcessLine(void)
     /* process response codes */
     if (buffer[0] == '0')
     {/* OK */
+//        switch (state.aw_cmd)
+//        {
+//        case ATH:
+//            break;
+//        case SAPBR:
+//            break;
+//        }
         state.aw_cmd = 0;
         SysTick_SetSimTimeMs(0);
     }
@@ -288,6 +299,11 @@ static void Sim_ProcessLine(void)
     {
         state.rssi = (temp_str[6] - 48) * 10;
         state.rssi = state.rssi + temp_str[7] - 48;
+    }
+    else if ((temp_str = strstr(buffer, "+CIPGSMLOC")) != NULL)
+    {
+        state.aw_cmd = 0;
+        SysTick_SetSimTimeMs(0);
     }
 }
 
@@ -326,6 +342,18 @@ static void Sim_ATHEventStart(void)
 {
     state.aw_cmd = ATH;
     SysTick_SetSimTimeMs(10000);
+}
+
+static void Sim_SAPBREventStart(void)
+{
+    state.aw_cmd = SAPBR;
+    SysTick_SetSimTimeMs(2000);
+}
+
+static void Sim_CIPGSMLOCEventStart(void)
+{
+    state.aw_cmd = CIPGSMLOC;
+    SysTick_SetSimTimeMs(60000);
 }
 
 
