@@ -2769,12 +2769,12 @@
             <group>
                 <name>GPS</name>
                 <group>
-                    <name>MAX_M8</name>
+                    <name>uBlox</name>
                     <file>
-                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\max_m8\max_m8.c</name>
+                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\uBlox\m8.c</name>
                     </file>
                     <file>
-                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\max_m8\max_m8.h</name>
+                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\uBlox\m8.h</name>
                     </file>
                 </group>
                 <file>

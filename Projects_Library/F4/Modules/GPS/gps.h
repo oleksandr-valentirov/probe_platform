@@ -5,6 +5,11 @@
 
 #include "!Project_library.h"
 
+//#include "m8.h"
+
+#define GPS_BUF_SIZE            128
+#define GPS_BUF_MASK            127
+
 #define GPS_FLAG_NL             1  /* new line flag */
 #define GPS_FLAG_OP             2  /* performing IO operation right now */
 #define GPS_FLAG_PACK           4  /* packet start byte was detected */
@@ -22,5 +27,9 @@ typedef struct
     uint8_t quality;
     uint8_t status;             /* 1 - valid, 0 - not valid */
 } GPS_DataT;
+
+void GPS_Init(void);
+void GPS_EndOfTransaction(void);
+void GPS_main(void);
 
 #endif

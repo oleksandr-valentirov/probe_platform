@@ -1,8 +1,8 @@
-#include "max_m8.h"
+#include "m8.h"
 
 
 /* response buffer */
-static char buffer[MAX_M8_BUF_SIZE] = {0};
+static char buffer[GPS_BUF_SIZE] = {0};
 static uint8_t buf_pos = 0;
 
 /* static functions */
@@ -27,6 +27,12 @@ void GPS_EndOfTransaction(void)
     SetOPFlag;
 }
 
+void GPS_Init(void)
+{
+#ifdef __NEO_M8
+    SET_BIT(GPS_DSEL_PORT->ODR, GPS_DSEL_PIN);
+#endif
+}
 
 void GPS_main(void)
 {
@@ -71,17 +77,17 @@ static void GPS_gets(void)
     
     if (buf_pos == 0)
     {   /* new line was before this call, so we need to clean buffer */
-        while(buf_pos < MAX_M8_BUF_SIZE)
+        while(buf_pos < GPS_BUF_SIZE)
         {
             buffer[buf_pos++] = 0;
         }
         buf_pos = 0;
     }
 
-    while(buf_pos < MAX_M8_BUF_SIZE && USART2_getc(&c))
+    while(buf_pos < GPS_BUF_SIZE && USART1_getc(&c))
     {
         buffer[buf_pos++] = c;
-        buf_pos &= MAX_M8_BUF_MASK;
+        buf_pos &= GPS_BUF_MASK;
         if (c == '\n')
         {
             SetNLFlag;

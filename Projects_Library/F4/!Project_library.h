@@ -56,7 +56,6 @@
 #include "temp_api.h"
 #include "sim.h"
 #include "gps.h"
-#include "max_m8.h"
 
 
 /* Exported types ------------------------------------------------------------*/

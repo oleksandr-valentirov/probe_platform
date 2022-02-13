@@ -15,6 +15,7 @@ void main(void)
     SysTick_Init();
 //    ADC1_Init();
     USART2_Init();
+    USART1_Init();
     SPI3_Init();
     
     /* exti init */
@@ -36,6 +37,7 @@ void main(void)
     
     /* modules init */
     Sim_init();
+    GPS_Init();
 
     while(1)
     {   
