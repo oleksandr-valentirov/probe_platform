@@ -9,7 +9,6 @@ typedef enum
 {
     ATH = 1,
     SAPBR,
-    CIPGSMLOC,
 } Sim_Awaitable_CMD_t;
 
 
@@ -17,12 +16,6 @@ typedef struct
 {
     int8_t rssi;        /* AT+CSQ */
     uint8_t aw_cmd;
-    /* CIPGSMLOC */
-    char lat[10];
-    char lon[9];
-    char date[10];
-    char time[8];
-    /* --------- */
     char my_num[15];    /* AT+CNUM */
     uint8_t is_enabled  :1;
 } Sim_state_t;
@@ -36,14 +29,10 @@ typedef struct
 #define SIM_FLAG_SMS_READY      32
 #define SIM_FLAG_CALL           64 /* number was fetched, ready to send SMS */
 #define SIM_FLAG_TXT_IN         128
+#define SIM_FLAG_TOKEN          256  /* 0 - no token; 1 - token was received */
 
 #define SIM_BUF_SIZE            64
 
-
-typedef enum {
-    SIM_RI_SHORT,
-    SIM_RI_LONG
-} SIM_RI_TYPE;
 
 
 /* SIM module status functions ---------------------------------------------- */

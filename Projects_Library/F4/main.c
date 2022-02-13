@@ -23,13 +23,13 @@ void main(void)
     SysTick_Init();
 //    ADC1_Init();
     USART6_Init();
-    USART2_Init();
+//    USART2_Init();
     SPI3_Init();
     
     /* exti init */
 //    RCC_APB2PeriphClockCmd(RCC_APB2Periph_EXTIT, ENABLE);
     EXTI_DeInit();
-    NVIC_EnableIRQ(EXTI15_10_IRQn);
+    NVIC_EnableIRQ(EXTI9_5_IRQn);
     
     /* interrupts */
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);

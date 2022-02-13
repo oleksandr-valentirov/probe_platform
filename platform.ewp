@@ -2536,6 +2536,12 @@
             <group>
                 <name>USART</name>
                 <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\USART\USART1.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\USART\USART1.h</name>
+                </file>
+                <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\Drivers\USART\USART2.c</name>
                 </file>
                 <file>

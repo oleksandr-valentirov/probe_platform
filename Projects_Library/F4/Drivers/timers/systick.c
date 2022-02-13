@@ -2,8 +2,8 @@
 
 
 static unsigned int clock = 0;
-static unsigned int sim_ri_clock = 0;
-static unsigned int sim_state_clock = 20000;
+static unsigned int sim_downcounter = 0;
+static unsigned int sim_gen_clock = 0;
 static unsigned int gps_clock = 0;
 
 /* GPS */
@@ -22,22 +22,17 @@ unsigned int SysTick_GetGPSClock(void)
 /* SIM */
 void SysTick_SetSimTimeMs(unsigned int time)
 {
-    sim_ri_clock = time;
+    sim_downcounter = time;
 }
 
 unsigned int SysTick_GetSimTime(void)
 {
-    return sim_ri_clock;
+    return sim_downcounter;
 }
 
-void SysTick_SimStateClockUpdate(void)
+unsigned short SysTick_GetSimGenClock(void)
 {
-    sim_state_clock = 180000;
-}
-
-unsigned short SysTick_GetSimStateClock(void)
-{
-    return sim_state_clock;
+    return sim_gen_clock;
 }
 /* ------------------------------------------- */
 
@@ -70,14 +65,11 @@ void SysTick_Handler(void)
     clock++;
     
     /* SIM */
-    if (sim_ri_clock > 0) 
+    if (sim_downcounter > 0) 
     {
-        sim_ri_clock--;
+        sim_downcounter--;
     }
-    if (sim_state_clock > 0) 
-    {
-        sim_state_clock--;
-    }
+    sim_gen_clock++;
     
     /* GPS */
     if (gps_clock > 0)

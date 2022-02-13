@@ -42,6 +42,7 @@
 #include "ADC.h"
 #include "USART6.h"
 #include "USART2.h"
+#include "USART1.h"
 #include "SPI.h"
 #include "clock.h"
 #include "gpio.h"

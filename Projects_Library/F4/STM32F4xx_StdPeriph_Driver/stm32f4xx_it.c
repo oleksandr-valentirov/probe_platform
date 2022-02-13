@@ -180,7 +180,7 @@ void USART2_IRQHandler(void)
     }
 }
 
-void EXTI15_10_IRQHandler(void)
+void EXTI9_5_IRQHandler(void)
 {
     if(EXTI_GetITStatus(SIM_RI_EXTI))
     {

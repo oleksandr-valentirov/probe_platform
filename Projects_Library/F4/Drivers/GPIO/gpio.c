@@ -1,7 +1,7 @@
 #include "gpio.h"
 
 
-static void USART_12_pins_init(void)
+static void USART_pins_init(void)
 {
     GPIO_InitTypeDef pin;
 
@@ -63,8 +63,12 @@ static void SIM_pins_init(void)
     /* Status pin */
     pin.GPIO_Mode = GPIO_Mode_IN;
     pin.GPIO_PuPd = GPIO_PuPd_NOPULL;
-    pin.GPIO_Pin = SIM_STATUS_PIN | SIM_RI_PIN;
+    pin.GPIO_Pin = SIM_STATUS_PIN;
     GPIO_Init(SIM_STATUS_PORT, &pin);
+    
+    /* RI pin */
+    pin.GPIO_Pin = SIM_RI_PIN;
+    GPIO_Init(SIM_RI_PORT, &pin);
 }
 #endif
 
@@ -119,7 +123,7 @@ void MyGPIO_Init(void)
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOB, ENABLE);
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
     
-    USART_12_pins_init();
+    USART_pins_init();
     SPI_pins_init();
     
 #ifdef __SIM_H
