@@ -368,7 +368,7 @@
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\SX1268</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\SIM800</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\GPS</state>
-                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\MAX_M8</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\uBlox</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\TemperatureSensorsAPI</state>
                 </option>
                 <option>
@@ -2552,19 +2552,16 @@
             <group>
                 <name>GPS</name>
                 <group>
-                    <name>MAX_M8</name>
+                    <name>uBlox</name>
                     <file>
-                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\max_m8\max_m8.c</name>
+                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\uBlox\m8.c</name>
                     </file>
                     <file>
-                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\max_m8\max_m8.h</name>
+                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\uBlox\m8.h</name>
                     </file>
                 </group>
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\gps.c</name>
-                    <excluded>
-                        <configuration>F4</configuration>
-                    </excluded>
                 </file>
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\gps.h</name>
