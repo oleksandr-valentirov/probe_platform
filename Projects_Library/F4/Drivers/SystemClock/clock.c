@@ -86,7 +86,6 @@ uint8_t HSE_Init(void)
     // переключаемся на HSE
     RCC_SYSCLKConfig(RCC_SYSCLKSource_PLLCLK);
     
-    SystemCoreClockUpdate();
     return 0;
 }
 

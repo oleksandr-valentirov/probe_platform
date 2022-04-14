@@ -1,13 +1,5 @@
 #include "!Project_library.h"
 
-#ifdef USE_FULL_ASSERT
-void assert_failed(u8* file, u32 line)
-{ 
-//    printf("\r\nassert_failed(). file: %s, line: %ld\r\n", file, line );
-    while (1){}
-}
-#endif
-
 
 void main(void)
 {    
@@ -31,9 +23,17 @@ void main(void)
     EXTI_DeInit();
     NVIC_EnableIRQ(EXTI9_5_IRQn);
     
+#ifdef TEST_HW
+    USART1_test_tx();
+#endif
+    
+#ifdef TEST_FW
+    while(1){}
+#endif
+    
     /* interrupts */
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_4);
-     __enable_irq();
+    __enable_irq();
     
     /* modules init */
     Sim_init();

@@ -21,4 +21,7 @@ void USART1_Transmit_Next_Byte(void);
 void USART1_Receive_Next_Byte(void);
 
 
+void USART1_test_tx(void);
+
+
 #endif

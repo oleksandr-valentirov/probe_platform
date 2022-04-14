@@ -112,3 +112,13 @@ uint8_t USART1_getc(uint8_t *ptr)
     return 1;
 }
 /* ---------------------------- */
+
+
+void USART1_test_tx(void)
+{
+    for(uint8_t i = 0; i < 10; i++)
+    {
+        while(!READ_BIT(USART1->SR, USART_SR_TXE)){}
+        USART1->DR = i + 48;
+    }
+}
