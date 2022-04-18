@@ -372,8 +372,6 @@
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\uBlox</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\TemperatureSensorsAPI</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\Memory</state>
-                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\Memory\src</state>
-                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\Memory\inc</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -2576,18 +2574,6 @@
             </group>
             <group>
                 <name>Memory</name>
-                <group>
-                    <name>inc</name>
-                    <file>
-                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\Memory\inc\AT25DF321A.h</name>
-                    </file>
-                </group>
-                <group>
-                    <name>src</name>
-                    <file>
-                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\Memory\src\AT25DF321A.c</name>
-                    </file>
-                </group>
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\Modules\Memory\memory.c</name>
                 </file>

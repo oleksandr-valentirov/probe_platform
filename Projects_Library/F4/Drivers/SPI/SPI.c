@@ -44,7 +44,7 @@ void SPI3_Init(void)
     init_struct.SPI_NSS = SPI_NSS_Soft;
     
     /* Initialize the SPI_BaudRatePrescaler member */
-    init_struct.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_32;  /* 48 Mhz APB1 -> 3 MHz GPS */
+    init_struct.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_32;
     
     SPI_Init(SPI3, &init_struct);
     SPI_I2S_ITConfig(SPI3, SPI_I2S_IT_TXE, ENABLE);
