@@ -20,9 +20,6 @@
 // USART 2
 #define USART_2_TX_AF_SRC       GPIO_PinSource2
 #define USART_2_RX_AF_SRC       GPIO_PinSource3
-/* USART 1 */
-#define USART_1_TX_AF_SRC       GPIO_PinSource10
-#define USART_1_RX_AF_SRC       GPIO_PinSource9
 /* -------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------- */
 
@@ -44,7 +41,7 @@
 #define USART_1_RX_PIN          GPIO_Pin_7
 
 
-/* USART 1 */
+/* USART 2 */
 #define USART_2_PORT            GPIOA
 #define USART_2_TX_PIN          GPIO_Pin_2
 #define USART_2_RX_PIN          GPIO_Pin_3
