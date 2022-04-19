@@ -2771,17 +2771,20 @@
                 <group>
                     <name>uBlox</name>
                     <file>
-                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\uBlox\m8.c</name>
+                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\uBlox\ubx.c</name>
                     </file>
                     <file>
-                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\uBlox\m8.h</name>
+                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\uBlox\ubx.h</name>
                     </file>
                 </group>
                 <file>
-                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\gps.c</name>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\gps.h</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\gps.h</name>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\m8.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\m8.h</name>
                 </file>
             </group>
             <group>
