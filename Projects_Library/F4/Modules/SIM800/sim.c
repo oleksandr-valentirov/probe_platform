@@ -119,7 +119,7 @@ void Sim_init(void)
 void Sim_StateUpdateRSSI(void)
 {
     ClearReadyFlag;
-    USART6_Start_Transmission("AT+CSQ\r\n", 8);
+    USART2_Start_Transmission("AT+CSQ\r\n", 8);
 }
 
 static void Sim_StatusEXTI_Enable(void)
@@ -177,14 +177,14 @@ void FlyMode(FunctionalState state)
         cmd[8] = '4';
     }
     ClearReadyFlag;
-    USART6_Start_Transmission(cmd, 11);
+    USART2_Start_Transmission(cmd, 11);
 }
 
 
 void Sim_SendAT(void)
 {
     ClearReadyFlag;
-    USART6_Start_Transmission("AT\r\n", 4);
+    USART2_Start_Transmission("AT\r\n", 4);
 }
 
 
@@ -224,7 +224,7 @@ static void Sim_TokenCMD(FunctionalState state)
     {
         msg[9] = '1';
     }
-    if(USART6_Start_Transmission(msg, 12) == 0)
+    if(USART2_Start_Transmission(msg, 12) == 0)
     {
         Sim_SAPBREventStart();
     }
@@ -240,7 +240,7 @@ static void Sim_SendSMSCmd(void)
     strncat(cmd, number, 15);
     strncat(cmd, "\r", 1);
 
-    if(USART6_Start_Transmission(cmd, 24) == 0)
+    if(USART2_Start_Transmission(cmd, 24) == 0)
     {
         ClearCallFlag;
     }
@@ -254,7 +254,7 @@ static void Sim_SendMsg(void)
     strncpy(msg, "Programming, motherfucker! Do you speak it ?!", 45);
     msg[45] = 26;
     
-    if(USART6_Start_Transmission(msg, 46) == 0)
+    if(USART2_Start_Transmission(msg, 46) == 0)
     {
         ClearMsgTxtInFlag;
     }
@@ -275,7 +275,7 @@ static void Sim_ReceiveCall(void)
     {
         number[i] = clip_ptr[i + 7];
     }
-    if(USART6_Start_Transmission("ATH\r\n", 5) == 0)
+    if(USART2_Start_Transmission("ATH\r\n", 5) == 0)
     {
         Sim_ATHEventStart();
         SET_BIT(flags, SIM_FLAG_CALL);
@@ -343,7 +343,7 @@ static void Sim_gets(void)
         buf_pos = 0;
     }
     
-    while(buf_pos < SIM_BUF_SIZE && USART6_getc(&c))
+    while(buf_pos < SIM_BUF_SIZE && USART2_getc(&c))
     {   /* read to buffer from UART buffer before NL symbol */
         buffer[buf_pos++] = c;
         if (c == '\n')

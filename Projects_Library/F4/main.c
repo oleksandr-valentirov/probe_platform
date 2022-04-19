@@ -14,8 +14,7 @@ void main(void)
     /* periph init */
     SysTick_Init();
 //    ADC1_Init();
-    USART6_Init();
-//    USART2_Init();
+    USART2_Init();
     SPI3_Init();
     
     /* exti init */

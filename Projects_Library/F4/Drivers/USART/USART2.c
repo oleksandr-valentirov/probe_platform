@@ -2,7 +2,7 @@
 
 #define FLAG_BUSY               1
 
-// #define CALLBACK_FUNC           
+#define CALLBACK_FUNC           &Sim_EndOfTransaction
 
 
 static struct usart_state {
@@ -29,10 +29,14 @@ uint8_t USART2_Get_Busy_Flag(void)
 }
 /* -------------------------------------------------------------------------- */
 
+/**
+  * @brief      инициалиазция многофункционального USART
+  * @retval     None
+  */
 void USART2_Init(void)
 {
     USART_DeInit(USART2);
-    RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2, ENABLE);
+    RCC_APB1PeriphResetCmd(RCC_APB1Periph_USART2, ENABLE);
     
     USART_InitTypeDef init;
     USART_StructInit(&init);

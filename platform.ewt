@@ -2762,12 +2762,6 @@
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\Drivers\USART\USART2.h</name>
                 </file>
-                <file>
-                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\USART\USART6.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\USART\USART6.h</name>
-                </file>
             </group>
         </group>
         <group>

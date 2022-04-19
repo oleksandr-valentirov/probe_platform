@@ -146,24 +146,18 @@ void PendSV_Handler(void)
   * @param  None
   * @retval None
   */
-void TIM1_BRK_TIM9_IRQHandler(void)
-{
-}
 
-void I2C1_EV_IRQHandler(void)
-{
-}
 
-void USART6_IRQHandler(void)
+void USART1_IRQHandler(void)
 {
-    if(READ_BIT(USART6->SR, USART_FLAG_RXNE))
+    if(READ_BIT(USART1->SR, USART_FLAG_RXNE))
     {
-        USART6_putc(USART6->DR);
+        USART1_putc(USART1->DR);
     }
-    if(READ_BIT(USART6->SR, USART_FLAG_TC))
+    if(READ_BIT(USART1->SR, USART_FLAG_TC))
     {
-        USART_ClearITPendingBit(USART6, USART_IT_TC);
-        USART6_Transmit_Next_Byte();
+        USART_ClearITPendingBit(USART1, USART_IT_TC);
+        USART1_Transmit_Next_Byte();
     }   
 }
 
@@ -176,7 +170,7 @@ void USART2_IRQHandler(void)
     if(READ_BIT(USART2->SR, USART_FLAG_TC))
     {
         USART_ClearITPendingBit(USART2, USART_IT_TC);
-//        USART2_Transmit_Next_Byte();
+        USART2_Transmit_Next_Byte();
     }
 }
 
