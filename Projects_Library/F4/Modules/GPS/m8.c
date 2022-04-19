@@ -35,6 +35,7 @@ void GPS_Init(void)
     port_cfg.flags = 0;
     
     UBX_CalcChecksum((uint8_t*)(&port_cfg.checksum), &port_cfg, sizeof(UBX_CFG_PRT));
+    USART1_Start_Transmission(&port_cfg, sizeof(UBX_CFG_PRT));
 }
 
 void GPS_main(void)
