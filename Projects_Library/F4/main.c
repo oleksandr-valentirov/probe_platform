@@ -14,7 +14,7 @@ void main(void)
     /* periph init */
     SysTick_Init();
 //    ADC1_Init();
-    USART2_Init();
+//    USART2_Init();
     USART1_Init();
     SPI3_Init();
     
@@ -36,12 +36,12 @@ void main(void)
     __enable_irq();
     
     /* modules init */
-    Sim_init();
+//    Sim_init();
     GPS_Init();
 
     while(1)
     {   
-        Sim_main();
+//        Sim_main();
         GPS_main();
     }
 }
