@@ -11,3 +11,9 @@ void UBX_CalcChecksum(uint8_t* CK, void* _data, size_t size)
         CK[1] += CK[0];
     }
 }
+
+void UBX_SetHeader(UBX_PACK* pack)
+{
+    pack->h1 = 0xb5;
+    pack->h2 = 0x62;
+}

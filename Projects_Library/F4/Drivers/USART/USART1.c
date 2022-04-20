@@ -38,7 +38,7 @@ void USART1_Init(void)
     USART_StructInit(&init);
     USART_Init(USART1, &init);
     USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
-    USART_ITConfig(USART1, USART_IT_TC, ENABLE);
+//    USART_ITConfig(USART1, USART_IT_TC, ENABLE);
 
     // set callback
 #ifdef CALLBACK_FUNC
@@ -47,7 +47,6 @@ void USART1_Init(void)
     state.end_of_trancsaction_callback = NULL;
 #endif
     
-    USART_Cmd(USART1, ENABLE);
     NVIC_EnableIRQ(USART1_IRQn);
 }
 
