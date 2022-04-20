@@ -2689,6 +2689,15 @@
                 </file>
             </group>
             <group>
+                <name>DMA</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\DMA\dma.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\DMA\dma.h</name>
+                </file>
+            </group>
+            <group>
                 <name>GPIO</name>
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\Drivers\GPIO\gpio.c</name>

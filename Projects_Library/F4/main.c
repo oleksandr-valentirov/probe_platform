@@ -14,8 +14,8 @@ void main(void)
     /* periph init */
     SysTick_Init();
 //    ADC1_Init();
-//    USART2_Init();
     USART1_Init();
+//    USART2_Init();
     SPI3_Init();
     
     /* exti init */
@@ -38,10 +38,14 @@ void main(void)
     /* modules init */
 //    Sim_init();
     GPS_Init();
+    USART_Cmd(USART1, ENABLE);
+
 
     while(1)
     {   
 //        Sim_main();
-        GPS_main();
+//        GPS_main();
+//        if(READ_BIT(USART1->SR, 64))
+//            USART1->DR = 'a';
     }
 }

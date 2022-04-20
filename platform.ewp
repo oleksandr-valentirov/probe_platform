@@ -361,6 +361,7 @@
                     <state>$PROJ_DIR$\Projects_Library\F4\Drivers\ADC</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Drivers\USART</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Drivers\SPI</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Drivers\DMA</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Drivers\SystemClock</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Drivers\GPIO</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Drivers\timers</state>
@@ -2467,6 +2468,15 @@
                 </file>
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\Drivers\ADC\ADC.h</name>
+                </file>
+            </group>
+            <group>
+                <name>DMA</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\DMA\dma.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\DMA\dma.h</name>
                 </file>
             </group>
             <group>

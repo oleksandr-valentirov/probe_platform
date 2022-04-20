@@ -49,6 +49,7 @@
 //#include "onewire.h"
 #include "i2c.h"
 #include "systick.h"
+#include "dma.h"
 
 
 /* Modules -------------------------------------------------------------------*/
