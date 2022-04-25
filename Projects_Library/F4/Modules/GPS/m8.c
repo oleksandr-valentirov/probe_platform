@@ -30,30 +30,7 @@ uint8_t GPS_getc(void)
 }
 
 void GPS_Init(void)
-{
-    UBX_PACK pack;
-    UBX_SetHeader(&pack);
-    
-    UBX_CFG_PRT port_cfg;
-    memset(&port_cfg.array, 0, sizeof(port_cfg));
-    
-    /* port configuration */
-    pack.class = 0x06;
-    pack.id = 0x00;
-    pack.length = 20;
-    pack.payload = port_cfg.array;
-    
-    port_cfg.fields.port_num = 1;      // UART 1
-    port_cfg.fields.txReady = 0;       // txReady interrupt turned off
-    port_cfg.fields.mode = 0x8C0;      // 1 stop bit, no parity, 8 bit data length
-    port_cfg.fields.baudRate = 9600;
-    port_cfg.fields.inProtoMask = 3;   // NMEA and UBX
-    port_cfg.fields.outProtoMask = 1;  // UBX
-    port_cfg.fields.flags = 0;
-
-//    UBX_CalcChecksum((uint8_t*)(&port_cfg.checksum), &port_cfg, sizeof(UBX_CFG_PRT));
-//    USART1_Start_Transmission(&pack, sizeof(UBX_CFG_PRT));
-    
+{    
     for(uint8_t i = 0; i < 10; i++)
     {
         tx_buffer[i] = 'a';

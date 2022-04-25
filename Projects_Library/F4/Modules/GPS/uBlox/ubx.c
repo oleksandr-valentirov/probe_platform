@@ -12,8 +12,27 @@ void UBX_CalcChecksum(uint8_t* CK, void* _data, size_t size)
     }
 }
 
-void UBX_SetHeader(UBX_PACK* pack)
+
+void UBX_ProcessResponce(uint8_t* data)
 {
-    pack->h1 = 0xb5;
-    pack->h2 = 0x62;
+    UBX_HEADER header;
+//    memset(&header, 0, sizeof(header));
+    memcpy(&header, data + 2, sizeof(header));
+    switch (header.cls)
+    {
+    case UBX_CLASS_NAV:
+        break;
+    case UBX_CLASS_RXM:
+        break;
+    case UBX_CLASS_ACK:
+        if (!header.id)
+        {
+        }
+        else
+        {
+        }
+        break;
+    case UBX_CLASS_CFG:
+        break;
+    }
 }
