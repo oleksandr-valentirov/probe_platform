@@ -29,3 +29,4 @@ void DMA_GPSoutTransfer(uint8_t size)
     USART_DMACmd(USART1, USART_DMAReq_Tx, ENABLE);
 
 }
+

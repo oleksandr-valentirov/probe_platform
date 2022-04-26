@@ -37,7 +37,7 @@ void main(void)
     
     /* modules init */
 //    Sim_init();
-    GPS_Init();
+    UBX_Init();
     USART_Cmd(USART1, ENABLE);
 
 

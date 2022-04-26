@@ -191,6 +191,13 @@ void SPI3_IRQHandler(void)
     }
 }
 
+void DMA2_Stream7_IRQHandler(void)
+{
+    UBX_ResetFlagMsgTx();
+    DMA_ClearITPendingBit(DMA2_Stream7, DMA_IT_TCIF7);
+    DMA_ClearFlag(DMA2_Stream7, DMA_FLAG_TCIF7);
+}
+
 /**
   * @brief  This function handles PPP interrupt request.
   * @param  None

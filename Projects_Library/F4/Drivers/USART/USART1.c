@@ -2,8 +2,6 @@
 
 #define FLAG_BUSY               1
 
-#define CALLBACK_FUNC           &GPS_EndOfTransaction
-
 
 static struct usart_state {
     void(*end_of_trancsaction_callback)(void);
@@ -39,13 +37,6 @@ void USART1_Init(void)
     USART_Init(USART1, &init);
     USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
 //    USART_ITConfig(USART1, USART_IT_TC, ENABLE);
-
-    // set callback
-#ifdef CALLBACK_FUNC
-    state.end_of_trancsaction_callback = CALLBACK_FUNC;
-#else
-    state.end_of_trancsaction_callback = NULL;
-#endif
     
     NVIC_EnableIRQ(USART1_IRQn);
 }
