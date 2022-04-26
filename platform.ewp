@@ -226,7 +226,6 @@
                     <name>CCDefines</name>
                     <state>USE_STDPERIPH_DRIVER</state>
                     <state>STM32F411xE</state>
-                    <state>ENABLE_GPGGA</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -2571,15 +2570,6 @@
                         <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\uBlox\ubx.h</name>
                     </file>
                 </group>
-                <file>
-                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\gps.h</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\m8.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\m8.h</name>
-                </file>
             </group>
             <group>
                 <name>SIM800</name>
