@@ -24,6 +24,9 @@
 /* CFG msg ID */
 #define UBX_ID_MSG      0x01
 #define UBX_ID_HNR      0x5C
+
+/* NAV msg ID */
+#define UBX_ID_POSLLH   0x02
 /* -------------------------- */
 
 
