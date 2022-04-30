@@ -22,6 +22,7 @@ void main(void)
 //    RCC_APB2PeriphClockCmd(RCC_APB2Periph_EXTIT, ENABLE);
     EXTI_DeInit();
     NVIC_EnableIRQ(EXTI9_5_IRQn);
+    NVIC_EnableIRQ(DMA2_Stream7_IRQn);
     
 #ifdef TEST_HW
     USART1_test_tx();
