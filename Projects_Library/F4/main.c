@@ -39,8 +39,6 @@ void main(void)
     /* modules init */
 //    Sim_init();
     UBX_Init();
-    USART_Cmd(USART1, ENABLE);
-
 
     while(1)
     {   

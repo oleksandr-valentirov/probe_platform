@@ -39,6 +39,7 @@ void USART1_Init(void)
 //    USART_ITConfig(USART1, USART_IT_TC, ENABLE);
     
     NVIC_EnableIRQ(USART1_IRQn);
+    USART_Cmd(USART1, ENABLE);
 }
 
 
