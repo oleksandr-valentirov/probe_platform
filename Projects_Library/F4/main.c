@@ -17,6 +17,7 @@ void main(void)
     USART1_Init();
 //    USART2_Init();
     SPI3_Init();
+    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2, ENABLE);
     
     /* exti init */
 //    RCC_APB2PeriphClockCmd(RCC_APB2Periph_EXTIT, ENABLE);
@@ -44,7 +45,5 @@ void main(void)
     {   
 //        Sim_main();
 //        GPS_main();
-//        if(READ_BIT(USART1->SR, 64))
-//            USART1->DR = 'a';
     }
 }

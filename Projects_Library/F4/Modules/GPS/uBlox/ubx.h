@@ -9,6 +9,8 @@
 
 #define UBX_SYNC_CH_1   0xB5
 #define UBX_SYNC_CH_2   0x62
+#define UBX_SYNC_LEN    2
+#define UBX_CK_LEN      2
 
 /* UBX msg class ------------ */
 #define UBX_CLASS_NAV   0x01

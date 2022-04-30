@@ -74,7 +74,7 @@ uint8_t UBX_SetMsgRate(uint8_t cls, uint8_t id, uint8_t rate)
            header.length);                                      /* size */
 
     UBX_CalcChecksum(header.length);
-    DMA_GPSoutTransfer(header.length + sizeof(UBX_HEADER) + 2 + 2);
+    DMA_GPSoutTransfer(header.length + sizeof(UBX_HEADER) + UBX_SYNC_LEN + UBX_CK_LEN);
     return 0;
 }
 
@@ -83,6 +83,7 @@ void UBX_Init(void)
     tx_buffer[0] = UBX_SYNC_CH_1;
     tx_buffer[1] = UBX_SYNC_CH_2;
     DMA_GPSoutInit((uint32_t*)tx_buffer);
+    DMA_GPSinInit((uint32_t*)rx_buffer);
 
     const uint8_t nmea_msg_id[19] = {NMEA_DTM_ID, NMEA_GBQ_ID, NMEA_GBS_ID,
         NMEA_GGA_ID, NMEA_GLL_ID, NMEA_GLQ_ID, NMEA_GNQ_ID, NMEA_GNS_ID,
@@ -111,8 +112,7 @@ void UBX_Init(void)
 void UBX_ProcessResponce(uint8_t* data)
 {
     UBX_HEADER header;
-//    memset(&header, 0, sizeof(header));
-    memcpy(&header, data + 2, sizeof(header));
+    memcpy(&header, data + UBX_SYNC_LEN, sizeof(header));
     switch (header.cls)
     {
     case UBX_CLASS_NAV:
