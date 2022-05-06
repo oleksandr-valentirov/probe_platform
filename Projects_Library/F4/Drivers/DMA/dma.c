@@ -31,7 +31,7 @@ void DMA_GPSoutTransfer(uint8_t size)
 }
 
 
-void DMA_GPSinInit(uint32_t* gps_buf_prt)
+void DMA_GPSinInit(uint32_t* gps_buf_ptr)
 {
     DMA_InitTypeDef ch;
     DMA_StructInit(&ch);
@@ -42,9 +42,27 @@ void DMA_GPSinInit(uint32_t* gps_buf_prt)
     ch.DMA_Memory0BaseAddr = (uint32_t)gps_buf_ptr;
     ch.DMA_PeripheralBaseAddr = (uint32_t)(&(USART1->DR));
     ch.DMA_MemoryInc = DMA_MemoryInc_Enable;
-    ch.DMA_Mode = DMA_Mode_Circular;
     /*------------------------------------------------------------------------*/
     
     DMA_Init(DMA2_Stream5, &ch);
-    DMA_SetCurrDataCounter(DMA2_Stream5, GPS_BUF_SIZE);
+}
+
+
+void DMA_GPSinTransferStart(uint16_t size)
+{
+    DMA_SetCurrDataCounter(DMA2_Stream5, size);
+    DMA_Cmd(DMA2_Stream5, ENABLE);
+    USART_ClearITPendingBit(USART1, USART_IT_RXNE);
+}
+
+
+void DMA_GPSinTransferStop(void)
+{
+    DMA_Cmd(DMA2_Stream5, DISABLE);
+}
+
+
+uint16_t DMA_GPSinGetRemainingDataCounter(void)
+{
+    return DMA_GetCurrDataCounter(DMA2_Stream5);
 }

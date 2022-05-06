@@ -2,13 +2,15 @@
 
 /* Rx buffer */
 static uint8_t rx_buffer[GPS_BUF_SIZE] = {0};
-static uint8_t rx_buf_pos = 0;
+static uint8_t* rx_buf_ptr = rx_buffer;
+static UBX_HEADER* rx_header = (UBX_HEADER*)rx_buffer;
+
 /* Tx buffer */
 static uint8_t tx_buffer[GPS_BUF_SIZE] = {0};
-static const uint8_t* tx_packet_start = tx_buffer + 2;
+static UBX_HEADER* tx_header = (UBX_HEADER*)tx_buffer;
 
 /* flags ---------------------- */
-static uint8_t flags = 0;
+static uint8_t flags = 0x3;
 
 #define SET_FLAG_MSG_TX         SET_BIT(flags, GPS_FLAG_MSG_TX)
 #define READ_FLAG_MSG_TX        READ_BIT(flags, GPS_FLAG_MSG_TX)
@@ -17,6 +19,17 @@ static uint8_t flags = 0;
 #define SET_FLAG_MSG_RX         SET_BIT(flags, GPS_FLAF_MSG_RX)
 #define READ_FLAG_MSG_RX        READ_BIT(flags, GPS_FLAF_MSG_RX)
 #define RESET_FLAG_MSG_RX       CLEAR_BIT(flags, GPS_FLAF_MSG_RX)
+
+
+static void UBX_ProcessResponce(void);
+static void UBX_CalcChecksum(size_t payload_size);
+static uint8_t UBX_CheckCkecksum(size_t payload_size);
+
+
+uint8_t UBX_GetFlagMsgRx(void)
+{
+    return READ_FLAG_MSG_RX;
+}
 
 void UBX_ResetFlagMsgTx(void)
 {
@@ -32,56 +45,70 @@ void UBX_ResetFlagMsgRx(void)
 
 static void UBX_CalcChecksum(size_t payload_size)
 {
-    size_t crc_size = payload_size + sizeof(UBX_HEADER);
-    uint8_t* CK_0 = ((uint8_t* )tx_packet_start) + crc_size;
+    size_t crc_size = payload_size + sizeof(UBX_HEADER) - UBX_SYNC_LEN;
+    uint8_t* CK_0 = tx_buffer + crc_size + UBX_SYNC_LEN;
     uint8_t* CK_1 = CK_0 + 1;
     *CK_0 = 0;
     *CK_1 = 0;
     for (size_t i = 0; i < crc_size; i++)
     {
-        *CK_0 += tx_packet_start[i];
+        *CK_0 += tx_buffer[i + UBX_SYNC_LEN];
         *CK_1 += *CK_0;
     }
+}
+
+static uint8_t UBX_CheckCkecksum(size_t payload_size)
+{
+    size_t crc_size = payload_size + sizeof(UBX_HEADER) - UBX_SYNC_LEN;
+    uint8_t* CK_0 = rx_buf_ptr + crc_size + UBX_SYNC_LEN;
+    uint8_t* CK_1 = CK_0 + 1;
+    
+    uint8_t CK_0_cur = 0;
+    uint8_t CK_1_cur = 0;
+    
+    for (size_t i = 0; i < crc_size; i++)
+    {
+        CK_0_cur += rx_buf_ptr[i];
+        CK_1_cur += CK_0_cur;
+    }
+    
+    return (CK_0_cur == (*CK_0) && CK_1_cur == (*CK_1)) ? 0 : 1;
 }
 
 uint8_t UBX_SetMsgRate(uint8_t cls, uint8_t id, uint8_t rate)
 {
     if(!READ_FLAG_MSG_TX)
     {
-        SET_FLAG_MSG_TX;
+        return 1;
     }
     else
     {
-        return 1;
+        RESET_FLAG_MSG_TX;
     }
-    
 
-    UBX_HEADER header;
-    header.cls = UBX_CLASS_CFG;
-    header.id = UBX_ID_MSG;
-    header.length = 3;  /* 8 for port config */
+    tx_header->cls = UBX_CLASS_CFG;
+    tx_header->id = UBX_ID_MSG;
+    tx_header->length = 3;  /* 8 for port config */
     
     UBX_CFG_MSG payload;
     payload.msgCls = cls;
     payload.msgID = id;
     payload.rate = rate;
     
-    memcpy((uint8_t*)tx_packet_start,   /* dst  */
-           &header,                     /* src  */
-           sizeof(UBX_HEADER));         /* size */
-    memcpy((uint8_t*)tx_packet_start + sizeof(UBX_HEADER),      /* dst  */
-           &payload,                                            /* src  */
-           header.length);                                      /* size */
+    memset(tx_buffer + sizeof(UBX_HEADER), 0, tx_header->length + UBX_CK_LEN);
+    memcpy(tx_buffer + sizeof(UBX_HEADER),      /* dst  */
+           &payload,                            /* src  */
+           tx_header->length);                  /* size */
 
-    UBX_CalcChecksum(header.length);
-    DMA_GPSoutTransfer(header.length + sizeof(UBX_HEADER) + UBX_SYNC_LEN + UBX_CK_LEN);
+    UBX_CalcChecksum(tx_header->length);
+    DMA_GPSoutTransfer(tx_header->length + sizeof(UBX_HEADER) + UBX_CK_LEN);
     return 0;
 }
 
 void UBX_Init(void)
 {    
-    tx_buffer[0] = UBX_SYNC_CH_1;
-    tx_buffer[1] = UBX_SYNC_CH_2;
+    tx_buffer[0] = UBX_SYNC_CH_0;
+    tx_buffer[1] = UBX_SYNC_CH_1;
     DMA_GPSoutInit((uint32_t*)tx_buffer);
     DMA_GPSinInit((uint32_t*)rx_buffer);
 
@@ -96,31 +123,41 @@ void UBX_Init(void)
     /* disable all nmea messages */
     for(uint8_t i = 0; i < 19; i++)
     {
-        while(READ_FLAG_MSG_TX) {}
+        while(!READ_FLAG_MSG_TX) {}
         UBX_SetMsgRate(NMEA_CLASS, nmea_msg_id[i], 0);
     }
     
     /* enable UBX messages */
     for(uint8_t i = 0; i < 3; i =+ 3)
     {
-        while(READ_FLAG_MSG_TX) {}
+        while(!READ_FLAG_MSG_TX) {}
         UBX_SetMsgRate(ubx_msg_id[i], ubx_msg_id[i + 1], ubx_msg_id[i + 2]);
     }
+    
+    DMA_GPSinTransferStart(UBX_MAX_PAYLOAD_LEN);
 }
 
 
-void UBX_ProcessResponce(uint8_t* data)
+void UBX_main(void)
 {
-    UBX_HEADER header;
-    memcpy(&header, data + UBX_SYNC_LEN, sizeof(header));
-    switch (header.cls)
+    if(sizeof(UBX_HEADER) < (UBX_MAX_PAYLOAD_LEN - DMA_GPSinGetRemainingDataCounter()))
+    {
+        UBX_ProcessResponce();
+    }
+    DMA_GPSinTransferStart(UBX_MAX_PAYLOAD_LEN);
+}
+
+
+static void UBX_ProcessResponce(void)
+{
+    switch (rx_header->cls)
     {
     case UBX_CLASS_NAV:
         break;
     case UBX_CLASS_RXM:
         break;
     case UBX_CLASS_ACK:
-        if (!header.id)
+        if (!rx_header->id)
         {
         }
         else
