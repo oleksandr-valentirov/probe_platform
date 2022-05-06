@@ -150,15 +150,8 @@ void PendSV_Handler(void)
 
 void USART1_IRQHandler(void)
 {
-    if(READ_BIT(USART1->SR, USART_FLAG_RXNE))
-    {
-        USART1_putc(USART1->DR);
-    }
-    if(READ_BIT(USART1->SR, USART_FLAG_TC))
-    {
-        USART_ClearITPendingBit(USART1, USART_IT_TC);
-        USART1_Transmit_Next_Byte();
-    }   
+    DMA_GPSinTransferStop();
+    UBX_ResetFlagMsgRx();
 }
 
 void USART2_IRQHandler(void)

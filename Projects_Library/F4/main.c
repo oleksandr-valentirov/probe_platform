@@ -44,6 +44,9 @@ void main(void)
     while(1)
     {   
 //        Sim_main();
-//        GPS_main();
+        if(!UBX_GetFlagMsgRx())
+        {
+            UBX_main();
+        }
     }
 }

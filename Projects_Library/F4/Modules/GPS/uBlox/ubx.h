@@ -6,11 +6,13 @@
 #define GPS_FLAF_MSG_RX 0x02
 
 #define GPS_BUF_SIZE    128
+#define GPS_BUF_MASK    127
 
-#define UBX_SYNC_CH_1   0xB5
-#define UBX_SYNC_CH_2   0x62
-#define UBX_SYNC_LEN    2
-#define UBX_CK_LEN      2
+#define UBX_SYNC_CH_0           0xB5
+#define UBX_SYNC_CH_1           0x62
+#define UBX_SYNC_LEN            2
+#define UBX_CK_LEN              2
+#define UBX_MAX_PAYLOAD_LEN     sizeof(UBX_NAV_POSLLH)
 
 /* UBX msg class ------------ */
 #define UBX_CLASS_NAV   0x01
@@ -67,6 +69,8 @@
 
 typedef struct
 {
+    uint8_t sync_chr_0;
+    uint8_t sync_chr_1;
     uint8_t cls;
     uint8_t id;
     uint16_t length;
@@ -117,5 +121,7 @@ typedef struct {
 
 
 void UBX_Init(void);
+void UBX_main(void);
 void UBX_ResetFlagMsgTx(void);
 void UBX_ResetFlagMsgRx(void);
+uint8_t UBX_GetFlagMsgRx(void);
