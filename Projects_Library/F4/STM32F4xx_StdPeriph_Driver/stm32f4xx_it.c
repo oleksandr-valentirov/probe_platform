@@ -141,17 +141,16 @@ void PendSV_Handler(void)
 /*  file (startup_stm32f4xx.s).                                               */
 /******************************************************************************/
 
-/**
-  * @brief  This function handles TIM9 interrupt request for OneWire module.
-  * @param  None
-  * @retval None
-  */
-
 
 void USART1_IRQHandler(void)
 {
-    DMA_GPSinTransferStop();
-    UBX_ResetFlagMsgRx();
+//    if(USART_GetITStatus(USART1, USART_IT_IDLE))
+    {
+        USART1_IdleCmd(DISABLE);
+        
+        DMA_GPSinTransferStop();
+        UBX_ResetFlagMsgRx();
+    }
 }
 
 void USART2_IRQHandler(void)
@@ -186,7 +185,7 @@ void SPI3_IRQHandler(void)
 
 void DMA2_Stream7_IRQHandler(void)
 {
-    UBX_ResetFlagMsgTx();
+    UBX_SetFlagMsgTx();
     DMA_ClearITPendingBit(DMA2_Stream7, DMA_IT_TCIF7);
     DMA_ClearFlag(DMA2_Stream7, DMA_FLAG_TCIF7);
 }

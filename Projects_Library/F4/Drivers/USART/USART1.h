@@ -19,7 +19,7 @@ void USART1_putc(uint8_t c);
 uint8_t USART1_Start_Transmission(void* source, size_t counter);
 void USART1_Transmit_Next_Byte(void);
 void USART1_Receive_Next_Byte(void);
-
+void USART1_IdleCmd(FunctionalState NewState);
 
 void USART1_test_tx(void);
 
