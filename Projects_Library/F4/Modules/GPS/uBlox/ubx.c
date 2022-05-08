@@ -26,6 +26,9 @@ static void UBX_CalcChecksum(size_t payload_size);
 static uint8_t UBX_CheckCkecksum(size_t payload_size);
 
 
+static UBX_NAV_POSLLH cur_pos;
+
+
 uint8_t UBX_GetFlagMsgRx(void)
 {
     return READ_FLAG_MSG_RX;
@@ -37,6 +40,16 @@ void UBX_ResetFlagMsgTx(void)
 }
 
 void UBX_ResetFlagMsgRx(void)
+{
+    RESET_FLAG_MSG_RX;
+}
+
+void UBX_SetFlagMsgTx(void)
+{
+    SET_FLAG_MSG_TX;
+}
+
+void UBX_SetFlagMsgRx(void)
 {
     RESET_FLAG_MSG_RX;
 }
@@ -134,17 +147,18 @@ void UBX_Init(void)
         UBX_SetMsgRate(ubx_msg_id[i], ubx_msg_id[i + 1], ubx_msg_id[i + 2]);
     }
     
-    DMA_GPSinTransferStart(UBX_MAX_PAYLOAD_LEN);
+    DMA_GPSinTransferStart(UBX_MAX_PACK_LEN);
 }
 
 
 void UBX_main(void)
 {
-    if(sizeof(UBX_HEADER) < (UBX_MAX_PAYLOAD_LEN - DMA_GPSinGetRemainingDataCounter()))
+    if(sizeof(UBX_HEADER) < (UBX_MAX_PACK_LEN - DMA_GPSinGetRemainingDataCounter()))
     {
         UBX_ProcessResponce();
+        memset(rx_buffer, 0, 40);
     }
-    DMA_GPSinTransferStart(UBX_MAX_PAYLOAD_LEN);
+    DMA_GPSinTransferStart(UBX_MAX_PACK_LEN);
 }
 
 
@@ -153,6 +167,13 @@ static void UBX_ProcessResponce(void)
     switch (rx_header->cls)
     {
     case UBX_CLASS_NAV:
+        switch (rx_header->id)
+        {
+        case UBX_ID_POSLLH:
+//            memset(&cur_pos, 0, sizeof(UBX_NAV_POSLLH));
+            memcpy(&cur_pos, rx_buffer + sizeof(UBX_HEADER), sizeof(UBX_NAV_POSLLH));
+            break;
+        }
         break;
     case UBX_CLASS_RXM:
         break;

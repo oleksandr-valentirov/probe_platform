@@ -13,6 +13,7 @@
 #define UBX_SYNC_LEN            2
 #define UBX_CK_LEN              2
 #define UBX_MAX_PAYLOAD_LEN     sizeof(UBX_NAV_POSLLH)
+#define UBX_MAX_PACK_LEN        ((sizeof(UBX_HEADER)) + (UBX_MAX_PAYLOAD_LEN) + (UBX_CK_LEN))
 
 /* UBX msg class ------------ */
 #define UBX_CLASS_NAV   0x01
@@ -124,4 +125,6 @@ void UBX_Init(void);
 void UBX_main(void);
 void UBX_ResetFlagMsgTx(void);
 void UBX_ResetFlagMsgRx(void);
+void UBX_SetFlagMsgTx(void);
+void UBX_SetFlagMsgRx(void);
 uint8_t UBX_GetFlagMsgRx(void);
