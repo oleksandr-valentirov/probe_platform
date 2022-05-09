@@ -5,8 +5,8 @@
 #define GPS_FLAG_MSG_TX 0x01
 #define GPS_FLAF_MSG_RX 0x02
 
-#define GPS_BUF_SIZE    128
-#define GPS_BUF_MASK    127
+#define GPS_BUF_SIZE    256
+#define GPS_BUF_MASK    255
 
 #define UBX_SYNC_CH_0           0xB5
 #define UBX_SYNC_CH_1           0x62
@@ -32,6 +32,7 @@
 
 /* NAV msg ID */
 #define UBX_ID_POSLLH   0x02
+#define UBX_ID_PVT      0x07
 /* -------------------------- */
 
 
@@ -70,55 +71,103 @@
 
 typedef struct
 {
-    uint8_t sync_chr_0;
-    uint8_t sync_chr_1;
-    uint8_t cls;
-    uint8_t id;
-    uint16_t length;
+    uint8_t     sync_chr_0;
+    uint8_t     sync_chr_1;
+    uint8_t     cls;
+    uint8_t     id;
+    uint16_t    length;
 } UBX_HEADER;
 
 typedef struct
 {
-    uint8_t highNavRate;
-    uint8_t reserved[3];
+    uint8_t     highNavRate;
+    uint8_t     reserved[3];
 } UBX_CFG_HNR;
 
 typedef struct
 {
-    uint8_t clsID;
-    uint8_t msgID;
+    uint8_t     clsID;
+    uint8_t     msgID;
 } UBX_ACK;
 
 typedef struct
 {
-    uint8_t msgCls;
-    uint8_t msgID;
-    uint8_t rate;
+    uint8_t     msgCls;
+    uint8_t     msgID;
+    uint8_t     rate;
 } UBX_CFG_MSG;
 
 typedef struct
 {
-    uint8_t port_num;
-    uint8_t reserved1;
-    uint16_t txReady;
-    uint32_t mode;
-    uint32_t baudRate;
-    uint16_t inProtoMask;
-    uint16_t outProtoMask;
-    uint16_t flags;
-    uint8_t reserved2;
-    uint8_t reserved3;
+    uint8_t     port_num;
+    uint8_t     reserved1;
+    uint16_t    txReady;
+    uint32_t    mode;
+    uint32_t    baudRate;
+    uint16_t    inProtoMask;
+    uint16_t    outProtoMask;
+    uint16_t    flags;
+    uint8_t     reserved2;
+    uint8_t     reserved3;
 } UBX_CFG_PRT;
 
-typedef struct {
-    uint32_t iTOW;
-    int32_t lon;
-    int32_t lat;
-    int32_t height;
-    int32_t hMSL;
-    uint32_t hAcc;
-    uint32_t vAcc;
+typedef struct
+{
+    uint32_t    iTOW;
+    int32_t     lon;
+    int32_t     lat;
+    int32_t     height;
+    int32_t     hMSL;
+    uint32_t    hAcc;
+    uint32_t    vAcc;
 } UBX_NAV_POSLLH;
+
+typedef struct
+{
+    uint32_t    iTOW;
+    uint16_t    year;
+    uint8_t     month;
+    uint8_t     day;
+    uint8_t     hour;
+    uint8_t     min;
+    uint8_t     sec;
+    uint8_t     valid;
+    uint32_t    tAcc;
+    int32_t     nano;
+    UBX_FitType fixType;
+    uint8_t     flags;
+    uint8_t     flags2;
+    uint8_t     numSV;
+    int32_t     lon;
+    int32_t     lat;
+    int32_t     height;
+    int32_t     hMSL;
+    uint32_t    hAcc;
+    uint32_t    vAcc;
+    int32_t     velN;
+    int32_t     velE;
+    int32_t     velD;
+    int32_t     gSpeed;
+    int32_t     headMot;
+    uint32_t    sAcc;
+    uint32_t    headAcc;
+    uint16_t    pDOP;
+    uint16_t    flags3;
+    uint8_t     reserved1[4];
+    int32_t     headVeh;
+    int16_t     magDec;
+    int16_t     magAcc;
+} UBX_NAV_PVT;
+
+typedef enum
+{
+    NoFix       = 0,
+    DRonly      = 1,
+    TwoDim      = 2,
+    ThreeDim    = 3,
+    GNSSplusDR  = 4,
+    TimeFixOnly = 5
+} UBX_FitType;
 
 
 void UBX_Init(void);
