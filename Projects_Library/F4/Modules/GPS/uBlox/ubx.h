@@ -122,6 +122,16 @@ typedef struct
     uint32_t    vAcc;
 } UBX_NAV_POSLLH;
 
+typedef enum
+{
+    NoFix       = 0,
+    DRonly      = 1,
+    TwoDim      = 2,
+    ThreeDim    = 3,
+    GNSSplusDR  = 4,
+    TimeFixOnly = 5
+} UBX_FixType;
+
 typedef struct
 {
     uint32_t    iTOW;
@@ -134,7 +144,7 @@ typedef struct
     uint8_t     valid;
     uint32_t    tAcc;
     int32_t     nano;
-    UBX_FitType fixType;
+    UBX_FixType fixType;
     uint8_t     flags;
     uint8_t     flags2;
     uint8_t     numSV;
@@ -158,16 +168,6 @@ typedef struct
     int16_t     magDec;
     int16_t     magAcc;
 } UBX_NAV_PVT;
-
-typedef enum
-{
-    NoFix       = 0,
-    DRonly      = 1,
-    TwoDim      = 2,
-    ThreeDim    = 3,
-    GNSSplusDR  = 4,
-    TimeFixOnly = 5
-} UBX_FitType;
 
 
 void UBX_Init(void);

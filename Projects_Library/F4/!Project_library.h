@@ -57,6 +57,7 @@
 #include "temp_api.h"
 #include "sim.h"
 #include "ubx.h"
+#include "memory.h"
 
 
 /* Exported types ------------------------------------------------------------*/
