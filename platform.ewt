@@ -2689,6 +2689,15 @@
                 </file>
             </group>
             <group>
+                <name>DMA</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\DMA\dma.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\DMA\dma.h</name>
+                </file>
+            </group>
+            <group>
                 <name>GPIO</name>
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\Drivers\GPIO\gpio.c</name>
@@ -2769,20 +2778,14 @@
             <group>
                 <name>GPS</name>
                 <group>
-                    <name>MAX_M8</name>
+                    <name>uBlox</name>
                     <file>
-                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\max_m8\max_m8.c</name>
+                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\uBlox\ubx.c</name>
                     </file>
                     <file>
-                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\max_m8\max_m8.h</name>
+                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\uBlox\ubx.h</name>
                     </file>
                 </group>
-                <file>
-                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\gps.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\gps.h</name>
-                </file>
             </group>
             <group>
                 <name>SIM800</name>

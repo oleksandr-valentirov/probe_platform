@@ -49,14 +49,14 @@
 //#include "onewire.h"
 #include "i2c.h"
 #include "systick.h"
+#include "dma.h"
 
 
 /* Modules -------------------------------------------------------------------*/
 //#include "sx126x.h"
 #include "temp_api.h"
 #include "sim.h"
-#include "gps.h"
-#include "max_m8.h"
+#include "ubx.h"
 
 
 /* Exported types ------------------------------------------------------------*/

@@ -14,13 +14,16 @@ void main(void)
     /* periph init */
     SysTick_Init();
 //    ADC1_Init();
-    USART2_Init();
+    USART1_Init();
+//    USART2_Init();
     SPI3_Init();
+    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2, ENABLE);
     
     /* exti init */
 //    RCC_APB2PeriphClockCmd(RCC_APB2Periph_EXTIT, ENABLE);
     EXTI_DeInit();
     NVIC_EnableIRQ(EXTI9_5_IRQn);
+    NVIC_EnableIRQ(DMA2_Stream7_IRQn);
     
 #ifdef TEST_HW
     USART1_test_tx();
@@ -35,11 +38,15 @@ void main(void)
     __enable_irq();
     
     /* modules init */
-    Sim_init();
+//    Sim_init();
+    UBX_Init();
 
     while(1)
     {   
-        Sim_main();
-        GPS_main();
+//        Sim_main();
+        if(!UBX_GetFlagMsgRx())
+        {
+            UBX_main();
+        }
     }
 }
