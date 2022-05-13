@@ -2691,10 +2691,13 @@
             <group>
                 <name>DMA</name>
                 <file>
-                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\DMA\dma.c</name>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\DMA\dma.h</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\DMA\dma.h</name>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\DMA\DMA_SPI3.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\DMA\DMA_USART1.c</name>
                 </file>
             </group>
             <group>
@@ -2727,10 +2730,10 @@
             <group>
                 <name>SPI</name>
                 <file>
-                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\SPI\SPI.c</name>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\SPI\SPI3.c</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\SPI\SPI.h</name>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\SPI\SPI3.h</name>
                 </file>
             </group>
             <group>

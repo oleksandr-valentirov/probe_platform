@@ -148,7 +148,7 @@ void USART1_IRQHandler(void)
     {
         USART1_IdleCmd(DISABLE);
         
-        DMA_GPSinTransferStop();
+        DMA_USART1inTransferStop();
         UBX_ResetFlagMsgRx();
     }
 }
@@ -177,10 +177,7 @@ void EXTI9_5_IRQHandler(void)
 
 void SPI3_IRQHandler(void)
 {
-    if (SPI_I2S_GetITStatus(SPI3, SPI_I2S_IT_TXE))
-    {
-        SPI3_ExchangeBytes();
-    }
+
 }
 
 void DMA2_Stream7_IRQHandler(void)

@@ -114,7 +114,7 @@ uint8_t UBX_SetMsgRate(uint8_t cls, uint8_t id, uint8_t rate)
            tx_header->length);                  /* size */
 
     UBX_CalcChecksum(tx_header->length);
-    DMA_GPSoutTransfer(tx_header->length + sizeof(UBX_HEADER) + UBX_CK_LEN);
+    DMA_USART1outTransfer(tx_header->length + sizeof(UBX_HEADER) + UBX_CK_LEN);
     return 0;
 }
 
@@ -122,8 +122,8 @@ void UBX_Init(void)
 {    
     tx_buffer[0] = UBX_SYNC_CH_0;
     tx_buffer[1] = UBX_SYNC_CH_1;
-    DMA_GPSoutInit((uint32_t*)tx_buffer);
-    DMA_GPSinInit((uint32_t*)rx_buffer);
+    DMA_USART1outInit((uint32_t*)tx_buffer);
+    DMA_USART1inInit((uint32_t*)rx_buffer);
 
     const uint8_t nmea_msg_id[19] = {NMEA_DTM_ID, NMEA_GBQ_ID, NMEA_GBS_ID,
         NMEA_GGA_ID, NMEA_GLL_ID, NMEA_GLQ_ID, NMEA_GNQ_ID, NMEA_GNS_ID,
@@ -147,18 +147,18 @@ void UBX_Init(void)
         UBX_SetMsgRate(ubx_msg_id[i], ubx_msg_id[i + 1], ubx_msg_id[i + 2]);
     }
     
-    DMA_GPSinTransferStart(UBX_MAX_PACK_LEN);
+    DMA_USART1inTransferStart(UBX_MAX_PACK_LEN);
 }
 
 
 void UBX_main(void)
 {
-    if(sizeof(UBX_HEADER) < (UBX_MAX_PACK_LEN - DMA_GPSinGetRemainingDataCounter()))
+    if(sizeof(UBX_HEADER) < (UBX_MAX_PACK_LEN - DMA_USART1inGetRemainingDataCounter()))
     {
         UBX_ProcessResponce();
         memset(rx_buffer, 0, 40);
     }
-    DMA_GPSinTransferStart(UBX_MAX_PACK_LEN);
+    DMA_USART1inTransferStart(UBX_MAX_PACK_LEN);
 }
 
 

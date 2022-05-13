@@ -1,5 +1,4 @@
-#ifndef _MEMORY_H
-#define _MEMORY_H
+#pragma once
 
 #include "!Project_library.h"
 
@@ -25,4 +24,3 @@ uint8_t MEM_erase(uint8_t *addr, MemSize_t size);
 uint8_t MEM_read_page(uint8_t *dst);
 uint8_t MEM_write_page(void);
 
-#endif
