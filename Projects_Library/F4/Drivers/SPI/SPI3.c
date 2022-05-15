@@ -1,8 +1,8 @@
 #include "SPI3.h"
 
 
-static uint8_t tx_buffer[256];
-static uint8_t rx_buffer[256];
+//static uint8_t tx_buffer[256];
+//static uint8_t rx_buffer[256];
 
 
 void SPI3_Init(void)
