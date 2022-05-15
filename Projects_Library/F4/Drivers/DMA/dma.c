@@ -1,5 +1,11 @@
 #include "dma.h"
 
+void DMA_MyInit(void)
+{
+    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA1, ENABLE);
+    RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2, ENABLE);
+}
+
 void DMA_ClearStatus(DMA_Stream_TypeDef* DMAy_Streamx)
 {
     DMA_ClearFlag(DMAy_Streamx, DMA_FLAG_TCIF2 | DMA_FLAG_HTIF2 | DMA_FLAG_TEIF2 | DMA_FLAG_DMEIF2 | DMA_FLAG_FEIF2);

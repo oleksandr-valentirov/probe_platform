@@ -32,6 +32,7 @@ void main(void)
     SPI3_Init();
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2, ENABLE);
     MX_USB_DEVICE_Init();
+    DMA_MyInit();
     
     /* exti init */
 //    RCC_APB2PeriphClockCmd(RCC_APB2Periph_EXTIT, ENABLE);

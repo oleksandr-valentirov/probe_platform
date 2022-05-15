@@ -7,6 +7,9 @@
 
 void SPI3_Init(void)
 {
+    DMA_SPI3outInit();
+    DMA_SPI3inInit();
+    
     SPI_I2S_DeInit(SPI3);
     RCC_APB1PeriphClockCmd(RCC_APB1Periph_SPI3, ENABLE);
     
