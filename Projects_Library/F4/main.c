@@ -42,9 +42,6 @@ void main(void)
     
 #ifdef TEST_HW
     USART1_test_tx();
-#endif
-    
-#ifdef TEST_FW
     while(1){}
 #endif
     
