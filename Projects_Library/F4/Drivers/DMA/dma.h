@@ -2,6 +2,8 @@
 
 #include "!Project_library.h"
 
+void DMA_ClearStatus(DMA_Stream_TypeDef* DMAy_Streamx);
+
 void DMA_USART1outInit(uint32_t* gps_buf_ptr);
 void DMA_USART1inInit(uint32_t* gps_buf_ptr);
 void DMA_USART1outTransfer(uint8_t size);
