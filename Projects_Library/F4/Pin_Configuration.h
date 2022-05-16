@@ -2,6 +2,7 @@
 #ifndef __PIN_CONFIG_H
 #define __PIN_CONFIG_H
 
+//#define BLACK_PILL
 
 #include "!Project_library.h"
 
@@ -9,10 +10,15 @@
 /* Alternate functions ------------------------------------------------------ */
 
 // SPI3
-#define SPI3_MISO_AF            GPIO_PinSource4
+#ifdef BLACK_PIL
 #define SPI3_MOSI_AF            GPIO_PinSource5
+#define SPI3_MISO_AF            GPIO_PinSource4
 #define SPI3_CLK_AF             GPIO_PinSource3
-
+#else
+#define SPI3_MOSI_AF            GPIO_PinSource12
+#define SPI3_MISO_AF            GPIO_PinSource11
+#define SPI3_CLK_AF             GPIO_PinSource10
+#endif
 
 // USART 1
 #define USART_1_TX_AF_SRC       GPIO_PinSource6
@@ -32,10 +38,17 @@
 /* Peripherals -------------------------------------------------------------- */
 
 /* SPI3 */
+#ifdef BLACK_PILL
+#define SPI3_PORT               GPIOB
+#define SPI3_MOSI_PIN           GPIO_Pin_5
+#define SPI3_MISO_PIN           GPIO_Pin_4
+#define SPI3_CLK_PIN            GPIO_Pin_3
+#else
 #define SPI3_PORT               GPIOC
-#define SPI3_MISO_PIN           GPIO_Pin_11
 #define SPI3_MOSI_PIN           GPIO_Pin_12
+#define SPI3_MISO_PIN           GPIO_Pin_11
 #define SPI3_CLK_PIN            GPIO_Pin_10
+#endif
 
 
 // USART 1

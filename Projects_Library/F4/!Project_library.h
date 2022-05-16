@@ -50,6 +50,7 @@
 #include "i2c.h"
 #include "systick.h"
 #include "dma.h"
+#include "spi3.h"
 #include "logging.h"
 
 
