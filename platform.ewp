@@ -2576,6 +2576,15 @@
                 </group>
             </group>
             <group>
+                <name>IMU</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\IMU\imu.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\IMU\imu.h</name>
+                </file>
+            </group>
+            <group>
                 <name>Memory</name>
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\Modules\Memory\memory.c</name>
@@ -2591,18 +2600,6 @@
                 </file>
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\Modules\SIM800\sim.h</name>
-                </file>
-            </group>
-            <group>
-                <name>SX1268</name>
-                <excluded>
-                    <configuration>F4</configuration>
-                </excluded>
-                <file>
-                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\SX1268\sx126x.c</name>
-                </file>
-                <file>
-                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\SX1268\sx126x.h</name>
                 </file>
             </group>
             <group>
