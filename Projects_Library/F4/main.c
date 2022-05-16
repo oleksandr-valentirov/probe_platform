@@ -39,9 +39,11 @@ void main(void)
     
     NVIC_EnableIRQ(EXTI9_5_IRQn);
     NVIC_EnableIRQ(DMA2_Stream7_IRQn);
-    
+
+//#define TEST_HW
 #ifdef TEST_HW
     USART1_test_tx();
+    SPI3_Test();
     while(1){}
 #endif
     
