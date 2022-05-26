@@ -374,6 +374,7 @@
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\uBlox</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\TemperatureSensorsAPI</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\Memory</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\IMU</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\Logging</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\USB\</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\USB\HAL\inc\</state>

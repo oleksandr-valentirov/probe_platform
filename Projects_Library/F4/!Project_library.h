@@ -63,6 +63,7 @@
 #include "sim.h"
 #include "ubx.h"
 #include "memory.h"
+#include "imu.h"
 
 
 /* Exported types ------------------------------------------------------------*/
