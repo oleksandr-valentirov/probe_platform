@@ -21,8 +21,8 @@
 #define USART_2_TX_AF_SRC       GPIO_PinSource2
 #define USART_2_RX_AF_SRC       GPIO_PinSource3
 // USART 6
-#define USART_2_TX_AF_SRC       GPIO_PinSource6
-#define USART_2_RX_AF_SRC       GPIO_PinSource7
+#define USART_6_TX_AF_SRC       GPIO_PinSource6
+#define USART_6_RX_AF_SRC       GPIO_PinSource7
 /* -------------------------------------------------------------------------- */
 /* -------------------------------------------------------------------------- */
 
@@ -51,9 +51,9 @@
 
 
 /* USART 6 */
-#define USART_2_PORT            GPIOC
-#define USART_2_TX_PIN          GPIO_Pin_6
-#define USART_2_RX_PIN          GPIO_Pin_7
+#define USART_6_PORT            GPIOC
+#define USART_6_TX_PIN          GPIO_Pin_6
+#define USART_6_RX_PIN          GPIO_Pin_7
 
 
 /* -------------------------------------------------------------------------- */
@@ -111,8 +111,8 @@
 #define PWM_P0_PIN_1            GPIO_Pin_7
 
 #define PWM_PORT_1              GPIOB
-#define PWM_P0_PIN_0            GPIO_Pin_0
-#define PWM_P0_PIN_1            GPIO_Pin_1
+#define PWM_P1_PIN_0            GPIO_Pin_0
+#define PWM_P1_PIN_1            GPIO_Pin_1
 
 
 /* -------------------------------------------------------------------------- */
