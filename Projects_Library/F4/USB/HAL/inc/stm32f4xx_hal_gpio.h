@@ -100,7 +100,7 @@ typedef enum
 #define GPIO_PIN_15                ((uint16_t)0x8000)  /* Pin 15 selected   */
 #define GPIO_PIN_All               ((uint16_t)0xFFFF)  /* All pins selected */
 
-#define GPIO_PIN_MASK              0x0000FFFFU /* PIN mask for assert test */
+//#define GPIO_PIN_MASK              0x0000FFFFU /* PIN mask for assert test */
 /**
   * @}
   */
@@ -279,21 +279,21 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin);
   * @{
   */
 #define IS_GPIO_PIN_ACTION(ACTION) (((ACTION) == GPIO_PIN_RESET) || ((ACTION) == GPIO_PIN_SET))
-#define IS_GPIO_PIN(PIN)           (((((uint32_t)PIN) & GPIO_PIN_MASK ) != 0x00U) && ((((uint32_t)PIN) & ~GPIO_PIN_MASK) == 0x00U))
-#define IS_GPIO_MODE(MODE) (((MODE) == GPIO_MODE_INPUT)              ||\
-                            ((MODE) == GPIO_MODE_OUTPUT_PP)          ||\
-                            ((MODE) == GPIO_MODE_OUTPUT_OD)          ||\
-                            ((MODE) == GPIO_MODE_AF_PP)              ||\
-                            ((MODE) == GPIO_MODE_AF_OD)              ||\
-                            ((MODE) == GPIO_MODE_IT_RISING)          ||\
-                            ((MODE) == GPIO_MODE_IT_FALLING)         ||\
-                            ((MODE) == GPIO_MODE_IT_RISING_FALLING)  ||\
-                            ((MODE) == GPIO_MODE_EVT_RISING)         ||\
-                            ((MODE) == GPIO_MODE_EVT_FALLING)        ||\
-                            ((MODE) == GPIO_MODE_EVT_RISING_FALLING) ||\
-                            ((MODE) == GPIO_MODE_ANALOG))
-#define IS_GPIO_SPEED(SPEED) (((SPEED) == GPIO_SPEED_FREQ_LOW)  || ((SPEED) == GPIO_SPEED_FREQ_MEDIUM) || \
-                              ((SPEED) == GPIO_SPEED_FREQ_HIGH) || ((SPEED) == GPIO_SPEED_FREQ_VERY_HIGH))
+//#define IS_GPIO_PIN(PIN)           (((((uint32_t)PIN) & GPIO_PIN_MASK ) != 0x00U) && ((((uint32_t)PIN) & ~GPIO_PIN_MASK) == 0x00U))
+//#define IS_GPIO_MODE(MODE) (((MODE) == GPIO_MODE_INPUT)              ||\
+//                            ((MODE) == GPIO_MODE_OUTPUT_PP)          ||\
+//                            ((MODE) == GPIO_MODE_OUTPUT_OD)          ||\
+//                            ((MODE) == GPIO_MODE_AF_PP)              ||\
+//                            ((MODE) == GPIO_MODE_AF_OD)              ||\
+//                            ((MODE) == GPIO_MODE_IT_RISING)          ||\
+//                            ((MODE) == GPIO_MODE_IT_FALLING)         ||\
+//                            ((MODE) == GPIO_MODE_IT_RISING_FALLING)  ||\
+//                            ((MODE) == GPIO_MODE_EVT_RISING)         ||\
+//                            ((MODE) == GPIO_MODE_EVT_FALLING)        ||\
+//                            ((MODE) == GPIO_MODE_EVT_RISING_FALLING) ||\
+//                            ((MODE) == GPIO_MODE_ANALOG))
+//#define IS_GPIO_SPEED(SPEED) (((SPEED) == GPIO_SPEED_FREQ_LOW)  || ((SPEED) == GPIO_SPEED_FREQ_MEDIUM) || \
+//                              ((SPEED) == GPIO_SPEED_FREQ_HIGH) || ((SPEED) == GPIO_SPEED_FREQ_VERY_HIGH))
 #define IS_GPIO_PULL(PULL) (((PULL) == GPIO_NOPULL) || ((PULL) == GPIO_PULLUP) || \
                             ((PULL) == GPIO_PULLDOWN))
 /**

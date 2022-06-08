@@ -78,7 +78,7 @@
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-//void TimingDelay_Decrement(void);
+void Error_Handler(void);
 
 #endif /* __PROJECT_LIBRARY_H */
 

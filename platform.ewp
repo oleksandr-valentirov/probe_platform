@@ -226,7 +226,6 @@
                     <name>CCDefines</name>
                     <state>USE_STDPERIPH_DRIVER</state>
                     <state>STM32F411xE</state>
-                    <state>USE_HAL_PCD_REGISTER_CALLBACKS</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -2923,6 +2922,9 @@
                     <name>inc</name>
                     <file>
                         <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\inc\stm32f4xx_hal.h</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\inc\stm32f4xx_hal_conf.h</name>
                     </file>
                     <file>
                         <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\inc\stm32f4xx_hal_cortex.h</name>

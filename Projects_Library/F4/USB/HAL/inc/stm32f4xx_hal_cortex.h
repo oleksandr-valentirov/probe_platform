@@ -301,20 +301,20 @@ void HAL_MPU_ConfigRegion(MPU_Region_InitTypeDef *MPU_Init);
 /** @defgroup CORTEX_Private_Macros CORTEX Private Macros
   * @{
   */
-#define IS_NVIC_PRIORITY_GROUP(GROUP) (((GROUP) == NVIC_PRIORITYGROUP_0) || \
-                                       ((GROUP) == NVIC_PRIORITYGROUP_1) || \
-                                       ((GROUP) == NVIC_PRIORITYGROUP_2) || \
-                                       ((GROUP) == NVIC_PRIORITYGROUP_3) || \
-                                       ((GROUP) == NVIC_PRIORITYGROUP_4))
+//#define IS_NVIC_PRIORITY_GROUP(GROUP) (((GROUP) == NVIC_PRIORITYGROUP_0) || \
+//                                       ((GROUP) == NVIC_PRIORITYGROUP_1) || \
+//                                       ((GROUP) == NVIC_PRIORITYGROUP_2) || \
+//                                       ((GROUP) == NVIC_PRIORITYGROUP_3) || \
+//                                       ((GROUP) == NVIC_PRIORITYGROUP_4))
 
-#define IS_NVIC_PREEMPTION_PRIORITY(PRIORITY)  ((PRIORITY) < 0x10U)
+//#define IS_NVIC_PREEMPTION_PRIORITY(PRIORITY)  ((PRIORITY) < 0x10U)
 
-#define IS_NVIC_SUB_PRIORITY(PRIORITY)         ((PRIORITY) < 0x10U)
+//#define IS_NVIC_SUB_PRIORITY(PRIORITY)         ((PRIORITY) < 0x10U)
 
 #define IS_NVIC_DEVICE_IRQ(IRQ)                ((IRQ) >= (IRQn_Type)0x00U)
 
-#define IS_SYSTICK_CLK_SOURCE(SOURCE) (((SOURCE) == SYSTICK_CLKSOURCE_HCLK) || \
-                                       ((SOURCE) == SYSTICK_CLKSOURCE_HCLK_DIV8))
+//#define IS_SYSTICK_CLK_SOURCE(SOURCE) (((SOURCE) == SYSTICK_CLKSOURCE_HCLK) || \
+//                                       ((SOURCE) == SYSTICK_CLKSOURCE_HCLK_DIV8))
 
 #if (__MPU_PRESENT == 1U)
 #define IS_MPU_REGION_ENABLE(STATE) (((STATE) == MPU_REGION_ENABLE) || \

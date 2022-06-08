@@ -3098,6 +3098,9 @@
                         <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\inc\stm32f4xx_hal.h</name>
                     </file>
                     <file>
+                        <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\inc\stm32f4xx_hal_conf.h</name>
+                    </file>
+                    <file>
                         <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\inc\stm32f4xx_hal_cortex.h</name>
                     </file>
                     <file>
