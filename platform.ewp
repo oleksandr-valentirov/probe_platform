@@ -2945,12 +2945,6 @@
                         <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\inc\stm32f4xx_hal_flash_ramfunc.h</name>
                     </file>
                     <file>
-                        <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\inc\stm32f4xx_hal_gpio.h</name>
-                    </file>
-                    <file>
-                        <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\inc\stm32f4xx_hal_gpio_ex.h</name>
-                    </file>
-                    <file>
                         <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\inc\stm32f4xx_hal_pcd.h</name>
                     </file>
                     <file>
@@ -2985,9 +2979,6 @@
                     </file>
                     <file>
                         <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\src\stm32f4xx_hal_flash_ramfunc.c</name>
-                    </file>
-                    <file>
-                        <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\src\stm32f4xx_hal_gpio.c</name>
                     </file>
                     <file>
                         <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\src\stm32f4xx_hal_pcd.c</name>
