@@ -26,6 +26,7 @@
 #endif
 
 /* Includes ------------------------------------------------------------------*/
+#include "USB_OTG.h"
 #include "stm32f4xx_hal_conf.h"
 
 /** @addtogroup STM32F4xx_HAL_Driver
@@ -246,8 +247,8 @@ void HAL_DBGMCU_EnableDBGStopMode(void);
 void HAL_DBGMCU_DisableDBGStopMode(void);
 void HAL_DBGMCU_EnableDBGStandbyMode(void);
 void HAL_DBGMCU_DisableDBGStandbyMode(void);
-void HAL_EnableCompensationCell(void);
-void HAL_DisableCompensationCell(void);
+//void HAL_EnableCompensationCell(void);
+//void HAL_DisableCompensationCell(void);
 uint32_t HAL_GetUIDw0(void);
 uint32_t HAL_GetUIDw1(void);
 uint32_t HAL_GetUIDw2(void);

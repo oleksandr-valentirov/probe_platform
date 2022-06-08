@@ -52,7 +52,6 @@ void main(void)
     }
 }
 
-
 void Error_Handler(void)
 {
     while(1)

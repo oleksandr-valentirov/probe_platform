@@ -90,6 +90,7 @@ typedef USB_OTG_EPTypeDef      PCD_EPTypeDef;
   * @brief  PCD Handle Structure definition
   */
 #if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
+#warning "CALLBACKS"
 typedef struct __PCD_HandleTypeDef
 #else
 typedef struct

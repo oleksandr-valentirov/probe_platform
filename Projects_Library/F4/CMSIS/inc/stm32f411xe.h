@@ -721,23 +721,7 @@ typedef struct
 
 /*!< Debug MCU registers base address */
 #define DBGMCU_BASE           0xE0042000UL
-/*!< USB registers base address */
-#define USB_OTG_FS_PERIPH_BASE               0x50000000UL
 
-#define USB_OTG_GLOBAL_BASE                  0x000UL
-#define USB_OTG_DEVICE_BASE                  0x800UL
-#define USB_OTG_IN_ENDPOINT_BASE             0x900UL
-#define USB_OTG_OUT_ENDPOINT_BASE            0xB00UL
-#define USB_OTG_EP_REG_SIZE                  0x20UL
-#define USB_OTG_HOST_BASE                    0x400UL
-#define USB_OTG_HOST_PORT_BASE               0x440UL
-#define USB_OTG_HOST_CHANNEL_BASE            0x500UL
-#define USB_OTG_HOST_CHANNEL_SIZE            0x20UL
-#define USB_OTG_PCGCCTL_BASE                 0xE00UL
-#define USB_OTG_FIFO_BASE                    0x1000UL
-#define USB_OTG_FIFO_SIZE                    0x1000UL
-
-#define UID_BASE                     0x1FFF7A10UL           /*!< Unique device ID register base address */
 #define FLASHSIZE_BASE               0x1FFF7A22UL           /*!< FLASH Size register base address       */
 #define PACKAGE_BASE                 0x1FFF7BF0UL           /*!< Package size register base address     */
 /**

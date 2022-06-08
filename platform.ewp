@@ -376,7 +376,7 @@
                     <state>$PROJ_DIR$\Projects_Library\F4\USB\HAL\inc\</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\USB\HAL\src\</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\USB\USB_DEVICE\App\</state>
-                    <state>$PROJ_DIR$\Projects_Library\F4\USB\USB_DEVICE\Target</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\USB\USB_DEVICE\Target\</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\USB\Middlewares\STM32_USB_Device_Library\Class\CDC\</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\USB\Middlewares\STM32_USB_Device_Library\Core\inc\</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\USB\Middlewares\STM32_USB_Device_Library\Core\src\</state>
@@ -2927,34 +2927,13 @@
                         <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\inc\stm32f4xx_hal_conf.h</name>
                     </file>
                     <file>
-                        <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\inc\stm32f4xx_hal_cortex.h</name>
-                    </file>
-                    <file>
                         <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\inc\stm32f4xx_hal_def.h</name>
-                    </file>
-                    <file>
-                        <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\inc\stm32f4xx_hal_exti.h</name>
-                    </file>
-                    <file>
-                        <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\inc\stm32f4xx_hal_flash.h</name>
-                    </file>
-                    <file>
-                        <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\inc\stm32f4xx_hal_flash_ex.h</name>
-                    </file>
-                    <file>
-                        <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\inc\stm32f4xx_hal_flash_ramfunc.h</name>
                     </file>
                     <file>
                         <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\inc\stm32f4xx_hal_pcd.h</name>
                     </file>
                     <file>
                         <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\inc\stm32f4xx_hal_pcd_ex.h</name>
-                    </file>
-                    <file>
-                        <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\inc\stm32f4xx_hal_rcc.h</name>
-                    </file>
-                    <file>
-                        <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\inc\stm32f4xx_hal_rcc_ex.h</name>
                     </file>
                     <file>
                         <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\inc\stm32f4xx_ll_usb.h</name>
@@ -2966,31 +2945,10 @@
                         <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\src\stm32f4xx_hal.c</name>
                     </file>
                     <file>
-                        <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\src\stm32f4xx_hal_cortex.c</name>
-                    </file>
-                    <file>
-                        <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\src\stm32f4xx_hal_exti.c</name>
-                    </file>
-                    <file>
-                        <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\src\stm32f4xx_hal_flash.c</name>
-                    </file>
-                    <file>
-                        <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\src\stm32f4xx_hal_flash_ex.c</name>
-                    </file>
-                    <file>
-                        <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\src\stm32f4xx_hal_flash_ramfunc.c</name>
-                    </file>
-                    <file>
                         <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\src\stm32f4xx_hal_pcd.c</name>
                     </file>
                     <file>
                         <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\src\stm32f4xx_hal_pcd_ex.c</name>
-                    </file>
-                    <file>
-                        <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\src\stm32f4xx_hal_rcc.c</name>
-                    </file>
-                    <file>
-                        <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\src\stm32f4xx_hal_rcc_ex.c</name>
                     </file>
                     <file>
                         <name>$PROJ_DIR$\Projects_Library\F4\USB\HAL\src\stm32f4xx_ll_usb.c</name>
@@ -3078,6 +3036,9 @@
                     </file>
                 </group>
             </group>
+            <file>
+                <name>$PROJ_DIR$\Projects_Library\F4\USB\USB_OTG.h</name>
+            </file>
         </group>
         <file>
             <name>$PROJ_DIR$\Projects_Library\F4\!Project_library.h</name>

@@ -157,23 +157,23 @@ HAL_TickFreqTypeDef uwTickFreq = HAL_TICK_FREQ_DEFAULT;  /* 1KHz */
 HAL_StatusTypeDef HAL_Init(void)
 {
   /* Configure Flash prefetch, Instruction cache, Data cache */ 
-#if (INSTRUCTION_CACHE_ENABLE != 0U)
-  __HAL_FLASH_INSTRUCTION_CACHE_ENABLE();
-#endif /* INSTRUCTION_CACHE_ENABLE */
-
-#if (DATA_CACHE_ENABLE != 0U)
-  __HAL_FLASH_DATA_CACHE_ENABLE();
-#endif /* DATA_CACHE_ENABLE */
-
-#if (PREFETCH_ENABLE != 0U)
-  __HAL_FLASH_PREFETCH_BUFFER_ENABLE();
-#endif /* PREFETCH_ENABLE */
+//#if (INSTRUCTION_CACHE_ENABLE != 0U)
+//  __HAL_FLASH_INSTRUCTION_CACHE_ENABLE();
+//#endif /* INSTRUCTION_CACHE_ENABLE */
+//
+//#if (DATA_CACHE_ENABLE != 0U)
+//  __HAL_FLASH_DATA_CACHE_ENABLE();
+//#endif /* DATA_CACHE_ENABLE */
+//
+//#if (PREFETCH_ENABLE != 0U)
+//  __HAL_FLASH_PREFETCH_BUFFER_ENABLE();
+//#endif /* PREFETCH_ENABLE */
 
   /* Set Interrupt Group Priority */
-  HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
+//  HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
 
   /* Use systick as time base source and configure 1ms tick (default clock after Reset is HSI) */
-  HAL_InitTick(TICK_INT_PRIORITY);
+//  HAL_InitTick(TICK_INT_PRIORITY);
 
   /* Init the low level hardware */
   HAL_MspInit();
@@ -190,20 +190,20 @@ HAL_StatusTypeDef HAL_Init(void)
 HAL_StatusTypeDef HAL_DeInit(void)
 {
   /* Reset of all peripherals */
-  __HAL_RCC_APB1_FORCE_RESET();
-  __HAL_RCC_APB1_RELEASE_RESET();
-
-  __HAL_RCC_APB2_FORCE_RESET();
-  __HAL_RCC_APB2_RELEASE_RESET();
-
-  __HAL_RCC_AHB1_FORCE_RESET();
-  __HAL_RCC_AHB1_RELEASE_RESET();
-
-  __HAL_RCC_AHB2_FORCE_RESET();
-  __HAL_RCC_AHB2_RELEASE_RESET();
-
-  __HAL_RCC_AHB3_FORCE_RESET();
-  __HAL_RCC_AHB3_RELEASE_RESET();
+//  __HAL_RCC_APB1_FORCE_RESET();
+//  __HAL_RCC_APB1_RELEASE_RESET();
+//
+//  __HAL_RCC_APB2_FORCE_RESET();
+//  __HAL_RCC_APB2_RELEASE_RESET();
+//
+//  __HAL_RCC_AHB1_FORCE_RESET();
+//  __HAL_RCC_AHB1_RELEASE_RESET();
+//
+//  __HAL_RCC_AHB2_FORCE_RESET();
+//  __HAL_RCC_AHB2_RELEASE_RESET();
+//
+//  __HAL_RCC_AHB3_FORCE_RESET();
+//  __HAL_RCC_AHB3_RELEASE_RESET();
 
   /* De-Init the low level hardware */
   HAL_MspDeInit();
@@ -253,23 +253,23 @@ __weak void HAL_MspDeInit(void)
 __weak HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 {
   /* Configure the SysTick to have interrupt in 1ms time basis*/
-  if (HAL_SYSTICK_Config(SystemCoreClock / (1000U / uwTickFreq)) > 0U)
-  {
-    return HAL_ERROR;
-  }
-
-  /* Configure the SysTick IRQ priority */
-  if (TickPriority < (1UL << __NVIC_PRIO_BITS))
-  {
-    HAL_NVIC_SetPriority(SysTick_IRQn, TickPriority, 0U);
-    uwTickPrio = TickPriority;
-  }
-  else
-  {
-    return HAL_ERROR;
-  }
-
-  /* Return function status */
+//  if (HAL_SYSTICK_Config(SystemCoreClock / (1000U / uwTickFreq)) > 0U)
+//  {
+//    return HAL_ERROR;
+//  }
+//
+//  /* Configure the SysTick IRQ priority */
+//  if (TickPriority < (1UL << __NVIC_PRIO_BITS))
+//  {
+//    HAL_NVIC_SetPriority(SysTick_IRQn, TickPriority, 0U);
+//    uwTickPrio = TickPriority;
+//  }
+//  else
+//  {
+//    return HAL_ERROR;
+//  }
+//
+//  /* Return function status */
   return HAL_OK;
 }
 
@@ -521,10 +521,10 @@ void HAL_DBGMCU_DisableDBGStandbyMode(void)
   *         voltage ranges from 2.4 to 3.6 V.  
   * @retval None
   */
-void HAL_EnableCompensationCell(void)
-{
-  *(__IO uint32_t *)CMPCR_CMP_PD_BB = (uint32_t)ENABLE;
-}
+//void HAL_EnableCompensationCell(void)
+//{
+//  *(__IO uint32_t *)CMPCR_CMP_PD_BB = (uint32_t)ENABLE;
+//}
 
 /**
   * @brief  Power-down the I/O Compensation Cell.
@@ -532,10 +532,10 @@ void HAL_EnableCompensationCell(void)
   *         voltage ranges from 2.4 to 3.6 V.  
   * @retval None
   */
-void HAL_DisableCompensationCell(void)
-{
-  *(__IO uint32_t *)CMPCR_CMP_PD_BB = (uint32_t)DISABLE;
-}
+//void HAL_DisableCompensationCell(void)
+//{
+//  *(__IO uint32_t *)CMPCR_CMP_PD_BB = (uint32_t)DISABLE;
+//}
 
 /**
   * @brief  Returns first word of the unique device identifier (UID based on 96 bits)
