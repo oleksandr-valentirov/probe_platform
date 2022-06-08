@@ -37,6 +37,7 @@
 
 #include "stm32f4xx.h"
 #include "stm32f4xx_conf.h"
+#include "USB_OTG.h"
 
 /* Drivers -------------------------------------------------------------------*/
 #include "ADC.h"

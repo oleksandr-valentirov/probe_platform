@@ -90,7 +90,6 @@ typedef USB_OTG_EPTypeDef      PCD_EPTypeDef;
   * @brief  PCD Handle Structure definition
   */
 #if (USE_HAL_PCD_REGISTER_CALLBACKS == 1U)
-#warning "CALLBACKS"
 typedef struct __PCD_HandleTypeDef
 #else
 typedef struct
@@ -137,7 +136,6 @@ typedef struct
   void (* MspDeInitCallback)(struct __PCD_HandleTypeDef *hpcd);                        /*!< USB OTG PCD Msp DeInit callback         */
 #endif /* USE_HAL_PCD_REGISTER_CALLBACKS */
 } PCD_HandleTypeDef;
-
 /**
   * @}
   */

@@ -7,5 +7,6 @@
 uint8_t HSE_Init(void);
 uint8_t LSE_Init(void);
 uint8_t MyRTC_Init(void);
+uint32_t Clock_GetHCLKFreq(void);
 
 #endif

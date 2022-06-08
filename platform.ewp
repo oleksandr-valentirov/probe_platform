@@ -2451,12 +2451,6 @@
                     <name>$PROJ_DIR$\Projects_Library\F4\CMSIS\inc\core_sc300.h</name>
                 </file>
                 <file>
-                    <name>$PROJ_DIR$\Projects_Library\F4\CMSIS\inc\stm32f411xe.h</name>
-                    <excluded>
-                        <configuration>F4</configuration>
-                    </excluded>
-                </file>
-                <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\CMSIS\inc\stm32f4xx.h</name>
                 </file>
                 <file>
