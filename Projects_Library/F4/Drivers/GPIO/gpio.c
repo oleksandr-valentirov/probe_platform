@@ -1,6 +1,5 @@
 #include "gpio.h"
 
-
 static void USART_pins_init(void)
 {
     GPIO_InitTypeDef pin;

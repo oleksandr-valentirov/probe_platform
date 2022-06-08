@@ -65,54 +65,57 @@ USBD_StatusTypeDef USBD_Get_USB_Status(HAL_StatusTypeDef hal_status);
 
 void HAL_PCD_MspInit(PCD_HandleTypeDef* pcdHandle)
 {
-  if(pcdHandle->Instance==USB_OTG_FS)
-  {
-  /* USER CODE BEGIN USB_OTG_FS_MspInit 0 */
+    if(pcdHandle->Instance==USB_OTG_FS)
+    {
 
-  /* USER CODE END USB_OTG_FS_MspInit 0 */
+        /**USB_OTG_FS GPIO Configuration
+        PA9     ------> USB_OTG_FS_VBUS
+        PA11     ------> USB_OTG_FS_DM
+        PA12     ------> USB_OTG_FS_DP
+        */
+              /* VBUS pin */
+        GPIO_InitTypeDef pin = {0};
+        pin.GPIO_Mode = GPIO_Mode_IN;
+        pin.GPIO_Pin = GPIO_Pin_9;
+        pin.GPIO_PuPd = GPIO_PuPd_NOPULL;
+        pin.GPIO_Speed = GPIO_Low_Speed;
+        GPIO_Init(GPIOA, &pin);
 
-    /**USB_OTG_FS GPIO Configuration
-    PA9     ------> USB_OTG_FS_VBUS
-    PA11     ------> USB_OTG_FS_DM
-    PA12     ------> USB_OTG_FS_DP
-    */
+        /* Data pins */
+        pin.GPIO_Pin = GPIO_Pin_11 | GPIO_Pin_12;
+        pin.GPIO_Mode = GPIO_Mode_AF;
+        pin.GPIO_PuPd = GPIO_PuPd_NOPULL;
+        pin.GPIO_Speed = GPIO_High_Speed;
+        GPIO_Init(GPIOA, &pin);
+        GPIO_PinAFConfig(GPIOA, GPIO_PinSource11, GPIO_AF_OTG_FS);
+        GPIO_PinAFConfig(GPIOA, GPIO_PinSource12, GPIO_AF_OTG_FS);
 
-    /* Peripheral clock enable */
-//    __HAL_RCC_USB_OTG_FS_CLK_ENABLE();
+        /* Peripheral clock enable */
+        RCC_AHB2PeriphClockCmd(RCC_AHB2Periph_OTG_FS, ENABLE);
 
-    /* Peripheral interrupt init */
-    NVIC_SetPriority(OTG_FS_IRQn, 0);
-    NVIC_EnableIRQ(OTG_FS_IRQn);
-  /* USER CODE BEGIN USB_OTG_FS_MspInit 1 */
-
-  /* USER CODE END USB_OTG_FS_MspInit 1 */
-  }
+        /* Peripheral interrupt init */
+        NVIC_SetPriority(OTG_FS_IRQn, 0);
+        NVIC_EnableIRQ(OTG_FS_IRQn);
+    }
 }
 
 void HAL_PCD_MspDeInit(PCD_HandleTypeDef* pcdHandle)
 {
-  if(pcdHandle->Instance==USB_OTG_FS)
-  {
-  /* USER CODE BEGIN USB_OTG_FS_MspDeInit 0 */
+    if(pcdHandle->Instance==USB_OTG_FS)
+    {
+        /* Peripheral clock disable */
+        RCC_AHB2PeriphClockCmd(RCC_AHB2Periph_OTG_FS, DISABLE);
 
-  /* USER CODE END USB_OTG_FS_MspDeInit 0 */
-    /* Peripheral clock disable */
-//    __HAL_RCC_USB_OTG_FS_CLK_DISABLE();
+        /**USB_OTG_FS GPIO Configuration
+        PA9     ------> USB_OTG_FS_VBUS
+        PA11     ------> USB_OTG_FS_DM
+        PA12     ------> USB_OTG_FS_DP
+        */
+//        GPIO_DeInit(GPIOA, GPIO_Pin_9 | GPIO_Pin_11 | GPIO_Pin_12);
 
-    /**USB_OTG_FS GPIO Configuration
-    PA9     ------> USB_OTG_FS_VBUS
-    PA11     ------> USB_OTG_FS_DM
-    PA12     ------> USB_OTG_FS_DP
-    */
-//    HAL_GPIO_DeInit(GPIOA, GPIO_PIN_9|GPIO_PIN_11|GPIO_PIN_12);
-
-    /* Peripheral interrupt Deinit*/
-    NVIC_DisableIRQ(OTG_FS_IRQn);
-
-  /* USER CODE BEGIN USB_OTG_FS_MspDeInit 1 */
-
-  /* USER CODE END USB_OTG_FS_MspDeInit 1 */
-  }
+        /* Peripheral interrupt Deinit*/
+        NVIC_DisableIRQ(OTG_FS_IRQn);
+    }
 }
 
 /**
@@ -323,7 +326,7 @@ USBD_StatusTypeDef USBD_LL_Init(USBD_HandleTypeDef *pdev)
   hpcd_USB_OTG_FS.Init.Sof_enable = DISABLE;
   hpcd_USB_OTG_FS.Init.low_power_enable = DISABLE;
   hpcd_USB_OTG_FS.Init.lpm_enable = DISABLE;
-  hpcd_USB_OTG_FS.Init.vbus_sensing_enable = ENABLE;
+  hpcd_USB_OTG_FS.Init.vbus_sensing_enable = DISABLE;
   hpcd_USB_OTG_FS.Init.use_dedicated_ep1 = DISABLE;
   if (HAL_PCD_Init(&hpcd_USB_OTG_FS) != HAL_OK)
   {
@@ -628,7 +631,7 @@ void USBD_static_free(void *p)
   */
 void USBD_LL_Delay(uint32_t Delay)
 {
-  HAL_Delay(Delay);
+  SysTick_WaitTill(Delay);
 }
 
 /**

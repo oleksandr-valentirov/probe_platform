@@ -102,7 +102,7 @@
 #define USBD_memcpy         memcpy
 
 /** Alias for delay. */
-#define USBD_Delay          HAL_Delay
+#define USBD_Delay          SysTick_WaitTill
 
 /* DEBUG macros */
 
