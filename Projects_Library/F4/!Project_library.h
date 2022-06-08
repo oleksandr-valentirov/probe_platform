@@ -37,6 +37,7 @@
 
 #include "stm32f4xx.h"
 #include "stm32f4xx_conf.h"
+#include "USB_OTG.h"
 
 /* Drivers -------------------------------------------------------------------*/
 #include "ADC.h"
@@ -50,6 +51,10 @@
 #include "i2c.h"
 #include "systick.h"
 #include "dma.h"
+
+
+/* USB ---------------------------------------------------------------------- */
+#include "usb_device.h"
 
 
 /* Modules -------------------------------------------------------------------*/
@@ -70,7 +75,7 @@
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions ------------------------------------------------------- */
-//void TimingDelay_Decrement(void);
+void Error_Handler(void);
 
 #endif /* __PROJECT_LIBRARY_H */
 

@@ -1,6 +1,13 @@
 #include "clock.h"
 
 
+uint32_t Clock_GetHCLKFreq(void)
+{
+    SystemCoreClockUpdate();
+    return SystemCoreClock;
+}
+
+
 /**
  *  @brief      Инициализируем кварц 32 кГц. 
  *              Сбрасывает Backup регистр, т.е. и LSE и RTC нужно настроить заново.

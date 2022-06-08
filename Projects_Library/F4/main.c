@@ -11,6 +11,8 @@ void main(void)
     RCC_GetClocksFreq(&clocks);
 //    uint8_t rtc_res = RTC_Init();
     
+    EXTI_DeInit();
+    
     /* periph init */
     SysTick_Init();
 //    ADC1_Init();
@@ -18,10 +20,11 @@ void main(void)
 //    USART2_Init();
     SPI3_Init();
     RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_DMA2, ENABLE);
+    MX_USB_DEVICE_Init();
     
     /* exti init */
 //    RCC_APB2PeriphClockCmd(RCC_APB2Periph_EXTIT, ENABLE);
-    EXTI_DeInit();
+    
     NVIC_EnableIRQ(EXTI9_5_IRQn);
     NVIC_EnableIRQ(DMA2_Stream7_IRQn);
     
@@ -48,5 +51,12 @@ void main(void)
         {
             UBX_main();
         }
+    }
+}
+
+void Error_Handler(void)
+{
+    while(1)
+    {
     }
 }
