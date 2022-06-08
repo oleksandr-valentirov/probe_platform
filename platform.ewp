@@ -372,6 +372,7 @@
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\uBlox</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\TemperatureSensorsAPI</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\Memory</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\Logging</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\USB\</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\USB\HAL\inc\</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\USB\HAL\src\</state>
@@ -2590,6 +2591,15 @@
                 </file>
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\Modules\IMU\imu.h</name>
+                </file>
+            </group>
+            <group>
+                <name>Logging</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\Logging\logging.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Modules\Logging\logging.h</name>
                 </file>
             </group>
             <group>

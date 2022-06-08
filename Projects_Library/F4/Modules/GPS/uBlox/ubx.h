@@ -2,8 +2,9 @@
 
 #include "!Project_library.h"
 
-#define GPS_FLAG_MSG_TX 0x01
-#define GPS_FLAF_MSG_RX 0x02
+#define GPS_FLAG_MSG_TX         0x01
+#define GPS_FLAF_MSG_RX         0x02
+#define GPS_FLAG_POS_UPD        0x04
 
 #define GPS_BUF_SIZE    256
 #define GPS_BUF_MASK    255
@@ -116,7 +117,7 @@ typedef struct
     uint32_t    iTOW;
     int32_t     lon;
     int32_t     lat;
-    int32_t     height;
+    int32_t     alt;
     int32_t     hMSL;
     uint32_t    hAcc;
     uint32_t    vAcc;
@@ -177,3 +178,4 @@ void UBX_ResetFlagMsgRx(void);
 void UBX_SetFlagMsgTx(void);
 void UBX_SetFlagMsgRx(void);
 uint8_t UBX_GetFlagMsgRx(void);
+uint8_t UBX_GetCurPos(UBX_NAV_POSLLH* dst);

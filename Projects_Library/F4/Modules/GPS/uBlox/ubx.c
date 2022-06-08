@@ -10,7 +10,7 @@ static uint8_t tx_buffer[GPS_BUF_SIZE] = {0};
 static UBX_HEADER* tx_header = (UBX_HEADER*)tx_buffer;
 
 /* flags ---------------------- */
-static uint8_t flags = 0x3;
+static uint8_t flags = 0x7;
 
 #define SET_FLAG_MSG_TX         SET_BIT(flags, GPS_FLAG_MSG_TX)
 #define READ_FLAG_MSG_TX        READ_BIT(flags, GPS_FLAG_MSG_TX)
@@ -20,14 +20,33 @@ static uint8_t flags = 0x3;
 #define READ_FLAG_MSG_RX        READ_BIT(flags, GPS_FLAF_MSG_RX)
 #define RESET_FLAG_MSG_RX       CLEAR_BIT(flags, GPS_FLAF_MSG_RX)
 
+#define SET_FLAG_POS_UPD        SET_BIT(flags, GPS_FLAG_POS_UPD)
+#define GET_FLAG_POS_UPD        READ_BIT(flags, GPS_FLAG_POS_UPD)
+#define RESET_FLAG_POS_UPD      CLEAR_BIT(flags, GPS_FLAG_POS_UPD)
+
 
 static void UBX_ProcessResponce(void);
 static void UBX_CalcChecksum(size_t payload_size);
 static uint8_t UBX_CheckCkecksum(size_t payload_size);
 
-
 static UBX_NAV_POSLLH cur_pos;
 
+uint8_t UBX_GetCurPos(UBX_NAV_POSLLH* dst)
+{
+    if(!GET_FLAG_POS_UPD)
+    {   /** @todo - need to manage with flags */
+        SET_FLAG_POS_UPD;
+        dst->hAcc = cur_pos.hAcc;
+        dst->alt = cur_pos.alt;
+        dst->hMSL = cur_pos.hMSL;
+        dst->iTOW = cur_pos.iTOW;
+        dst->lat = cur_pos.lat;
+        dst->lon = cur_pos.lon;
+        dst->vAcc = cur_pos.vAcc;
+        return 0;
+    }
+    return 1;
+}
 
 uint8_t UBX_GetFlagMsgRx(void)
 {
@@ -170,8 +189,8 @@ static void UBX_ProcessResponce(void)
         switch (rx_header->id)
         {
         case UBX_ID_POSLLH:
-//            memset(&cur_pos, 0, sizeof(UBX_NAV_POSLLH));
             memcpy(&cur_pos, rx_buffer + sizeof(UBX_HEADER), sizeof(UBX_NAV_POSLLH));
+            RESET_FLAG_POS_UPD;
             break;
         }
         break;

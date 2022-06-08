@@ -51,11 +51,12 @@
 #include "i2c.h"
 #include "systick.h"
 #include "dma.h"
+#include "logging.h"
 
 
 /* USB ---------------------------------------------------------------------- */
 #include "usb_device.h"
-
+//#include "usbd_cdc_if.h"
 
 /* Modules -------------------------------------------------------------------*/
 //#include "sx126x.h"
