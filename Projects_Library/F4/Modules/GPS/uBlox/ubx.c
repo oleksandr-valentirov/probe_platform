@@ -176,20 +176,27 @@ void UBX_main(void)
     {
         UBX_ProcessResponce();
     }
-    memset(rx_buffer, 0, 40);
+    for(uint8_t i = 0; i < 40; i++)
+    {
+        rx_buffer[i] = 0;
+    }
     DMA_USART1inTransferStart(UBX_MAX_PACK_LEN);
 }
 
 
 static void UBX_ProcessResponce(void)
 {
+    uint8_t* cur_pos_ptr = (uint8_t*)(&cur_pos);
     switch (rx_header->cls)
     {
     case UBX_CLASS_NAV:
         switch (rx_header->id)
         {
         case UBX_ID_POSLLH:
-            memcpy(&cur_pos, rx_buffer + sizeof(UBX_HEADER), sizeof(UBX_NAV_POSLLH));
+            for(uint8_t i = 0; i < sizeof(UBX_NAV_POSLLH); i++)
+            {
+                cur_pos_ptr[i] = rx_buffer[sizeof(UBX_HEADER) + i];
+            }
             RESET_FLAG_POS_UPD;
             break;
         }
