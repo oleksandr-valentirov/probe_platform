@@ -17,8 +17,7 @@ void Log_main(void)
 
     if(!UBX_GetCurPos(&pos))
     {   
-        memcpy(log_buf, "\tAlt -\t", 7);
-        sprintf(log_buf + 7, "%f m\n", pos.hMSL / 1000.0f);
-        while(CDC_Transmit_FS((uint8_t*)log_buf, strlen(log_buf)) == USBD_BUSY){}
+        sprintf(log_buf, "\r\n\tAlt:\t%.3f m\r\n\tLat:\t%f\r\n\tLon:\t%f\r\n", pos.height / 1000.0f, pos.lat / 10000000.0f, pos.lon / 10000000.0f);
+        while(CDC_Transmit_FS((uint8_t*)log_buf, 53) == USBD_BUSY){}
     }
 }

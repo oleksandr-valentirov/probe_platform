@@ -51,6 +51,7 @@ void main(void)
         {
             UBX_main();
         }
+        Log_main();
     }
 }
 

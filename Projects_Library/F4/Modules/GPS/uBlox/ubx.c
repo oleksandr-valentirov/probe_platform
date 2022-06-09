@@ -175,8 +175,8 @@ void UBX_main(void)
     if(sizeof(UBX_HEADER) < (UBX_MAX_PACK_LEN - DMA_USART1inGetRemainingDataCounter()))
     {
         UBX_ProcessResponce();
-        memset(rx_buffer, 0, 40);
     }
+    memset(rx_buffer, 0, 40);
     DMA_USART1inTransferStart(UBX_MAX_PACK_LEN);
 }
 
