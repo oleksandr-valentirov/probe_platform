@@ -37,7 +37,7 @@ uint8_t UBX_GetCurPos(UBX_NAV_POSLLH* dst)
     {   /** @todo - need to manage with flags */
         SET_FLAG_POS_UPD;
         dst->hAcc = cur_pos.hAcc;
-        dst->alt = cur_pos.alt;
+        dst->height = cur_pos.height;
         dst->hMSL = cur_pos.hMSL;
         dst->iTOW = cur_pos.iTOW;
         dst->lat = cur_pos.lat;

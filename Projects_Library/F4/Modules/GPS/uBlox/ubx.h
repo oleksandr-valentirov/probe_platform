@@ -117,8 +117,8 @@ typedef struct
     uint32_t    iTOW;
     int32_t     lon;
     int32_t     lat;
-    int32_t     alt;
-    int32_t     hMSL;
+    int32_t     height; // height above elipsoid
+    int32_t     hMSL;   // height above mean sea level
     uint32_t    hAcc;
     uint32_t    vAcc;
 } UBX_NAV_POSLLH;
