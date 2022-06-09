@@ -47,7 +47,6 @@
 #include "clock.h"
 #include "gpio.h"
 #include "timers.h"
-//#include "onewire.h"
 #include "i2c.h"
 #include "systick.h"
 #include "dma.h"
@@ -56,10 +55,9 @@
 
 /* USB ---------------------------------------------------------------------- */
 #include "usb_device.h"
-//#include "usbd_cdc_if.h"
+
 
 /* Modules -------------------------------------------------------------------*/
-//#include "sx126x.h"
 #include "temp_api.h"
 #include "sim.h"
 #include "ubx.h"

@@ -1,4 +1,5 @@
 #include "logging.h"
+#include "usbd_cdc_if.h"
 
 
 void Log_main(void)
