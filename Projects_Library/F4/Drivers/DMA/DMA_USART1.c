@@ -89,5 +89,5 @@ void DMA_USART1inTransferStop(void)
 
 uint16_t DMA_USART1inGetRemainingDataCounter(void)
 {
-    return DMA_GetCurrDataCounter(DMA2_Stream5);
+    return DMA_GetCurrDataCounter(DMA2_Stream2);
 }

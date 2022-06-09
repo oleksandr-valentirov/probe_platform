@@ -1,4 +1,5 @@
 #include "ubx.h"
+#include "usbd_cdc_if.h"
 
 /* Rx buffer */
 static uint8_t rx_buffer[GPS_BUF_SIZE] = {0};
@@ -213,5 +214,7 @@ static void UBX_ProcessResponce(void)
         break;
     case UBX_CLASS_CFG:
         break;
+    default:
+        CDC_Transmit_FS((uint8_t*)"UBX class err\r\n", 15);
     }
 }
