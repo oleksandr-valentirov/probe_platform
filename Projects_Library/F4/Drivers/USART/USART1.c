@@ -38,6 +38,17 @@ void USART1_Init(void)
 
     NVIC_EnableIRQ(USART1_IRQn);
     USART_Cmd(USART1, ENABLE);
+    
+    USART1->SR;
+    USART1->DR;
+    USART_ITConfig(USART1, USART_IT_IDLE, ENABLE);
+}
+
+
+void USART1_ClearStatusReg(void)
+{
+    USART1->SR;
+    USART1->DR;
 }
 
 

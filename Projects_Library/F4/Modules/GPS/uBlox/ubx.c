@@ -71,7 +71,7 @@ void UBX_SetFlagMsgTx(void)
 
 void UBX_SetFlagMsgRx(void)
 {
-    RESET_FLAG_MSG_RX;
+    SET_FLAG_MSG_RX;
 }
 /* ---------------------------- */
 
@@ -173,7 +173,8 @@ void UBX_Init(void)
 
 void UBX_main(void)
 {
-    if(sizeof(UBX_HEADER) < (UBX_MAX_PACK_LEN - DMA_USART1inGetRemainingDataCounter()))
+    SET_FLAG_MSG_RX;
+//    if(sizeof(UBX_HEADER) < (UBX_MAX_PACK_LEN - DMA_USART1inGetRemainingDataCounter()))
     {
         UBX_ProcessResponce();
     }

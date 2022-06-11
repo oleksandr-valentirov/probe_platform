@@ -75,8 +75,6 @@ void DMA_USART1inTransferStart(uint16_t size)
 
     USART_DMACmd(USART1, USART_DMAReq_Rx, ENABLE);
     USART_ClearITPendingBit(USART1, USART_IT_RXNE);
-    
-    USART1_IdleCmd(ENABLE);
 }
 
 

@@ -22,6 +22,6 @@ void USART1_Receive_Next_Byte(void);
 void USART1_IdleCmd(FunctionalState NewState);
 
 void USART1_test_tx(void);
-
+void USART1_ClearStatusReg(void);
 
 #endif
