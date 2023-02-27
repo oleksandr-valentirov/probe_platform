@@ -28,9 +28,14 @@ static uint8_t flags = 0x7;
 
 static void UBX_ProcessResponce(void);
 static void UBX_CalcChecksum(size_t payload_size);
-static uint8_t UBX_CheckCkecksum(size_t payload_size);
+static uint8_t UBX_CheckCkecksum(UBX_HEADER* header);
+static uint8_t* UBX_FindSynchChars(uint8_t* start_ptr, uint8_t msg_len);
 
+#if FULL_NAV_MSG_ENABLED
+static UBX_NAV_PVT cur_pos;
+#else
 static UBX_NAV_POSLLH cur_pos;
+#endif
 
 uint8_t UBX_GetCurPos(UBX_NAV_POSLLH* dst)
 {
@@ -90,10 +95,12 @@ static void UBX_CalcChecksum(size_t payload_size)
     }
 }
 
-static uint8_t UBX_CheckCkecksum(size_t payload_size)
+static uint8_t UBX_CheckCkecksum(UBX_HEADER* header)
 {
-    size_t crc_size = payload_size + sizeof(UBX_HEADER) - UBX_SYNC_LEN;
-    uint8_t* CK_0 = rx_buf_ptr + crc_size + UBX_SYNC_LEN;
+    const uint8_t* rx_buf_ptr = (uint8_t*)header;
+    
+    size_t crc_size = 4 + header->length;
+    uint8_t* CK_0 = (uint8_t*)header + sizeof(UBX_HEADER) + header->length;
     uint8_t* CK_1 = CK_0 + 1;
     
     uint8_t CK_0_cur = 0;
@@ -151,7 +158,13 @@ void UBX_Init(void)
         NMEA_RMC_ID, NMEA_THS_ID, NMEA_VLW_ID, NMEA_VTG_ID, NMEA_TXT_ID,
         NMEA_ZDA_ID
     };
-    const uint8_t ubx_msg_id[3] = {UBX_CLASS_NAV, UBX_ID_POSLLH, 1};
+    const uint8_t ubx_msg_id[3] = {UBX_CLASS_NAV, 
+#if FULL_NAV_MSG_ENABLED
+    UBX_ID_PVT,
+#else
+    UBX_ID_POSLLH,
+#endif
+    1};
     
     /* disable all nmea messages */
     for(uint8_t i = 0; i < 19; i++)
@@ -167,7 +180,7 @@ void UBX_Init(void)
         UBX_SetMsgRate(ubx_msg_id[i], ubx_msg_id[i + 1], ubx_msg_id[i + 2]);
     }
     
-    DMA_USART1inTransferStart(UBX_MAX_PACK_LEN);
+    DMA_USART1inTransferStart(GPS_BUF_SIZE);
 }
 
 
@@ -178,16 +191,37 @@ void UBX_main(void)
     {
         UBX_ProcessResponce();
     }
-    for(uint8_t i = 0; i < 40; i++)
+    for(uint8_t i = 0; i < GPS_BUF_SIZE - 1; i++)
     {
         rx_buffer[i] = 0;
     }
-    DMA_USART1inTransferStart(UBX_MAX_PACK_LEN);
+    DMA_USART1inTransferStart(GPS_BUF_SIZE);
+}
+
+
+static uint8_t* UBX_FindSynchChars(uint8_t* start_ptr, uint8_t msg_len)
+{
+    while(msg_len)
+    {
+        if(*start_ptr == UBX_SYNC_CH_0 && *(start_ptr + 1) == UBX_SYNC_CH_1)
+        {
+            return start_ptr;
+        }
+        msg_len -= 2;
+        start_ptr += 2;
+    }
+    return NULL;
 }
 
 
 static void UBX_ProcessResponce(void)
 {
+    uint16_t data_len = GPS_BUF_SIZE - DMA_USART1inGetRemainingDataCounter();
+//    uint8_t* rx_buf_ptr = rx_buffer;    
+//    uint8_t* dst = NULL;
+//    UBX_HEADER* rx_header = NULL;
+    
+    
     uint8_t* cur_pos_ptr = (uint8_t*)(&cur_pos);
     switch (rx_header->cls)
     {
@@ -198,6 +232,13 @@ static void UBX_ProcessResponce(void)
             for(uint8_t i = 0; i < sizeof(UBX_NAV_POSLLH); i++)
             {
                 cur_pos_ptr[i] = rx_buffer[sizeof(UBX_HEADER) + i];
+            }
+            RESET_FLAG_POS_UPD;
+            break;
+        case UBX_ID_PVT:
+            for(uint8_t i = 0; i < sizeof(UBX_NAV_PVT); i++)
+            {
+                cur_pos_ptr[i] = rx_buf_ptr[sizeof(UBX_HEADER) + i];
             }
             RESET_FLAG_POS_UPD;
             break;
@@ -217,5 +258,74 @@ static void UBX_ProcessResponce(void)
         break;
     default:
         CDC_Transmit_FS((uint8_t*)"UBX class err\r\n", 15);
+    }
+    data_len = data_len - sizeof(UBX_HEADER) - rx_header->length - 2;
+}
+
+static void UBX_ProcessResponceNew(void)
+{
+    uint8_t data_len = GPS_BUF_SIZE - DMA_USART1inGetRemainingDataCounter();
+    uint8_t* rx_buf_ptr = rx_buffer;    
+    uint8_t* dst = NULL;
+    UBX_HEADER* rx_header = NULL;
+    
+    while (data_len > 0)
+    {
+        rx_buf_ptr = UBX_FindSynchChars(rx_buf_ptr, data_len);
+        if(!rx_buf_ptr)
+        {
+            return;
+        }
+        
+        rx_header = (UBX_HEADER*)rx_buf_ptr;
+        if(!UBX_CheckCkecksum(rx_header))
+        {
+            switch (rx_header->cls)
+            {
+            case UBX_CLASS_NAV:
+                switch (rx_header->id)
+                {
+                case UBX_ID_POSLLH:
+                    dst = (uint8_t*)(&cur_pos);
+                    for(uint8_t i = 0; i < sizeof(UBX_NAV_POSLLH); i++)
+                    {
+                        dst[i] = rx_buf_ptr[sizeof(UBX_HEADER) + i];
+                    }
+                    RESET_FLAG_POS_UPD;
+                    break;
+                case UBX_ID_PVT:
+                    dst = (uint8_t*)(&cur_pos);
+                    for(uint8_t i = 0; i < sizeof(UBX_NAV_PVT); i++)
+                    {
+                        dst[i] = rx_buf_ptr[sizeof(UBX_HEADER) + i];
+                    }
+                    RESET_FLAG_POS_UPD;
+                    break;
+                }
+                break;
+            case UBX_CLASS_RXM:
+                break;
+            case UBX_CLASS_ACK:
+                if (!rx_header->id)
+                {
+                }
+                else
+                {
+                }
+                break;
+            case UBX_CLASS_CFG:
+                break;
+            default:
+                CDC_Transmit_FS((uint8_t*)"UBX class err\r\n", 15);
+            }
+        }
+        else
+        {
+            data_len -= 2;
+            rx_buf_ptr += 2;
+        }
+        
+        data_len = data_len - sizeof(UBX_HEADER) - rx_header->length - 2;
+        rx_buf_ptr = rx_buf_ptr + sizeof(UBX_HEADER) + rx_header->length + 2;
     }
 }

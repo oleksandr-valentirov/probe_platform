@@ -70,7 +70,7 @@ void DMA_USART1inTransferStart(uint16_t size)
 {
     DMA_USART1inClearStatus();    
     
-    DMA2_Stream2->NDTR = size * 2;
+    DMA2_Stream2->NDTR = size;
     DMA_Cmd(DMA2_Stream2, ENABLE);
 
     USART_DMACmd(USART1, USART_DMAReq_Rx, ENABLE);

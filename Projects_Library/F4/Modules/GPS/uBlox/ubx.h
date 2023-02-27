@@ -2,6 +2,12 @@
 
 #include "!Project_library.h"
 
+/* UBX Config */
+#define FULL_NAV_MSG_ENABLED    1
+
+/* -------------------------------------------------------------------------- */
+
+
 #define GPS_FLAG_MSG_TX         0x01
 #define GPS_FLAF_MSG_RX         0x02
 #define GPS_FLAG_POS_UPD        0x04
