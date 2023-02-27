@@ -369,6 +369,7 @@
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\SX1268</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\SIM800</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\GPS</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\InCompass</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\uBlox</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\TemperatureSensorsAPI</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\Memory</state>
@@ -2574,6 +2575,15 @@
             <name>Modules</name>
             <group>
                 <name>GPS</name>
+                <group>
+                    <name>InCompass</name>
+                    <file>
+                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\InCompass\in_compass.c</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\InCompass\in_compass.h</name>
+                    </file>
+                </group>
                 <group>
                     <name>uBlox</name>
                     <file>

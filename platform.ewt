@@ -2781,6 +2781,15 @@
             <group>
                 <name>GPS</name>
                 <group>
+                    <name>InCompass</name>
+                    <file>
+                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\InCompass\in_compass.c</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\InCompass\in_compass.h</name>
+                    </file>
+                </group>
+                <group>
                     <name>uBlox</name>
                     <file>
                         <name>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\uBlox\ubx.c</name>
