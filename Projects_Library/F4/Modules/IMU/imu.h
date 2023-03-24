@@ -3,6 +3,7 @@
 #include "!Project_library.h"
 
 
+<<<<<<< Updated upstream
 #define FUNC_CFG_ACCESS                 0x01
 #define PIN_CTRL                        0x02
 #define FIFO_CTRL1                      0x07
@@ -81,3 +82,10 @@
 
 
 void IMU_Main(void);
+=======
+__weak void init_termometer(void);
+__weak void init_barometer(void);
+__weak void init_magnitometer(void);
+__weak void init_accelerometer(void);
+__weak void init_gyroscope(void);
+>>>>>>> Stashed changes

@@ -64,6 +64,12 @@ void SysTick_Handler(void)
 {
     clock++;
     
+    /* read IMU with 100 Hz freq */
+    if (!(clock % 10))
+    {
+        
+    }
+    
     /* SIM */
     if (sim_downcounter > 0) 
     {

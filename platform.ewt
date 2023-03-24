@@ -2546,6 +2546,9 @@
             </group>
             <group>
                 <name>IMU</name>
+                <group>
+                    <name>ISM330DHCX</name>
+                </group>
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\Modules\IMU\imu.c</name>
                 </file>

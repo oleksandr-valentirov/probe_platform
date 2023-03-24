@@ -369,6 +369,8 @@
                     <state>$PROJ_DIR$\Projects_Library\F4\Drivers\I2C</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\SX1268</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\SIM800</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\IMU</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\IMU\ISM330DHCX</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\GPS</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\InCompass</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\uBlox</state>
@@ -2331,6 +2333,9 @@
             </group>
             <group>
                 <name>IMU</name>
+                <group>
+                    <name>ISM330DHCX</name>
+                </group>
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\Modules\IMU\imu.c</name>
                 </file>
