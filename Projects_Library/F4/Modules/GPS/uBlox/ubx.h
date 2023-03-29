@@ -177,7 +177,7 @@ typedef struct
 } UBX_NAV_PVT;
 
 
-void UBX_Init(void);
+void* UBX_Init(void);
 void UBX_main(void);
 void UBX_ResetFlagMsgTx(void);
 void UBX_ResetFlagMsgRx(void);

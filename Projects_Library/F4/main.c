@@ -1,8 +1,18 @@
 #include "!Project_library.h"
+#include "usbd_cdc_if.h"
+
+#define ROUTINES_NUM    5
 
 
 void main(void)
-{    
+{
+    struct routines_list {
+        void (*f)(void);
+        struct routines_list *next;
+    } routines;
+    
+    struct routines_list *routines_ptr = &routines;
+
     /* clocks */
     uint8_t hse_res = HSE_Init();
     MyGPIO_Init();
@@ -41,16 +51,35 @@ void main(void)
     __enable_irq();
     
     /* modules init */
-//    Sim_init();
-    UBX_Init();
+    /* GPS */
+    routines_ptr->f = (void (*)(void)) UBX_Init();
+    
+    /* SIM */
+    if(routines_ptr->f != NULL)
+    {
+        routines_ptr->next = malloc(sizeof(struct routines_list));
+        if(routines_ptr->next == NULL)
+        {
+            CDC_Transmit_FS((uint8_t*)"malloc err\r\n", 12);
+            while(1){}
+        }
+        else
+        {
+            routines_ptr = routines_ptr->next;
+            routines_ptr->f = (void (*)(void)) Sim_init();
+        }
+    }
+    
+    /* USB */
+    
+    /* IMU */
 
     while(1)
-    {   
-//        Sim_main();
-        if(!UBX_GetFlagMsgRx())
-        {
-            UBX_main();
-        }
+    {
+        /* exxecutes if periph device is presented */
+        
+        
+        /* executes always */
         Log_main();
     }
 }

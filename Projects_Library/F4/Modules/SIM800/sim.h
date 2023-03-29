@@ -44,7 +44,7 @@ void Sim_RI_EXTICmd(FunctionalState state);
 /* SIM module extern functions ---------------------------------------------- */
 void Sim_main(void);
 void Sim_EndOfTransaction(void);
-void Sim_init(void);
+void* Sim_init(void);
 void Sim_SetStatus(uint8_t status);
 
 
