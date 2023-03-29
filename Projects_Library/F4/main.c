@@ -1,8 +1,6 @@
 #include "!Project_library.h"
 #include "usbd_cdc_if.h"
 
-#define ROUTINES_NUM    5
-
 
 void main(void)
 {
@@ -12,6 +10,7 @@ void main(void)
     } routines;
     
     struct routines_list *routines_ptr = &routines;
+    uint8_t routines_counter = 0;
 
     /* clocks */
     uint8_t hse_res = HSE_Init();
@@ -56,7 +55,7 @@ void main(void)
     
     /* SIM */
     if(routines_ptr->f != NULL)
-    {
+    {   /* previos init succeeded */
         routines_ptr->next = malloc(sizeof(struct routines_list));
         if(routines_ptr->next == NULL)
         {
@@ -69,15 +68,22 @@ void main(void)
             routines_ptr->f = (void (*)(void)) Sim_init();
         }
     }
-    
-    /* USB */
-    
+    else
+    {   /* previous init failed */
+        routines_ptr->f = (void (*)(void)) Sim_init();
+    }
+        
     /* IMU */
 
     while(1)
     {
         /* exxecutes if periph device is presented */
-        
+        routines_ptr = &routines;
+        for(uint8_t i = 0; i < routines_counter; i++)
+        {
+            routines_ptr->f();
+            routines_ptr = routines_ptr->next;
+        }
         
         /* executes always */
         Log_main();
