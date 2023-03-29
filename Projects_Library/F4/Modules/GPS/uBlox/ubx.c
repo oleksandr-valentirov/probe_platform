@@ -145,7 +145,7 @@ uint8_t UBX_SetMsgRate(uint8_t cls, uint8_t id, uint8_t rate)
     return 0;
 }
 
-void UBX_Init(void)
+void* UBX_Init(void)
 {    
     tx_buffer[0] = UBX_SYNC_CH_0;
     tx_buffer[1] = UBX_SYNC_CH_1;
@@ -181,21 +181,26 @@ void UBX_Init(void)
     }
     
     DMA_USART1inTransferStart(GPS_BUF_SIZE);
+    
+    return (void*)UBX_main;
 }
 
 
 void UBX_main(void)
 {
-    SET_FLAG_MSG_RX;
+    if(!READ_FLAG_MSG_RX)
+    {
+        SET_FLAG_MSG_RX;
 //    if(sizeof(UBX_HEADER) < (UBX_MAX_PACK_LEN - DMA_USART1inGetRemainingDataCounter()))
-    {
-        UBX_ProcessResponce();
+        {
+            UBX_ProcessResponce();
+        }
+        for(uint8_t i = 0; i < GPS_BUF_SIZE - 1; i++)
+        {
+            rx_buffer[i] = 0;
+        }
+        DMA_USART1inTransferStart(GPS_BUF_SIZE);
     }
-    for(uint8_t i = 0; i < GPS_BUF_SIZE - 1; i++)
-    {
-        rx_buffer[i] = 0;
-    }
-    DMA_USART1inTransferStart(GPS_BUF_SIZE);
 }
 
 

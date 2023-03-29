@@ -98,7 +98,7 @@ void Sim_SetStatus(uint8_t status)
     state.is_enabled = status;
 }
 
-void Sim_init(void)
+void* Sim_init(void)
 {
 //    Sim_StatusEXTI_Enable();
     if (!READ_BIT(SIM_STATUS_PORT->IDR, SIM_STATUS_PIN))
@@ -113,6 +113,8 @@ void Sim_init(void)
     }
     state.rssi = 0;
     state.aw_cmd = 0;
+    
+    return (void*)Sim_main;
 }
 
 
