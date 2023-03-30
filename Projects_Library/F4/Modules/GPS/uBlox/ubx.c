@@ -115,7 +115,7 @@ static uint8_t UBX_CheckCkecksum(UBX_HEADER* header)
     return (CK_0_cur == (*CK_0) && CK_1_cur == (*CK_1)) ? 0 : 1;
 }
 
-uint8_t UBX_SetMsgRate(uint8_t cls, uint8_t id, uint8_t rate)
+static uint8_t UBX_SetMsgRate(uint8_t cls, uint8_t id, uint8_t rate)
 {
     if(!READ_FLAG_MSG_TX)
     {
@@ -151,6 +151,7 @@ void* UBX_Init(void)
     tx_buffer[1] = UBX_SYNC_CH_1;
     DMA_USART1outInit((uint32_t*)tx_buffer);
     DMA_USART1inInit((uint32_t*)rx_buffer);
+    unsigned int clock;
 
     const uint8_t nmea_msg_id[19] = {NMEA_DTM_ID, NMEA_GBQ_ID, NMEA_GBS_ID,
         NMEA_GGA_ID, NMEA_GLL_ID, NMEA_GLQ_ID, NMEA_GNQ_ID, NMEA_GNS_ID,
@@ -180,9 +181,30 @@ void* UBX_Init(void)
         UBX_SetMsgRate(ubx_msg_id[i], ubx_msg_id[i + 1], ubx_msg_id[i + 2]);
     }
     
-    DMA_USART1inTransferStart(GPS_BUF_SIZE);
+    clock = SysTick_GetCurrentClock();
+    for(int i = 0; i < sizeof(ubx_msg_id[2]); i++)
+    {
+        while(!READ_BIT(USART1->SR, USART_SR_RXNE) && (SysTick_GetCurrentClock() - clock) < 1500){}
+        
+        if(READ_BIT(USART1->SR, USART_SR_RXNE))
+        {
+            rx_buffer[i] = USART1->DR;
+        }
+        else
+        {
+            return NULL;
+        }
+    }
     
-    return (void*)UBX_main;
+    if(UBX_FindSynchChars(rx_buffer, sizeof(ubx_msg_id[2])) != NULL)
+    {
+        DMA_USART1inTransferStart(GPS_BUF_SIZE);
+        return (void*)UBX_main;
+    }
+    else
+    {
+        return NULL;
+    }
 }
 
 
