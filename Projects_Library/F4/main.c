@@ -8,6 +8,8 @@ void main(void)
         void (*f)(void);
         struct routines_list *next;
     } routines;
+    routines.f = NULL;
+    routines.next = NULL;
     
     struct routines_list *routines_ptr = &routines;
     uint8_t routines_counter = 0;
@@ -66,6 +68,7 @@ void main(void)
         {
             routines_ptr = routines_ptr->next;
             routines_ptr->f = (void (*)(void)) Sim_init();
+            routines_ptr->next = NULL;
         }
     }
     else

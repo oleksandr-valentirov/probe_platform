@@ -106,6 +106,11 @@ void* Sim_init(void)
         Sim_CMD(ENABLE);
     }
     
+    if (!READ_BIT(SIM_STATUS_PORT->IDR, SIM_STATUS_PIN))
+    {
+        return NULL;
+    }
+    
     /* SIM state init */
     for (uint8_t i = 0; i < 15; i++)
     {
