@@ -10,7 +10,7 @@
 /* Alternate functions ------------------------------------------------------ */
 
 // SPI3
-#ifdef BLACK_PIL
+#ifdef BLACK_PILL
 #define SPI3_MOSI_AF            GPIO_PinSource5
 #define SPI3_MISO_AF            GPIO_PinSource4
 #define SPI3_CLK_AF             GPIO_PinSource3
