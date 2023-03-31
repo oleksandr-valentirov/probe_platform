@@ -13,7 +13,7 @@ void DMA_USART1inTransferStop(void);
 uint16_t DMA_USART1inGetRemainingDataCounter(void);
 
 
-void DMA_SPI3outInit(void);
-void DMA_SPI3inInit(void);
-uint8_t DMA_SPI3outTransfer(uint8_t* data_ptr, uint8_t size);
-uint8_t DMA_SPI3inTransfer(uint8_t* dst_ptr, uint8_t size);
+void DMA_SPI3outInit(uint8_t* data_ptr, uint32_t size);
+void DMA_SPI3inInit(uint8_t* data_ptr, uint32_t size);
+void DMA_op_end_callback_decorator(void);
+void DMA_SetCallback(void (*f)(void));

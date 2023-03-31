@@ -181,16 +181,31 @@ void EXTI9_5_IRQHandler(void)
     }
 }
 
-void SPI3_IRQHandler(void)
-{
-
-}
-
 void DMA2_Stream7_IRQHandler(void)
 {
     UBX_SetFlagMsgTx();
     DMA_ClearITPendingBit(DMA2_Stream7, DMA_IT_TCIF7);
     DMA_ClearFlag(DMA2_Stream7, DMA_FLAG_TCIF7);
+}
+
+void DMA1_Stream0_IRQHandler(void)
+{       
+    if(DMA_GetFlagStatus(DMA1_Stream0, DMA_FLAG_TCIF7) && !DMA_GetCmdStatus(DMA1_Stream5))
+    {
+        DMA_op_end_callback_decorator();
+    }
+    DMA_ClearFlag(DMA1_Stream0, DMA_IT_TCIF0);
+    DMA_ClearITPendingBit(DMA1_Stream0, DMA_IT_TCIF0);
+}
+
+void DMA1_Stream5_IRQHandler(void)
+{
+    if(DMA_GetFlagStatus(DMA1_Stream5, DMA_FLAG_TCIF5))
+    {
+        DMA_op_end_callback_decorator();
+    }
+    DMA_ClearFlag(DMA1_Stream5, DMA_IT_TCIF5);
+    DMA_ClearITPendingBit(DMA1_Stream5, DMA_IT_TCIF5);
 }
 
 /**
