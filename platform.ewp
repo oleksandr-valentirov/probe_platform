@@ -227,6 +227,7 @@
                     <state>USE_STDPERIPH_DRIVER</state>
                     <state>STM32F411xE</state>
                     <state>TEST_HW</state>
+                    <state>BLACK_PILL</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -377,6 +378,8 @@
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\TemperatureSensorsAPI</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\Memory</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\IMU</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\IMU\ISM330DHCX</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\IMU\MPU9250</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\Logging</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\USB\</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\USB\HAL\inc\</state>
@@ -1089,7 +1092,7 @@
         </settings>
     </configuration>
     <configuration>
-        <name>F3</name>
+        <name>F4_0</name>
         <toolchain>
             <name>ARM</name>
         </toolchain>
@@ -1103,15 +1106,15 @@
                 <debug>1</debug>
                 <option>
                     <name>ExePath</name>
-                    <state>Projects_output\F3\Exe</state>
+                    <state>F4_0\Exe</state>
                 </option>
                 <option>
                     <name>ObjPath</name>
-                    <state>Projects_output\F3\Obj</state>
+                    <state>F4_0\Obj</state>
                 </option>
                 <option>
                     <name>ListPath</name>
-                    <state>Projects_output\F3\List</state>
+                    <state>F4_0\List</state>
                 </option>
                 <option>
                     <name>GEndianMode</name>
@@ -1119,11 +1122,11 @@
                 </option>
                 <option>
                     <name>Input description</name>
-                    <state>Automatic choice of formatter, without multibyte support.</state>
+                    <state>Full formatting, without multibyte support.</state>
                 </option>
                 <option>
                     <name>Output description</name>
-                    <state>Automatic choice of formatter, without multibyte support.</state>
+                    <state>Full formatting, without multibyte support.</state>
                 </option>
                 <option>
                     <name>GOutputBinary</name>
@@ -1149,7 +1152,7 @@
                 </option>
                 <option>
                     <name>OGProductVersion</name>
-                    <state>8.40.1.21529</state>
+                    <state>5.10.0.159</state>
                 </option>
                 <option>
                     <name>OGLastSavedByProductVersion</name>
@@ -1165,7 +1168,7 @@
                 </option>
                 <option>
                     <name>OGChipSelectEditMenu</name>
-                    <state>STM32F103C8	ST STM32F103C8</state>
+                    <state>STM32F411CE	ST STM32F411CE</state>
                 </option>
                 <option>
                     <name>GenLowLevelInterface</name>
@@ -1204,7 +1207,7 @@
                 <option>
                     <name>GBECoreSlave</name>
                     <version>27</version>
-                    <state>38</state>
+                    <state>39</state>
                 </option>
                 <option>
                     <name>OGUseCmsis</name>
@@ -1221,21 +1224,21 @@
                 <option>
                     <name>CoreVariant</name>
                     <version>27</version>
-                    <state>38</state>
+                    <state>39</state>
                 </option>
                 <option>
                     <name>GFPUDeviceSlave</name>
-                    <state>STM32F103C8	ST STM32F103C8</state>
+                    <state>STM32F411CE	ST STM32F411CE</state>
                 </option>
                 <option>
                     <name>FPU2</name>
                     <version>0</version>
-                    <state>0</state>
+                    <state>4</state>
                 </option>
                 <option>
                     <name>NrRegs</name>
                     <version>0</version>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>NEON</name>
@@ -1244,7 +1247,7 @@
                 <option>
                     <name>GFPUCoreSlave2</name>
                     <version>27</version>
-                    <state>38</state>
+                    <state>39</state>
                 </option>
                 <option>
                     <name>OGCMSISPackSelectDevice</name>
@@ -1260,7 +1263,7 @@
                 <option>
                     <name>OGPrintfVariant</name>
                     <version>0</version>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>OGPrintfMultibyteSupport</name>
@@ -1269,7 +1272,7 @@
                 <option>
                     <name>OGScanfVariant</name>
                     <version>0</version>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>OGScanfMultibyteSupport</name>
@@ -1285,7 +1288,7 @@
                 </option>
                 <option>
                     <name>DSPExtension</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>TrustZone</name>
@@ -1306,9 +1309,15 @@
                 <wantNonLocal>1</wantNonLocal>
                 <debug>1</debug>
                 <option>
+                    <name>CCOptimizationNoSizeConstraints</name>
+                    <state>0</state>
+                </option>
+                <option>
                     <name>CCDefines</name>
-                    <state>STM32F10X_MD</state>
                     <state>USE_STDPERIPH_DRIVER</state>
+                    <state>STM32F411xE</state>
+                    <state>TEST_HW</state>
+                    <state>BLACK_PILL</state>
                 </option>
                 <option>
                     <name>CCPreprocFile</name>
@@ -1320,7 +1329,7 @@
                 </option>
                 <option>
                     <name>CCPreprocLine</name>
-                    <state>1</state>
+                    <state>0</state>
                 </option>
                 <option>
                     <name>CCListCFile</name>
@@ -1433,17 +1442,43 @@
                 </option>
                 <option>
                     <name>CCIncludePath2</name>
-                    <state>$PROJ_DIR$\Projects_Library\F3\</state>
-                    <state>$PROJ_DIR$\Projects_Library\F3\CMSIS\</state>
-                    <state>$PROJ_DIR$\Projects_Library\F3\CMSIS\inc\</state>
-                    <state>$PROJ_DIR$\Projects_Library\F3\CMSIS\src\</state>
-                    <state>$PROJ_DIR$\Projects_Library\F3\StdPeriph\</state>
-                    <state>$PROJ_DIR$\Projects_Library\F3\StdPeriph\inc\</state>
-                    <state>$PROJ_DIR$\Projects_Library\F3\StdPeriph\src\</state>
-                    <state>$PROJ_DIR$\Projects_Library\F3\Drivers\SystemClock\</state>
-                    <state>$PROJ_DIR$\Projects_Library\F3\Drivers\timers\</state>
-                    <state>$PROJ_DIR$\Projects_Library\F3\Drivers\GPIO\</state>
-                    <state>$PROJ_DIR$\Projects_Library\F3\Modules\OneWire\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\CMSIS\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\CMSIS\inc\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\CMSIS\src\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Drivers\ADC</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Drivers\USART</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Drivers\SPI</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Drivers\DMA</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Drivers\SystemClock</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Drivers\GPIO</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Drivers\timers</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Drivers\OneWire</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Drivers\I2C</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\SX1268</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\SIM800</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\IMU</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\IMU\ISM330DHCX</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\GPS</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\InCompass</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\GPS\uBlox</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\TemperatureSensorsAPI</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\Memory</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\IMU</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\IMU\ISM330DHCX</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\IMU\MPU9250</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Modules\Logging</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\USB\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\USB\HAL\inc\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\USB\HAL\src\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\USB\USB_DEVICE\App\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\USB\USB_DEVICE\Target\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\USB\Middlewares\STM32_USB_Device_Library\Class\CDC\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\USB\Middlewares\STM32_USB_Device_Library\Core\inc\</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\USB\Middlewares\STM32_USB_Device_Library\Core\src\</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>
@@ -1518,10 +1553,6 @@
                 </option>
                 <option>
                     <name>IccFloatSemantics</name>
-                    <state>0</state>
-                </option>
-                <option>
-                    <name>CCOptimizationNoSizeConstraints</name>
                     <state>0</state>
                 </option>
                 <option>
@@ -1747,7 +1778,7 @@
                 </option>
                 <option>
                     <name>OOCOutputFile</name>
-                    <state></state>
+                    <state>platform.srec</state>
                 </option>
                 <option>
                     <name>OOCCommandLineProducer</name>
@@ -1789,6 +1820,10 @@
                 <wantNonLocal>1</wantNonLocal>
                 <debug>1</debug>
                 <option>
+                    <name>IlinkOutputFile</name>
+                    <state>$PROJ_FNAME$.out</state>
+                </option>
+                <option>
                     <name>IlinkLibIOConfig</name>
                     <state>1</state>
                 </option>
@@ -1799,10 +1834,6 @@
                 <option>
                     <name>IlinkInputFileSlave</name>
                     <state>0</state>
-                </option>
-                <option>
-                    <name>IlinkOutputFile</name>
-                    <state>platform.out</state>
                 </option>
                 <option>
                     <name>IlinkDebugInfoEnable</name>
@@ -1866,7 +1897,7 @@
                 </option>
                 <option>
                     <name>IlinkIcfFile</name>
-                    <state>$PROJ_DIR$\Projects_Library\F3\stm32f10x_flash.icf</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\stm32f4xx_flash.icf</state>
                 </option>
                 <option>
                     <name>IlinkIcfFileSlave</name>
@@ -2152,9 +2183,6 @@
     </configuration>
     <group>
         <name>F4</name>
-        <excluded>
-            <configuration>F3</configuration>
-        </excluded>
         <group>
             <name>CMSIS</name>
             <group>
@@ -2251,6 +2279,7 @@
                 <name>OneWire</name>
                 <excluded>
                     <configuration>F4</configuration>
+                    <configuration>F4_0</configuration>
                 </excluded>
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\Drivers\OneWire\onewire.c</name>
@@ -2335,6 +2364,24 @@
                 <name>IMU</name>
                 <group>
                     <name>ISM330DHCX</name>
+                    <excluded>
+                        <configuration>F4_0</configuration>
+                    </excluded>
+                    <file>
+                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\IMU\ISM330DHCX\ISM330DHCX.c</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\IMU\ISM330DHCX\ISM330DHCX.h</name>
+                    </file>
+                </group>
+                <group>
+                    <name>MPU9250</name>
+                    <file>
+                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\IMU\MPU9250\mpu9250.c</name>
+                    </file>
+                    <file>
+                        <name>$PROJ_DIR$\Projects_Library\F4\Modules\IMU\MPU9250\mpu9250.h</name>
+                    </file>
                 </group>
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\Modules\IMU\imu.c</name>
@@ -2397,6 +2444,7 @@
                     <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_cec.h</name>
                     <excluded>
                         <configuration>F4</configuration>
+                        <configuration>F4_0</configuration>
                     </excluded>
                 </file>
                 <file>
@@ -2427,6 +2475,7 @@
                     <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_dsi.h</name>
                     <excluded>
                         <configuration>F4</configuration>
+                        <configuration>F4_0</configuration>
                     </excluded>
                 </file>
                 <file>
@@ -2442,6 +2491,7 @@
                     <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fmc.h</name>
                     <excluded>
                         <configuration>F4</configuration>
+                        <configuration>F4_0</configuration>
                     </excluded>
                 </file>
                 <file>
@@ -2451,6 +2501,7 @@
                     <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_fsmc.h</name>
                     <excluded>
                         <configuration>F4</configuration>
+                        <configuration>F4_0</configuration>
                     </excluded>
                 </file>
                 <file>
@@ -2478,6 +2529,7 @@
                     <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\inc\stm32f4xx_qspi.h</name>
                     <excluded>
                         <configuration>F4</configuration>
+                        <configuration>F4_0</configuration>
                     </excluded>
                 </file>
                 <file>
@@ -2529,6 +2581,7 @@
                     <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_cec.c</name>
                     <excluded>
                         <configuration>F4</configuration>
+                        <configuration>F4_0</configuration>
                     </excluded>
                 </file>
                 <file>
@@ -2568,6 +2621,7 @@
                     <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_dsi.c</name>
                     <excluded>
                         <configuration>F4</configuration>
+                        <configuration>F4_0</configuration>
                     </excluded>
                 </file>
                 <file>
@@ -2583,6 +2637,7 @@
                     <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_fmc.c</name>
                     <excluded>
                         <configuration>F4</configuration>
+                        <configuration>F4_0</configuration>
                     </excluded>
                 </file>
                 <file>
@@ -2592,6 +2647,7 @@
                     <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_fsmc.c</name>
                     <excluded>
                         <configuration>F4</configuration>
+                        <configuration>F4_0</configuration>
                     </excluded>
                 </file>
                 <file>
@@ -2625,6 +2681,7 @@
                     <name>$PROJ_DIR$\Projects_Library\F4\STM32F4xx_StdPeriph_Driver\src\stm32f4xx_qspi.c</name>
                     <excluded>
                         <configuration>F4</configuration>
+                        <configuration>F4_0</configuration>
                     </excluded>
                 </file>
                 <file>

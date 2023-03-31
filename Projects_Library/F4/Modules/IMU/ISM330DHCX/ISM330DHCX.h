@@ -1,5 +1,7 @@
 #pragma once
 
+#include "!Project_library.h"
+
 enum ISM330DHCX_Registers {
     WHO_AM_I = 0x0F,
     CTRL1_XL = 0x10,

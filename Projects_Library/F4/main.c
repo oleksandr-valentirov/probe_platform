@@ -1,13 +1,15 @@
 #include "!Project_library.h"
 #include "usbd_cdc_if.h"
 
+struct routines_list {
+    void (*f)(void);
+    struct routines_list *next;
+};
+
 
 void main(void)
 {
-    struct routines_list {
-        void (*f)(void);
-        struct routines_list *next;
-    } routines;
+    struct routines_list routines;
     routines.f = NULL;
     routines.next = NULL;
     
@@ -60,6 +62,7 @@ void main(void)
     /* SIM */
     if(routines_ptr->f != NULL)
     {   /* previos init succeeded */
+        routines_counter++;
         routines_ptr->next = malloc(sizeof(struct routines_list));
         if(routines_ptr->next == NULL)
         {
@@ -77,8 +80,28 @@ void main(void)
     {   /* previous init failed */
         routines_ptr->f = (void (*)(void)) Sim_init();
     }
-        
+
     /* IMU */
+    if(routines_ptr->f != NULL)
+    {   /* previos init succeeded */
+        routines_counter++;
+        routines_ptr->next = malloc(sizeof(struct routines_list));
+        if(routines_ptr->next == NULL)
+        {
+            CDC_Transmit_FS((uint8_t*)"malloc err\r\n", 12);
+            while(1){}
+        }
+        else
+        {
+            routines_ptr = routines_ptr->next;
+            routines_ptr->f = (void (*)(void)) IMU_Init();
+            routines_ptr->next = NULL;
+        }
+    }
+    else
+    {   /* previous init failed */
+        routines_ptr->f = (void (*)(void)) IMU_Init();
+    }
 
     while(1)
     {
@@ -94,6 +117,7 @@ void main(void)
         Log_main();
     }
 }
+
 
 void Error_Handler(void)
 {
