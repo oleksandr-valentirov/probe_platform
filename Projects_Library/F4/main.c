@@ -37,8 +37,10 @@ void main(void)
     /* exti init */
 //    RCC_APB2PeriphClockCmd(RCC_APB2Periph_EXTIT, ENABLE);
     
-    NVIC_EnableIRQ(EXTI9_5_IRQn);
-    NVIC_EnableIRQ(DMA2_Stream7_IRQn);
+    NVIC_EnableIRQ(EXTI9_5_IRQn);       // SIM
+    NVIC_EnableIRQ(DMA2_Stream7_IRQn);  // USART
+    NVIC_EnableIRQ(DMA1_Stream0_IRQn);  // SPI3
+    NVIC_EnableIRQ(DMA1_Stream5_IRQn);  // SPI3
 
 //#define TEST_HW
 #ifdef TEST_HW
