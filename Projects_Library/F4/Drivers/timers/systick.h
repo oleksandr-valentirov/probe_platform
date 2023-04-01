@@ -18,5 +18,8 @@ unsigned short SysTick_GetSimGenClock(void);
 void SysTick_UpdateGPSClock(void);
 unsigned int SysTick_GetGPSClock(void);
 
+/* IMU */
+uint8_t SysTick_GetIMUFlag(void);
+
 
 #endif

@@ -1316,7 +1316,6 @@
                     <name>CCDefines</name>
                     <state>USE_STDPERIPH_DRIVER</state>
                     <state>STM32F411xE</state>
-                    <state>TEST_HW</state>
                     <state>BLACK_PILL</state>
                 </option>
                 <option>

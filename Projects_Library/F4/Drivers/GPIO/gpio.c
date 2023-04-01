@@ -47,7 +47,6 @@ static void SPI_pins_init(void)
 }
 
 
-#ifdef __SIM_H
 static void SIM_pins_init(void)
 {
     GPIO_InitTypeDef pin;
@@ -70,7 +69,20 @@ static void SIM_pins_init(void)
     pin.GPIO_Pin = SIM_RI_PIN;
     GPIO_Init(SIM_RI_PORT, &pin);
 }
-#endif
+
+static void IMU_pins_init(void)
+{
+    GPIO_InitTypeDef pin;
+    
+    pin.GPIO_OType = GPIO_OType_PP;
+    pin.GPIO_PuPd = GPIO_PuPd_UP;
+    pin.GPIO_Mode = GPIO_Mode_OUT;
+    pin.GPIO_Pin = IMU_CS_PIN;
+    pin.GPIO_Speed = GPIO_Low_Speed;
+    GPIO_Init(IMU_CS_PORT, &pin);
+    
+    GPIO_SetBits(IMU_CS_PORT, IMU_CS_PIN);
+}
 
 
 /**
@@ -89,7 +101,6 @@ void MyGPIO_Init(void)
     USART_pins_init();
     SPI_pins_init();
     
-#ifdef __SIM_H
     SIM_pins_init();
-#endif
+    IMU_pins_init();
 }

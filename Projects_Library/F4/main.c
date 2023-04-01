@@ -102,6 +102,11 @@ void main(void)
     {   /* previous init failed */
         routines_ptr->f = (void (*)(void)) IMU_Init();
     }
+    
+    if(routines_ptr->f != NULL)
+    {   /* previos init succeeded */
+        routines_counter++;
+    }
 
     while(1)
     {

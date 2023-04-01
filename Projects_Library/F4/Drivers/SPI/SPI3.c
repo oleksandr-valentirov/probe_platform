@@ -45,7 +45,7 @@ void SPI3_Init(void)
     init_struct.SPI_NSS = SPI_NSS_Soft;
     
     /* Initialize the SPI_BaudRatePrescaler member */
-    init_struct.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_32;
+    init_struct.SPI_BaudRatePrescaler = SPI_BaudRatePrescaler_64;
     
     SPI_Init(SPI3, &init_struct);
     SPI_Cmd(SPI3, ENABLE);

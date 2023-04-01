@@ -5,6 +5,7 @@ static unsigned int clock = 0;
 static unsigned int sim_downcounter = 0;
 static unsigned int sim_gen_clock = 0;
 static unsigned int gps_clock = 0;
+static uint8_t IMU_flag = 0;
 
 /* GPS */
 void SysTick_UpdateGPSClock(void)
@@ -37,6 +38,18 @@ unsigned short SysTick_GetSimGenClock(void)
 /* ------------------------------------------- */
 
 
+/* IMU */
+uint8_t SysTick_GetIMUFlag(void)
+{
+    if(IMU_flag)
+    {
+        IMU_flag = 0;
+        return 1;
+    }
+    return 0;
+}
+
+
 void SysTick_Init(void)
 {
     SysTick_Config(96000);  // milisecond timer
@@ -65,9 +78,9 @@ void SysTick_Handler(void)
     clock++;
     
     /* read IMU with 100 Hz freq */
-    if (!(clock % 10))
+    if (!(clock % 50))
     {
-        
+        IMU_flag = 1;
     }
     
     /* SIM */
