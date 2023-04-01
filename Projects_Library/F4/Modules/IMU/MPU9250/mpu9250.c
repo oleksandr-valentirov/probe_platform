@@ -3,6 +3,8 @@
 
 enum mpu9250_addresses
 {
+    ACCEL_CONFIG        = 0x1C,
+    ACCEL_CONFIG_2      = 0x1D,
     ACCEL_XOUT_H_REG    = 0x3B,
     TEMP_OUT_H          = 0x41,
     GYRO_XOUT_H         = 0x43,
@@ -33,7 +35,7 @@ void* IMU_Init(void)
     uint8_t ID = IMU_poll_ID();
     if(ID)
     {
-//        init_interface();
+        init_interface();
         init_gyroscope();
         init_accelerometer();
         return (void*)IMU_Main;
@@ -87,17 +89,16 @@ static void init_interface(void)
     SET_BIT(data[1], 0x10);
     GPIO_ResetBits(IMU_CS_PORT, IMU_CS_PIN);    // Set CS
     SPI3_WriteData_Pol(data, 2);
-    SysTick_WaitTill(SysTick_GetCurrentClock() + 1);
+    SPI3_ReadData_Pol(data, 2);
     GPIO_SetBits(IMU_CS_PORT, IMU_CS_PIN);      // Reset CS
     
-    /* check */
-    data[0] = USER_CTRL | 0x80;
-    data[1] = 0;
-    GPIO_ResetBits(IMU_CS_PORT, IMU_CS_PIN);    // Set CS
-    SPI3_WriteData_Pol(data, 2);
-    SPI3_ReadData_Pol(data, 2);
-    SysTick_WaitTill(SysTick_GetCurrentClock() + 1);
-    GPIO_SetBits(IMU_CS_PORT, IMU_CS_PIN);      // Reset CS
+    /* check an output data[1] should be 2*/
+//    data[0] = USER_CTRL | 0x80;
+//    data[1] = 0;
+//    GPIO_ResetBits(IMU_CS_PORT, IMU_CS_PIN);    // Set CS
+//    SPI3_WriteData_Pol(data, 2);
+//    SPI3_ReadData_Pol(data, 2);
+//    GPIO_SetBits(IMU_CS_PORT, IMU_CS_PIN);      // Reset CS
 }
 
 /* ----------- read ----------- */
