@@ -1455,6 +1455,7 @@
                     <state>$PROJ_DIR$\Projects_Library\F4\Drivers\SystemClock</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Drivers\GPIO</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Drivers\timers</state>
+                    <state>$PROJ_DIR$\Projects_Library\F4\Drivers\Memory</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Drivers\OneWire</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Drivers\I2C</state>
                     <state>$PROJ_DIR$\Projects_Library\F4\Modules\SX1268</state>
@@ -2272,6 +2273,15 @@
                 </file>
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\Drivers\I2C\i2c.h</name>
+                </file>
+            </group>
+            <group>
+                <name>Memory</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\Memory\my_memory.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\Memory\my_memory.h</name>
                 </file>
             </group>
             <group>

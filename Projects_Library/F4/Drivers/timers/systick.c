@@ -78,7 +78,7 @@ void SysTick_Handler(void)
     clock++;
     
     /* read IMU with 100 Hz freq */
-    if (!(clock % 50))
+    if (!(clock % 100))
     {
         IMU_flag = 1;
     }

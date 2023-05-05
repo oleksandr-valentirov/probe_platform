@@ -263,6 +263,58 @@ static int8_t CDC_Receive_FS(uint8_t* Buf, uint32_t *Len)
   /* USER CODE BEGIN 6 */
   USBD_CDC_SetRxBuffer(&hUsbDeviceFS, &Buf[0]);
   USBD_CDC_ReceivePacket(&hUsbDeviceFS);
+  
+  char* cmd = strtok(Buf, " ");
+  if (strncmp(cmd, "calib", 5) == 0)
+  {
+      cmd = strtok(NULL, " ");
+      if (strncmp(cmd, "accel", 5) == 0)
+      {
+          cmd = strtok(NULL, " ");
+          if (strncmp(cmd, "x", 1) == 0)
+          {
+              IMU_SetCalibAX(atoi(strtok(NULL, " ")));
+          }
+          else if (strncmp(cmd, "y", 1) == 0)
+          {
+              IMU_SetCalibAY(atoi(strtok(NULL, " ")));
+          }
+          else if (strncmp(cmd, "z", 1) == 0)
+          {
+              IMU_SetCalibAZ(atoi(strtok(NULL, " ")));
+          }
+      }
+      else if (strncmp(cmd, "gyro", 4) == 0)
+      {
+          cmd = strtok(NULL, " ");
+          if (strncmp(cmd, "x", 1) == 0)
+          {
+              IMU_SetCalibGX(atoi(strtok(NULL, " ")));
+          }
+          else if (strncmp(cmd, "y", 1) == 0)
+          {
+              IMU_SetCalibGY(atoi(strtok(NULL, " ")));
+          }
+          else if (strncmp(cmd, "z", 1) == 0)
+          {
+              IMU_SetCalibGZ(atoi(strtok(NULL, " ")));
+          }
+      }
+      else if (strncmp(cmd, "mag", 3) == 0)
+      {
+          cmd = strtok(NULL, " ");
+          if (strncmp(cmd, "x", 1) == 0)
+          {
+          }
+          else if (strncmp(cmd, "y", 1) == 0)
+          {
+          }
+          else if (strncmp(cmd, "z", 1) == 0)
+          {
+          }
+      }
+  }
+  
   return (USBD_OK);
   /* USER CODE END 6 */
 }

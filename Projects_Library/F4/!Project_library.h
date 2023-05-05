@@ -52,6 +52,7 @@
 #include "dma.h"
 #include "spi3.h"
 #include "logging.h"
+#include "my_memory.h"
 
 
 /* USB ---------------------------------------------------------------------- */
@@ -63,6 +64,7 @@
 #include "sim.h"
 #include "ubx.h"
 #include "memory.h"
+#include "mpu9250.h"
 #include "imu.h"
 
 

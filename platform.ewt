@@ -2464,6 +2464,15 @@
                 </file>
             </group>
             <group>
+                <name>Memory</name>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\Memory\my_memory.c</name>
+                </file>
+                <file>
+                    <name>$PROJ_DIR$\Projects_Library\F4\Drivers\Memory\my_memory.h</name>
+                </file>
+            </group>
+            <group>
                 <name>OneWire</name>
                 <file>
                     <name>$PROJ_DIR$\Projects_Library\F4\Drivers\OneWire\onewire.c</name>
